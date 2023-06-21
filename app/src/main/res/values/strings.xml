@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">DemoFigma</string>
+
+    <string name="application_name">MovieTimes</string>
+    <string name="app_logo">MovieTimes Logo</string>
+    <string name="countryCode">+91</string>
+    <string name="cellNumber">Mobile Number</string>
+    <string name="proceed">Proceed</string>
+    <string name="otherLogin">Try some Other Login Methods</string>
+    <string name="googleSignIn">Sign In With Google</string>
+
+    <string name="otpVerification">OTP Verification</string>
+    <string name="closeDialog">Close Dialog</string>
+    <string name="resendOtp">Resend OTP</string>
+    <string name="verifyOtp">Verify OTP</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_movies">Movies</string>
+    <string name="menu_series">Series</string>
+    <string name="menu_search">Search</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- TODO: Details for changes in Navigation view text -->
+    <string name="userName">Hi, Username</string>
+    <string name="userImage">User profile Image</string>
+    <string name="OpenDrawer">Open Navigation Drawer</string>
+    <string name="CloseDrawer">Close Navigation Drawer</string>
+
+</resources>

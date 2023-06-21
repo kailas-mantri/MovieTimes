@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.HeaderFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:padding="16dp"
+        android:gravity="bottom"
+        android:id="@+id/userHeader"
+        android:background="@drawable/bottomnav"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8sp"
+            android:scaleType="fitCenter"
+            android:id="@+id/navUserImage"
+            android:background="@drawable/ic_launcher_background"
+            android:contentDescription="@string/userImage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/navUseName"
+            android:text="@string/userName"
+            android:paddingTop="8sp"
+            android:textSize="16sp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userHeader"
+        android:padding="16sp" >
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
