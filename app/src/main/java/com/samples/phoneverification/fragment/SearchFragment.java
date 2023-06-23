@@ -9,13 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link SearchFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class SearchFragment extends Fragment {
 
-    FragmentHomeBinding binding;
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-    public HomeFragment() {
+    // TODO: Rename and change types of parameters
+    public SearchFragment() {
         // Required empty public constructor
     }
 
@@ -28,9 +34,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(getLayoutInflater());
-
-
-        return binding.getRoot();
+        return inflater.inflate(R.layout.fragment_search, container, false);
     }
 }
