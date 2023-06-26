@@ -1,4 +1,4 @@
-`# figma`
+# figma
 
 The Customised Android Movie Application with Firebase Authentication, Realtime Database as well as 
 TMDB database implementation of API's. continues to future plans for payment gateway implementation
@@ -10,9 +10,9 @@ Development Phase 1:
       01. Splash Screen:
           The screen with Application logo while launching the application.
             
-      02. **Login Page** : 
-          followed by **Phone Authentication and GoogleSign In Authentication** using **Firebase 
-          Database**.
+      02. Login Page : 
+          followed by Phone Authentication and GoogleSign In Authentication using Firebase 
+          Database.
 
       03. Phone Authentication:
           Contain the mobile Numver with a Constant CC (+91) IND, follows to OTP verification.
