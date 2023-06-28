@@ -1,21 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="170sp"
-        android:id="@+id/cardImageSlider" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_below="@id/cardImageSlider"
-        android:text="@string/menu_home" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_width="match_parent"
+            android:layout_height="195dp"
+            android:background="@color/white"
+            android:id="@+id/myViewPager"
+            android:layout_marginBottom="16dp" />
 
-</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/myViewPager"
+            android:paddingStart="16dp"
+            android:id="@+id/parentRelative"
+            tools:ignore="RtlSymmetry">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold|normal"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/trendingText"
+                android:text="@string/trendingM"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/trendingText"
+                android:id="@+id/trendingMovies"
+                android:layout_marginBottom="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold|normal"
+                android:layout_marginBottom="8dp"
+                android:text="@string/upComingS"
+                android:id="@+id/upComingSeriesText"
+                android:layout_below="@id/trendingMovies"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/upComingSeries"
+                android:layout_below="@+id/upComingSeriesText"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold|normal"
+                android:layout_marginBottom="8dp"
+                android:text="@string/nowPlayingM"
+                android:id="@+id/nowPlayingText"
+                android:layout_below="@id/upComingSeries"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16sp"
+                android:layout_below="@id/nowPlayingText"
+                android:id="@+id/nowPlayingMovies" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold|normal"
+                android:layout_marginBottom="8dp"
+                android:text="@string/topRatedM"
+                android:id="@+id/topRatedMovieText"
+                android:layout_below="@id/nowPlayingMovies"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16sp"
+                android:layout_below="@id/topRatedMovieText"
+                android:id="@+id/topRatedMovies" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:id="@+id/topRatedSeriesText"
+                android:text="@string/topRatedS"
+                android:textStyle="bold|normal"
+                android:layout_marginBottom="8dp"
+                android:layout_below="@id/topRatedMovies"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_below="@id/topRatedSeriesText"
+                android:id="@+id/topRatedSeries" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/popularM"
+                android:textColor="@color/white"
+                android:textStyle="bold|normal"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/popularMoviesText"
+                android:layout_below="@id/topRatedSeries"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/popularMoviesText"
+                android:layout_marginBottom="16dp"
+                android:id="@+id/popularMovies" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/popularS"
+                android:textColor="@color/white"
+                android:textStyle="bold|normal"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/popularSeriesText"
+                android:layout_below="@id/popularMovies"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/popularSeriesText"
+                android:id="@+id/popularSeries" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

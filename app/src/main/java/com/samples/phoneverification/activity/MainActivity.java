@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.databinding.ActivityMainBinding;
 import com.samples.phoneverification.fragment.BottomSheetDialog;
-import com.samples.phoneverification.model.StoreFirebaseUser;
+import com.samples.phoneverification.datamodel.StoreFirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
