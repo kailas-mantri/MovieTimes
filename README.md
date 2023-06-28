@@ -33,7 +33,8 @@ Development Phase 2: **In Process*
 
 
 Development Phase 3:
-    ~ *Implementation of API* for HOME Fragment, Movie Fragment, Series Fragment, Search Fragment.
+    ~ *Implementation of API* for (HOME Fragment, Movie Fragment, Series Fragment, Search 
+    Fragment).
 
     3.1. HomeFragment:
          This page Contain Movie Carousel and Various Adapter classes ("Need to minimize it by 
