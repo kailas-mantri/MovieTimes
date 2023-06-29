@@ -4,7 +4,7 @@ The Customised Android Application with Firebase Authentication, Realtime Databa
 database, and implementation of API's. continues to develop further to archive the payment gateway 
 implementation for Subcriber to watch LATEST, premium movies, serise on rent for 30 days.  
 
-Phase 1: **Completed*
+Phase 1: *Completed*
     ~ Splash Screen, Login Page
     
     1.1. Splash Screen:
@@ -33,7 +33,7 @@ Phase 2: **In Process*
          **In Progress**
 
 
-Phase 3:
+Phase 3: **In Process*
     ~ *Implementation of API* for (HOME Fragment, Movie Fragment, Series Fragment, Search 
     Fragment).
 
