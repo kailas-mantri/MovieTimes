@@ -12,21 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.MovieResults;
 import com.samples.phoneverification.apimodel.RecyclerItemViewInterface;
+import com.samples.phoneverification.apimodel.SeriesResults;
 import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
 
-public class TrendingMovieAdapter extends RecyclerView.Adapter<TrendingMovieAdapter.ViewHolder> {
+public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder> {
 
     Context context;
+    ArrayList<SeriesResults> seriesResults;
     RecyclerItemViewInterface anInterface;
-    ArrayList<MovieResults> trendingMovies;
 
-    public TrendingMovieAdapter(Context context, ArrayList<MovieResults> trendingMovies, RecyclerItemViewInterface anInterface) {
+    public SeriesAdapter(Context context, ArrayList<SeriesResults> seriesResults, RecyclerItemViewInterface anInterface) {
         this.context = context;
-        this.trendingMovies = trendingMovies;
+        this.seriesResults = seriesResults;
         this.anInterface = anInterface;
     }
 
@@ -35,45 +35,42 @@ public class TrendingMovieAdapter extends RecyclerView.Adapter<TrendingMovieAdap
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.recycler_image_card_layout,
-                        parent, false
+                        R.layout.recycler_image_card_layout, parent, false
                 )
         );
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String posterPath = trendingMovies.get(position).getPosterPath();
-
+        String posterPath = seriesResults.get(position).getPosterPath();
         if (posterPath == null) {
-            holder.imageArray.setImageResource(R.drawable.no_poster);
+            holder.imageView.setImageResource(R.drawable.no_poster);
         } else {
-            // Using Glide library, display image. & Add a ImageBaseURL link before image string
-            Glide.with(holder.itemView)
-                    .load(URLs.IMAGE_BASE_URL + trendingMovies.get(position).getPosterPath()).into(holder.imageArray);
+            Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL+seriesResults.get(position).getPosterPath())
+                    .into(holder.imageView);
         }
 
-        holder.imageArray.setOnClickListener(view -> anInterface.onItemClick(holder.getBindingAdapterPosition()) );
+        // TODO: 1. Need to set next functionality of OnClick Item View.
+        holder.imageView.setOnClickListener(view -> {
+            anInterface.onItemClick(holder.getBindingAdapterPosition());
+        });
     }
 
     @Override
     public int getItemCount() {
-        return trendingMovies.size();
+        return seriesResults.size();
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setMovieResults(ArrayList<MovieResults> trendingMovies) {
-        this.trendingMovies = trendingMovies;
+    public void updateData(ArrayList<SeriesResults> seriesResults) {
+        this.seriesResults = seriesResults;
         notifyDataSetChanged();
     }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-
-        ImageView imageArray;
-
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageArray = itemView.findViewById(R.id.movieOrSeriesImages);
+            imageView = itemView.findViewById(R.id.movieOrSeriesImages);
         }
     }
 }

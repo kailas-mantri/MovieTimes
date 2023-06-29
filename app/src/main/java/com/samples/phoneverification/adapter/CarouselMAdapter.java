@@ -1,5 +1,6 @@
 package com.samples.phoneverification.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +18,15 @@ import com.samples.phoneverification.apimodel.MovieResults;
 
 import java.util.ArrayList;
 
-public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.CarouselHolder> {
+public class CarouselMAdapter extends RecyclerView.Adapter<CarouselMAdapter.CarouselHolder> {
 
-    private Context context;
-    ArrayList<MovieResults> arrayList;
+    Context context;
+    ArrayList<MovieResults> movieResults;
     RecyclerItemViewInterface anInterface;
 
-    public CarouselAdapter(Context context, ArrayList<MovieResults> upComingMovieArrayList, RecyclerItemViewInterface anInterface) {
+    public CarouselMAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemViewInterface anInterface) {
         this.context = context;
-        this.arrayList = upComingMovieArrayList;
+        this.movieResults = movieResults;
         this.anInterface = anInterface;
     }
 
@@ -43,44 +44,47 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.Carous
     @Override
     public void onBindViewHolder(@NonNull CarouselHolder holder, int position) {
 
-        String backdropPath = arrayList.get(position).getBackdropPath();
+        String backdropPath = movieResults.get(position).getBackdropPath();
 
         if (backdropPath == null) {
             holder.imageView.setImageResource(R.drawable.no_poster);
         } else {
-            Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL + arrayList.get(position).getBackdropPath()).into(holder.imageView);
+            Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL + movieResults.get(position).getBackdropPath()).into(holder.imageView);
         }
         holder.imageView.setOnClickListener(v -> { anInterface.onItemClick(position); });
 
-        if (position == arrayList.size() - 2 ) {
+        if (position == movieResults.size() - 2 ) {
             holder.itemView.post(runnable);
         }
     }
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return movieResults.size();
     }
 
-    public void setMovieResults(ArrayList<MovieResults> upComingMovieArrayList) {
-        this.arrayList = upComingMovieArrayList;
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateData(ArrayList<MovieResults> upComingMovieArrayList) {
+        this.movieResults = upComingMovieArrayList;
         notifyDataSetChanged();
     }
 
-    class CarouselHolder extends RecyclerView.ViewHolder {
+    public static class CarouselHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
 
         public CarouselHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.upcomingMovieImages);
+            imageView = itemView.findViewById(R.id.upcomingImages);
         }
     }
 
-    private Runnable runnable = new Runnable() {
+    private final Runnable runnable = new Runnable() {
+
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         public void run() {
-            arrayList.addAll(arrayList);
+            movieResults.addAll(movieResults);
             notifyDataSetChanged();
         }
     };

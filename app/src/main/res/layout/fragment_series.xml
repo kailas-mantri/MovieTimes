@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.SeriesFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/menu_series" />
+        android:layout_height="wrap_content">
 
-</RelativeLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/carouselViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="195dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/carouselViewPager" >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerImageList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                tools:ignore="RtlSymmetry" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</ScrollView>
