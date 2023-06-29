@@ -11,17 +11,25 @@
         android:layout_height="wrap_content">
 
         <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/carouselViewPager"
             android:layout_width="match_parent"
             android:layout_height="195dp"
-            android:background="@color/white"
-            android:id="@+id/myViewPager"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/darker_gray" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:layout_below="@id/myViewPager" />
+            android:layout_below="@id/carouselViewPager">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerImageList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                tools:ignore="RtlSymmetry" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

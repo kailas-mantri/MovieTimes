@@ -17,23 +17,22 @@ import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
 
-public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapter.PopularMovieHolder> {
+public class ImageMAdapter extends RecyclerView.Adapter<ImageMAdapter.ImageViewHolder> {
 
     Context context;
     ArrayList<MovieResults> movieResults;
     RecyclerItemViewInterface anInterface;
 
-    public PopularMovieAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemViewInterface anInterface) {
+    public ImageMAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemViewInterface anInterface) {
         this.context = context;
         this.movieResults = movieResults;
         this.anInterface = anInterface;
     }
 
-
     @NonNull
     @Override
-    public PopularMovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new PopularMovieHolder(
+    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ImageViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
                         R.layout.recycler_image_card_layout, parent, false
                 )
@@ -41,19 +40,19 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PopularMovieHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         String posterPath = movieResults.get(position).getPosterPath();
 
         if (posterPath == null) {
             holder.imageView.setImageResource(R.drawable.no_poster);
         } else {
-            // Using Glide setting images with ImageBasedURL
+            // Glide library to display ImageBaseURL link before image string
             Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL + movieResults.get(position).getPosterPath())
                     .into(holder.imageView);
         }
 
-        //TODO 1:Need to set next functionality of OnClick Item View.
-        holder.imageView.setOnClickListener( view -> anInterface.onItemClick(holder.getBindingAdapterPosition()) );
+        // TODO: 1. Need to set next functionality of OnClick Item View.
+        holder.imageView.setOnClickListener(view -> anInterface.onItemClick(holder.getBindingAdapterPosition()) );
     }
 
     @Override
@@ -61,14 +60,10 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
         return movieResults.size();
     }
 
-    public void setMovieResults(ArrayList<MovieResults> movieResults) {
-        this.movieResults = movieResults;
-    }
+    public static class ImageViewHolder extends RecyclerView.ViewHolder {
 
-    public static class PopularMovieHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-
-        public PopularMovieHolder(@NonNull View itemView) {
+        public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movieOrSeriesImages);
         }

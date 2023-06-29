@@ -21,6 +21,9 @@ public class SeriesModel implements Serializable {
     @SerializedName("total_results")
     public Integer totalResults;
 
+    public SeriesModel() {
+    }
+
     public SeriesModel(Integer page, ArrayList<SeriesResults> seriesResults, Integer totalPages, Integer totalResults) {
         this.page = page;
         this.seriesResults = seriesResults;

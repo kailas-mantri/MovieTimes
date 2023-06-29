@@ -14,14 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.samples.phoneverification.adapter.CarouselAdapter;
-import com.samples.phoneverification.adapter.NowPlayingMovieAdapter;
-import com.samples.phoneverification.adapter.PopularMovieAdapter;
-import com.samples.phoneverification.adapter.PopularSeriesAdapter;
-import com.samples.phoneverification.adapter.TopRatedMovieAdapter;
-import com.samples.phoneverification.adapter.TopRatedSeriesAdapter;
-import com.samples.phoneverification.adapter.TrendingMovieAdapter;
-import com.samples.phoneverification.adapter.UpComingSeriesAdapter;
+import com.samples.phoneverification.adapter.CarouselMAdapter;
+import com.samples.phoneverification.adapter.SeriesAdapter;
+import com.samples.phoneverification.adapter.MovieAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
 import com.samples.phoneverification.apimodel.SeriesModel;
 import com.samples.phoneverification.apimodel.SeriesResults;
@@ -42,14 +37,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class HomeFragment extends Fragment {
 
     FragmentHomeBinding binding;
-    CarouselAdapter adapter;
-    TrendingMovieAdapter trendingMovieAdapter;
-    NowPlayingMovieAdapter nowPlayingMovieAdapter;
-    TopRatedMovieAdapter topRatedMovieAdapter;
-    PopularMovieAdapter popularMovieAdapter;
-    TopRatedSeriesAdapter topRatedSeriesAdapter;
-    PopularSeriesAdapter popularSeriesAdapter;
-    UpComingSeriesAdapter upComingSeriesAdapter;
+    CarouselMAdapter adapter;
+    MovieAdapter trendingMovieAdapter, nowPlayingMovieAdapter, topRatedMovieAdapter, popularMovieAdapter;
+    SeriesAdapter topRatedSeriesAdapter, popularSeriesAdapter, upComingSeriesAdapter;
 
     ArrayList<MovieResults> upComingMovies = new ArrayList<>();
     ArrayList<MovieResults> trendingMovies = new ArrayList<>();
@@ -60,7 +50,7 @@ public class HomeFragment extends Fragment {
     ArrayList<SeriesResults> popularSeries = new ArrayList<>();
     ArrayList<SeriesResults> upComingSeries = new ArrayList<>();
 
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(URLs.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -181,7 +171,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(@NonNull Call<SeriesModel> call, @NonNull Response<SeriesModel> response) {
                 if ((response.isSuccessful()) && (response.body() != null)) {
                     popularSeries = response.body().getSeriesResults();
-                    popularSeriesAdapter.setSeriesResults(popularSeries);
+                    popularSeriesAdapter.updateData(popularSeries);
                     popularSeriesAdapter.notifyDataSetChanged();
                 } else {
                     Log.d(getTag(), "onResponse: "+topRatedSeries.toString());
@@ -196,7 +186,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_popularSeries() {
-        popularSeriesAdapter = new PopularSeriesAdapter(requireContext(), popularSeries, position -> {
+        popularSeriesAdapter = new SeriesAdapter(requireContext(), popularSeries, position -> {
             Log.d(getTag(), "initAdapter_topRatedSeries: "+popularSeries.toString());
         });
         binding.popularSeries.setAdapter(popularSeriesAdapter);
@@ -210,7 +200,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(@NonNull Call<MovieModel> call, @NonNull Response<MovieModel> response) {
                 if ((response.isSuccessful()) && (response.body() != null)) {
                     popularMovies = response.body().getMovieResults();
-                    popularMovieAdapter.setMovieResults(popularMovies);
+                    popularMovieAdapter.updateData(popularMovies);
                     popularMovieAdapter.notifyDataSetChanged();
                 } else {
                     Log.w(getTag(), "onResponse: "+popularMovies.toString());
@@ -225,7 +215,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_popularMovies() {
-        popularMovieAdapter = new PopularMovieAdapter(requireContext(), popularMovies, position ->{
+        popularMovieAdapter = new MovieAdapter(requireContext(), popularMovies, position ->{
             Log.d(getTag(), "popularMoviesAdapter: "+popularMovies.toString());
         });
         binding.popularMovies.setAdapter(popularMovieAdapter);
@@ -239,7 +229,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(@NonNull Call<SeriesModel> call, @NonNull Response<SeriesModel> response) {
                 if ((response.isSuccessful()) && (response.body() != null)) {
                     topRatedSeries = response.body().getSeriesResults();
-                    topRatedSeriesAdapter.setSeriesResults(topRatedSeries);
+                    topRatedSeriesAdapter.updateData(topRatedSeries);
                     topRatedSeriesAdapter.notifyDataSetChanged();
                 } else {
                     Log.d(getTag(), "onResponse: "+topRatedSeries.toString());
@@ -254,7 +244,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_topRatedSeries() {
-        topRatedSeriesAdapter = new TopRatedSeriesAdapter(requireContext(), topRatedSeries, position -> {
+        topRatedSeriesAdapter = new SeriesAdapter(requireContext(), topRatedSeries, position -> {
             Log.d(getTag(), "initAdapter_topRatedSeries: "+topRatedSeries.toString());
         });
         binding.topRatedSeries.setAdapter(topRatedSeriesAdapter);
@@ -268,7 +258,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(@NonNull Call<MovieModel> call, @NonNull Response<MovieModel> response) {
                 if ((response.isSuccessful()) && (response.body() != null)) {
                     topRatedMovies = response.body().getMovieResults();
-                    topRatedMovieAdapter.setMovieResults(topRatedMovies);
+                    topRatedMovieAdapter.updateData(topRatedMovies);
                     topRatedMovieAdapter.notifyDataSetChanged();
                 } else {
                     Log.w(getTag(), "onResponse: "+trendingMovies.toString());
@@ -283,7 +273,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_topRatedMovies() {
-        topRatedMovieAdapter = new TopRatedMovieAdapter(requireContext(), topRatedMovies, position -> {
+        topRatedMovieAdapter = new MovieAdapter(requireContext(), topRatedMovies, position -> {
             Log.d(getTag(), "topRatedMoviesAdapter: "+topRatedMovies.toString());
         });
         binding.topRatedMovies.setAdapter(topRatedMovieAdapter);
@@ -297,7 +287,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(@NonNull Call<MovieModel> call, @NonNull Response<MovieModel> response) {
                 if ((response.isSuccessful()) && (response.body() != null)) {
                     nowPlayingMovies = response.body().getMovieResults();
-                    nowPlayingMovieAdapter.setMovieResults(nowPlayingMovies);
+                    nowPlayingMovieAdapter.updateData(nowPlayingMovies);
                     nowPlayingMovieAdapter.notifyDataSetChanged();
                 } else {
                     Log.w(getTag(), "onResponse: "+nowPlayingMovies.toString());
@@ -312,7 +302,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_NowPlayingMovies() {
-        nowPlayingMovieAdapter = new NowPlayingMovieAdapter(requireContext(), nowPlayingMovies, position -> {
+        nowPlayingMovieAdapter = new MovieAdapter(requireContext(), nowPlayingMovies, position -> {
             Log.d(getTag(), nowPlayingMovies.toString());
         });
         binding.nowPlayingMovies.setAdapter(nowPlayingMovieAdapter);
@@ -326,7 +316,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(@NonNull Call<SeriesModel> call, @NonNull Response<SeriesModel> response) {
                 if ((response.isSuccessful()) && (response.body() != null)) {
                     upComingSeries = response.body().getSeriesResults();
-                    upComingSeriesAdapter.setSeriesResults(upComingSeries);
+                    upComingSeriesAdapter.updateData(upComingSeries);
                     upComingSeriesAdapter.notifyDataSetChanged();
                 } else {
                     Log.d(getTag(), "onResponse: "+upComingSeries.toString());
@@ -341,7 +331,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_upComingSeries() {
-        upComingSeriesAdapter = new UpComingSeriesAdapter(requireContext(), upComingSeries, position -> {
+        upComingSeriesAdapter = new SeriesAdapter(requireContext(), upComingSeries, position -> {
             Log.d(getTag(), "initAdapter_topRatedSeries: "+upComingSeries.toString());
         });
         binding.upComingSeries.setAdapter(upComingSeriesAdapter);
@@ -357,7 +347,7 @@ public class HomeFragment extends Fragment {
                     MovieModel model = response.body();
                     if (model != null) {
                         trendingMovies = model.getMovieResults();
-                        trendingMovieAdapter.setMovieResults(trendingMovies);
+                        trendingMovieAdapter.updateData(trendingMovies);
                         trendingMovieAdapter.notifyDataSetChanged();
                     } else {
                             Log.w(getTag(), "onResponse: "+trendingMovies.toString());
@@ -373,7 +363,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_trendingMovies() {
-        trendingMovieAdapter = new TrendingMovieAdapter(getContext(), trendingMovies, position -> {
+        trendingMovieAdapter = new MovieAdapter(getContext(), trendingMovies, position -> {
             Log.d(getTag(), trendingMovies.toString());
         });
         binding.trendingMovies.setAdapter(trendingMovieAdapter);
@@ -400,7 +390,7 @@ public class HomeFragment extends Fragment {
                     MovieModel movieModel = response.body();
                     if(movieModel != null) {
                         upComingMovies = movieModel.getMovieResults();
-                        adapter.setMovieResults(upComingMovies);
+                        adapter.updateData(upComingMovies);
                         adapter.notifyDataSetChanged();
                     } else {
                         Log.w(getTag(), "onResponse: "+upComingMovies.toString());
@@ -416,7 +406,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_Carousel() {
-        adapter = new CarouselAdapter(requireContext(), upComingMovies, position -> {
+        adapter = new CarouselMAdapter(requireContext(), upComingMovies, position -> {
             Log.d(getTag(), upComingMovies.toString());
         });
         binding.myViewPager.setAdapter(adapter);

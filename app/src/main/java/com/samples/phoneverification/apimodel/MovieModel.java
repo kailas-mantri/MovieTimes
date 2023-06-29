@@ -21,6 +21,9 @@ public class MovieModel implements Serializable {
     @SerializedName("total_results")
     public Integer totalResults;
 
+    public MovieModel() {
+    }
+
     public MovieModel(Integer page, ArrayList<MovieResults> movieResults, Integer totalPages, Integer totalResults) {
         this.page = page;
         this.movieResults = movieResults;
