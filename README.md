@@ -1,8 +1,8 @@
 # figma
 
 The Customised Android Application with Firebase Authentication, Realtime Database as well as TMDB
-database, and implementation of API's. continues to develop further to archive the payment gateway 
-implementation for Subcriber to watch LATEST, premium movies, serise on rent for 30 days.  
+database, and implementation of API's. continues to develop further to achieve the payment gateway 
+implementation for subscribers to watch LATEST, premium movies, serise on rent for 30 days.  
 
 Phase 1: *Completed*
     ~ Splash Screen, Login Page
@@ -15,7 +15,7 @@ Phase 1: *Completed*
          Database.
 
     1.3. Phone Authentication:
-         Contain the mobile Numver with a Constant CC (+91) IND, follows to OTP verification.
+         Contain the mobile Number with a Constant CC (+91) IND, follows with OTP verification.
            
     1.4. GoogleSign In:
          Google Account Sign In.
@@ -49,6 +49,7 @@ Phase 3: **In Process*
 
     3.4. SearchFragment:
          This Page contain Mix search bar to serach movie or series, accross the application.
+
 
 Phase 4:
     ~ **Implement onClick Functionality** on each item of each fragment **w.r.t. position*.
