@@ -43,7 +43,7 @@ public class MoviesFragment extends Fragment {
     ArrayList<MovieResults> upComingMovies = new ArrayList<>();
     ArrayList<GenreResults> genreResults = new ArrayList<>();
 
-    Retrofit retrofit = new Retrofit.Builder()
+    final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(URLs.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())

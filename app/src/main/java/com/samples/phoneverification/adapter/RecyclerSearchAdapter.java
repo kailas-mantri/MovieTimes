@@ -1,6 +1,5 @@
 package com.samples.phoneverification.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,20 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.MovieResults;
 import com.samples.phoneverification.apimodel.RecyclerItemViewInterface;
+import com.samples.phoneverification.apimodel.SearchApiResults;
 import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
-    final Context context;
-    final RecyclerItemViewInterface anInterface;
-    ArrayList<MovieResults> movieResults;
+public class RecyclerSearchAdapter extends RecyclerView.Adapter<RecyclerSearchAdapter.ViewHolder> {
 
-    public MovieAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemViewInterface anInterface) {
+    private Context context;
+    private ArrayList<SearchApiResults> apiResults;
+    private final RecyclerItemViewInterface anInterface;
+
+    public RecyclerSearchAdapter(Context context, ArrayList<SearchApiResults> apiResults, RecyclerItemViewInterface anInterface) {
         this.context = context;
-        this.movieResults = movieResults;
+        this.apiResults = apiResults;
         this.anInterface = anInterface;
     }
 
@@ -34,43 +34,39 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.recycler_image_card_layout,
-                        parent, false
+                        R.layout.recycler_image_card_layout, parent, false
                 )
         );
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String posterPath = movieResults.get(position).getPosterPath();
+        String posterPath = apiResults.get(position).getPosterPath();
 
         if (posterPath == null) {
             holder.imageView.setImageResource(R.drawable.no_poster);
         } else {
-            // Glide library to display ImageBaseURL link before image string
-            Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL + movieResults.get(position).getPosterPath())
+            Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL+apiResults.get(position).getPosterPath())
                     .into(holder.imageView);
         }
 
-        // TODO: 1. Need to set next functionality of OnClick Item View.
-        holder.imageView.setOnClickListener(view -> anInterface.onItemClick(holder.getBindingAdapterPosition()) );
+        holder.imageView.setOnClickListener(v -> {
+           anInterface.onItemClick(holder.getBindingAdapterPosition());
+        });
     }
 
     @Override
     public int getItemCount() {
-        return movieResults.size();
+        return apiResults.size();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateData(ArrayList<MovieResults> trendingMovies) {
-        this.movieResults = trendingMovies;
-        notifyDataSetChanged();
+    public void updateData(ArrayList<SearchApiResults> searchResults) {
+        this.apiResults = searchResults;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        final ImageView imageView;
-
+        ImageView imageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movieOrSeriesImages);

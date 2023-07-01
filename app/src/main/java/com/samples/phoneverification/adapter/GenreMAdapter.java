@@ -21,7 +21,7 @@ public class GenreMAdapter extends RecyclerView.Adapter<GenreMAdapter.GenreViewH
 
     private final Context context;
     ArrayList<GenreResults> genreResults;
-    RecyclerItemViewInterface anInterface;
+    final RecyclerItemViewInterface anInterface;
 
     public GenreMAdapter(Context context, ArrayList<GenreResults> genreResults, RecyclerItemViewInterface anInterface) {
         this.context = context;
@@ -63,8 +63,8 @@ public class GenreMAdapter extends RecyclerView.Adapter<GenreMAdapter.GenreViewH
     }
 
     public static class GenreViewHolder extends RecyclerView.ViewHolder {
-        TextView genreTitle;
-        RecyclerView itemWrtGenres;
+        final TextView genreTitle;
+        final RecyclerView itemWrtGenres;
         public GenreViewHolder(@NonNull View itemView) {
             super(itemView);
             genreTitle = itemView.findViewById(R.id.genreText);

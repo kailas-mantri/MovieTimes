@@ -20,9 +20,9 @@ import java.util.ArrayList;
 
 public class CarouselSAdapter extends RecyclerView.Adapter<CarouselSAdapter.SeriesViewHolder> {
 
-    private final Context context;
+    final Context context;
     ArrayList<SeriesResults> seriesResults;
-    RecyclerItemViewInterface anInterface;
+    final RecyclerItemViewInterface anInterface;
 
     public CarouselSAdapter(Context context, ArrayList<SeriesResults> seriesResults, RecyclerItemViewInterface anInterface) {
         this.context = context;
@@ -42,9 +42,9 @@ public class CarouselSAdapter extends RecyclerView.Adapter<CarouselSAdapter.Seri
 
     @Override
     public void onBindViewHolder(@NonNull SeriesViewHolder holder, int position) {
-        String backpathPoster = seriesResults.get(position).getBackdropPath();
+        String backdropPoster = seriesResults.get(position).getBackdropPath();
 
-        if (backpathPoster == null) {
+        if (backdropPoster == null) {
             holder.imageView.setImageResource(R.drawable.no_poster);
         } else {
             Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL+seriesResults.get(position).getBackdropPath())
@@ -72,7 +72,7 @@ public class CarouselSAdapter extends RecyclerView.Adapter<CarouselSAdapter.Seri
 
     public static class SeriesViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
+        final ImageView imageView;
         public SeriesViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.upcomingImages);

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.MovieResults;
 import com.samples.phoneverification.apimodel.RecyclerItemViewInterface;
 import com.samples.phoneverification.apimodel.SeriesResults;
 import com.samples.phoneverification.apimodel.URLs;
@@ -20,9 +19,9 @@ import java.util.ArrayList;
 
 public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewHolder> {
 
-    Context context;
-    ArrayList<SeriesResults> seriesResults;
-    RecyclerItemViewInterface anInterface;
+    final Context context;
+    final ArrayList<SeriesResults> seriesResults;
+    final RecyclerItemViewInterface anInterface;
 
     public ImageSAdapter(Context context, ArrayList<SeriesResults> seriesResults, RecyclerItemViewInterface anInterface) {
         this.context = context;
@@ -63,7 +62,7 @@ public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewH
 
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
+        final ImageView imageView;
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movieOrSeriesImages);

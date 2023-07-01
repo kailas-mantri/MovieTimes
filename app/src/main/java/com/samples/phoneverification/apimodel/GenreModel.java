@@ -1,5 +1,7 @@
 package com.samples.phoneverification.apimodel;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -25,6 +27,7 @@ public class GenreModel implements Serializable {
         this.genresArray = genresArray;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "GenreModel{" +
