@@ -20,9 +20,9 @@ import java.util.ArrayList;
 
 public class CarouselMAdapter extends RecyclerView.Adapter<CarouselMAdapter.CarouselHolder> {
 
-    Context context;
+    final Context context;
     ArrayList<MovieResults> movieResults;
-    RecyclerItemViewInterface anInterface;
+    final RecyclerItemViewInterface anInterface;
 
     public CarouselMAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemViewInterface anInterface) {
         this.context = context;
@@ -71,7 +71,7 @@ public class CarouselMAdapter extends RecyclerView.Adapter<CarouselMAdapter.Caro
 
     public static class CarouselHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
+        final ImageView imageView;
 
         public CarouselHolder(@NonNull View itemView) {
             super(itemView);

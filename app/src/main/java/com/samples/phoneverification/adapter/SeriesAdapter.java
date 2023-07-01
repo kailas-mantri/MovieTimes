@@ -20,9 +20,9 @@ import java.util.ArrayList;
 
 public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder> {
 
-    Context context;
+    final Context context;
     ArrayList<SeriesResults> seriesResults;
-    RecyclerItemViewInterface anInterface;
+    final RecyclerItemViewInterface anInterface;
 
     public SeriesAdapter(Context context, ArrayList<SeriesResults> seriesResults, RecyclerItemViewInterface anInterface) {
         this.context = context;
@@ -67,7 +67,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
         notifyDataSetChanged();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+        final ImageView imageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movieOrSeriesImages);

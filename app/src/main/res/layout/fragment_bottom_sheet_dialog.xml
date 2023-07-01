@@ -26,7 +26,6 @@
 
         <ImageView
             android:id="@+id/closeDialog"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -50,7 +49,7 @@
                 android:inputType="number"
                 android:maxLength="1"
                 android:maxLines="1"
-                tools:ignore="LabelFor" />
+                tools:ignore="Autofill,LabelFor" />
 
             <EditText
                 android:id="@+id/SecondOTPeT"
@@ -63,7 +62,7 @@
                 android:inputType="number"
                 android:maxLength="1"
                 android:maxLines="1"
-                tools:ignore="LabelFor" />
+                tools:ignore="Autofill,LabelFor" />
 
             <EditText
                 android:id="@+id/ThirdOTPeT"
@@ -150,7 +149,8 @@
             android:layout_marginEnd="17sp"
             android:fontFamily="sans-serif-medium"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Tooltip"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            tools:ignore="RelativeOverlap" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"

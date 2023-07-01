@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingVertical="6sp">
+
+    <TextView
+        android:id="@+id/recent_search_item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recentSearch"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        tools:ignore="RelativeOverlap" />
+
+    <ImageView
+        android:id="@+id/clearSearchItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/clear_recent_search"
+        android:contentDescription="@string/closeDialog" />
+
+</RelativeLayout>

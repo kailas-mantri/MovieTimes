@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">DemoFigma</string>
+    <string name="app_name">FigmaMovies</string>
 
     <string name="application_name">MovieTimes</string>
-    <string name="app_logo">MovieTimes Logo</string>
+    <string name="app_logo">MovieTimes</string>
     <string name="countryCode">+91</string>
     <string name="cellNumber">Mobile Number</string>
     <string name="proceed">Proceed</string>
@@ -10,7 +10,7 @@
     <string name="googleSignIn">Sign In With Google</string>
 
     <string name="otpVerification">OTP Verification</string>
-    <string name="closeDialog">Close Dialog</string>
+    <string name="closeDialog">Close / Clear</string>
     <string name="resendOtp">Resend OTP</string>
     <string name="verifyOtp">Verify OTP</string>
 
@@ -21,12 +21,11 @@
     <string name="menu_search">Search</string>
 
     <string name="movie_type_title">Genres List</string>
+    <string name="carouselImages">carousel Slider Image</string>
 
-    <string name="upComingM">UpComing Movies</string>
     <string name="upComingS">UpComing Series</string>
     
     <string name="trendingM">Trending Movies</string>
-    <string name="trendingS">Trending Series</string>
 
     <string name="topRatedM">Top Rated Movies</string>
     <string name="topRatedS">Top Rated Series</string>
@@ -35,17 +34,13 @@
     <string name="popularS">Popular Series</string>
 
     <string name="nowPlayingM">Now Playing Movies</string>
-    <string name="nowPlayingS">Now Playing Series</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_text">Search by Movie / Series Name</string>
+    <string name="recentSearch">Recent Searches</string>
 
     <!-- TODO: Details for changes in Navigation view text -->
-    <string name="userName">Hi, Username</string>
-    <string name="userImage">User profile Image</string>
-    <string name="OpenDrawer">Open Navigation Drawer</string>
-    <string name="CloseDrawer">Close Navigation Drawer</string>
     <string name="description">itemImageTitle</string>
 
 </resources>

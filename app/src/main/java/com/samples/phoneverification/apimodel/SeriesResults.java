@@ -19,7 +19,7 @@ public class SeriesResults implements Serializable {
     public Integer[] genreIds;
 
     @SerializedName("id")
-    public Integer SeriesId;
+    public Integer seriesId;
 
     @SerializedName("name")
     public String standardName;
@@ -48,13 +48,16 @@ public class SeriesResults implements Serializable {
     @SerializedName("vote_count")
     private Integer voteCount;
 
+    public SeriesResults() {
+    }
+
     public SeriesResults(String backdropPath, String firstAirDate, Integer[] genreIds, Integer seriesId, String standardName,
                          String[] originCountry, String originalLanguage, String originalName, String seriesOverview, float popularity,
                          String posterPath, float voteAverage, Integer voteCount) {
         this.backdropPath = backdropPath;
         this.firstAirDate = firstAirDate;
         this.genreIds = genreIds;
-        SeriesId = seriesId;
+        this.seriesId = seriesId;
         this.standardName = standardName;
         this.originCountry = originCountry;
         this.originalLanguage = originalLanguage;
@@ -91,11 +94,11 @@ public class SeriesResults implements Serializable {
     }
 
     public Integer getSeriesId() {
-        return SeriesId;
+        return seriesId;
     }
 
     public void setSeriesId(Integer seriesId) {
-        SeriesId = seriesId;
+        this.seriesId = seriesId;
     }
 
     public String getStandardName() {
@@ -173,11 +176,10 @@ public class SeriesResults implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return "SeriesResults{" +
-                "backdropPath='" + backdropPath + '\'' +
+        return "SeriesResults{" + "backdropPath='" + backdropPath + '\'' +
                 ", firstAirDate='" + firstAirDate + '\'' +
                 ", genreIds=" + Arrays.toString(genreIds) +
-                ", SeriesId=" + SeriesId +
+                ", SeriesId=" + seriesId +
                 ", standardName='" + standardName + '\'' +
                 ", originCountry=" + Arrays.toString(originCountry) +
                 ", originalLanguage='" + originalLanguage + '\'' +

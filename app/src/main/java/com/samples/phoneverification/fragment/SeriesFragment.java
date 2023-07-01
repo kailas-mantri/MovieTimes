@@ -42,7 +42,7 @@ public class SeriesFragment extends Fragment {
     GenreSAdapter genreAdapter;
     ArrayList<SeriesResults> seriesResults = new ArrayList<>();
     ArrayList<GenreResults> genreResults = new ArrayList<>();
-    Retrofit retrofit = new Retrofit.Builder()
+    final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(URLs.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
@@ -73,7 +73,7 @@ public class SeriesFragment extends Fragment {
         carouselSlider();
         // TODO:4. Initialize All Adapters
         initAdapters();
-        //TODO:6. Call API's.
+        //TODO:6. Call APIs.
         AllApiCalls();
 
         return binding.getRoot();

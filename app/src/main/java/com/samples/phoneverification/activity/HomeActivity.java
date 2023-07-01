@@ -1,6 +1,5 @@
 package com.samples.phoneverification.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -8,10 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.databinding.ActivityHomeBinding;
 import com.samples.phoneverification.fragment.HomeFragment;
@@ -35,29 +32,31 @@ public class HomeActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.menu_Home) {
                 fragment = new HomeFragment();
-                loadFragment(fragment);
+                loadFragment(fragment, false);
             } else if (id == R.id.menu_Movies) {
                 fragment = new MoviesFragment();
-                loadFragment(fragment);
+                loadFragment(fragment, false);
             } else if (id == R.id.menu_Series) {
                 fragment = new SeriesFragment();
-                loadFragment(fragment);
+                loadFragment(fragment, false);
             } else if (id == R.id.menu_Search) {
                 fragment = new SearchFragment();
-                loadFragment(fragment);
+                loadFragment(fragment, false);
             } else {
-                Toast.makeText(this, "Connection Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please check your INTERNET connection", Toast.LENGTH_SHORT).show();
             }
-
             return true;
         });
 
         binding.bottomNavView.setSelectedItemId(R.id.menu_Home);
     }
 
-    private void loadFragment(Fragment fragment) {
+    private void loadFragment(Fragment fragment, boolean flag) {
         FragmentManager manager = this.getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
+        if (!flag) {
+            transaction.add(binding.bottomNavFrame.getId(), fragment);
+        }
         transaction.replace(binding.bottomNavFrame.getId(), fragment);
         transaction.commit();
     }

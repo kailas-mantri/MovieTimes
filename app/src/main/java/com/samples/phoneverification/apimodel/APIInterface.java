@@ -68,4 +68,9 @@ public interface APIInterface {
     Call<SeriesModel> SERIES_DISCOVER_MODEL_CALL(
             @QueryMap HashMap<String, String> params
     );
+
+    @GET("/3/search/multi")
+    Call<SearchApiModel> SEARCH_MODEL_CALL(
+            @QueryMap HashMap<String, String> params
+    );
 }

@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 public class ImageMAdapter extends RecyclerView.Adapter<ImageMAdapter.ImageViewHolder> {
 
-    Context context;
-    ArrayList<MovieResults> movieResults;
-    RecyclerItemViewInterface anInterface;
+    final Context context;
+    final ArrayList<MovieResults> movieResults;
+    final RecyclerItemViewInterface anInterface;
 
     public ImageMAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemViewInterface anInterface) {
         this.context = context;
@@ -62,7 +62,7 @@ public class ImageMAdapter extends RecyclerView.Adapter<ImageMAdapter.ImageViewH
 
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
+        final ImageView imageView;
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movieOrSeriesImages);
