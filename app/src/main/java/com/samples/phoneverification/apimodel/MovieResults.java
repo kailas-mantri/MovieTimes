@@ -22,7 +22,7 @@ public class MovieResults implements Serializable {
     public Integer[] genreIds;
 
     @SerializedName("id")
-    public Integer MovieId;
+    public Integer movieId;
 
     @SerializedName("original_language")
     public String originalLanguage;
@@ -61,7 +61,7 @@ public class MovieResults implements Serializable {
         this.backdropPath = backdropPath;
         this.mediaType = mediaType;
         this.genreIds = genreIds;
-        MovieId = movieId;
+        this.movieId = movieId;
         this.originalLanguage = originalLanguage;
         this.originalMovieTitle = originalMovieTitle;
         this.movieOverview = movieOverview;
@@ -107,11 +107,11 @@ public class MovieResults implements Serializable {
     }
 
     public Integer getMovieId() {
-        return MovieId;
+        return movieId;
     }
 
     public void setMovieId(Integer movieId) {
-        MovieId = movieId;
+        this.movieId = movieId;
     }
 
     public String getOriginalLanguage() {
@@ -201,7 +201,7 @@ public class MovieResults implements Serializable {
                 "isAdult=" + isAdult +
                 ", backdropPath='" + backdropPath + '\'' +
                 ", genreIds=" + Arrays.toString(genreIds) +
-                ", MovieId=" + MovieId +
+                ", MovieId=" + movieId +
                 ", originalLanguage='" + originalLanguage + '\'' +
                 ", originalMovieTitle='" + originalMovieTitle + '\'' +
                 ", movieOverview='" + movieOverview + '\'' +

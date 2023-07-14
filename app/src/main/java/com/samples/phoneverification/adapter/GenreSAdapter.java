@@ -13,17 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.apimodel.GenreResults;
-import com.samples.phoneverification.apimodel.RecyclerItemViewInterface;
+import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 
 import java.util.ArrayList;
 
 public class GenreSAdapter extends RecyclerView.Adapter<GenreSAdapter.GenreViewHolder> {
 
     private final Context context;
-    ArrayList<GenreResults> genreResults;
-    final RecyclerItemViewInterface anInterface;
+    private ArrayList<GenreResults> genreResults;
+    private final RecyclerItemInterface anInterface;
 
-    public GenreSAdapter(Context context, ArrayList<GenreResults> genreResults, RecyclerItemViewInterface anInterface) {
+    public GenreSAdapter(Context context, ArrayList<GenreResults> genreResults, RecyclerItemInterface anInterface) {
         this.context = context;
         this.genreResults = genreResults;
         this.anInterface = anInterface;
@@ -46,6 +46,12 @@ public class GenreSAdapter extends RecyclerView.Adapter<GenreSAdapter.GenreViewH
 
         // TODO 2: set LayoutManager for Inner Recycler View.
         holder.itemWrtGenres.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.itemWrtGenres.setOnClickListener(view -> {
+            int seriesId = genreResults.get(holder.getBindingAdapterPosition()).getSeriesList().get(position).getSeriesId();
+            if (anInterface!=null) {
+                anInterface.onItemClick(seriesId);
+            }
+        });
 
         // TODO 3: set Adapter for items With Respect To Genres in ImageRecycler
         holder.itemWrtGenres.setAdapter(new ImageSAdapter(context, genreResults.get(position).getSeriesList(), anInterface));

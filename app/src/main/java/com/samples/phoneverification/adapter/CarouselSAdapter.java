@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.RecyclerItemViewInterface;
+import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.SeriesResults;
 import com.samples.phoneverification.apimodel.URLs;
 
@@ -20,11 +20,11 @@ import java.util.ArrayList;
 
 public class CarouselSAdapter extends RecyclerView.Adapter<CarouselSAdapter.SeriesViewHolder> {
 
-    final Context context;
-    ArrayList<SeriesResults> seriesResults;
-    final RecyclerItemViewInterface anInterface;
+    private final Context context;
+    private ArrayList<SeriesResults> seriesResults;
+    private final RecyclerItemInterface anInterface;
 
-    public CarouselSAdapter(Context context, ArrayList<SeriesResults> seriesResults, RecyclerItemViewInterface anInterface) {
+    public CarouselSAdapter(Context context, ArrayList<SeriesResults> seriesResults, RecyclerItemInterface anInterface) {
         this.context = context;
         this.seriesResults = seriesResults;
         this.anInterface = anInterface;
@@ -52,7 +52,7 @@ public class CarouselSAdapter extends RecyclerView.Adapter<CarouselSAdapter.Seri
         }
 
         // TODO:1. OnItemClick check
-        holder.imageView.setOnClickListener(v -> { anInterface.onItemClick(position); });
+        holder.imageView.setOnClickListener(v -> anInterface.onItemClick(position));
 
         if (position == seriesResults.size() - 2) {
             holder.imageView.post(runnable);
@@ -70,9 +70,14 @@ public class CarouselSAdapter extends RecyclerView.Adapter<CarouselSAdapter.Seri
         notifyDataSetChanged();
     }
 
+    public Context getContext() {
+        return context;
+    }
+
     public static class SeriesViewHolder extends RecyclerView.ViewHolder {
 
         final ImageView imageView;
+
         public SeriesViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.upcomingImages);

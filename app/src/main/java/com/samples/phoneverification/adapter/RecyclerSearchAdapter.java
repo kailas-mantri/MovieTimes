@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.RecyclerItemViewInterface;
+import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.SearchApiResults;
 import com.samples.phoneverification.apimodel.URLs;
 
@@ -19,11 +19,11 @@ import java.util.ArrayList;
 
 public class RecyclerSearchAdapter extends RecyclerView.Adapter<RecyclerSearchAdapter.ViewHolder> {
 
-    private Context context;
+    private final Context context;
     private ArrayList<SearchApiResults> apiResults;
-    private final RecyclerItemViewInterface anInterface;
+    private final RecyclerItemInterface anInterface;
 
-    public RecyclerSearchAdapter(Context context, ArrayList<SearchApiResults> apiResults, RecyclerItemViewInterface anInterface) {
+    public RecyclerSearchAdapter(Context context, ArrayList<SearchApiResults> apiResults, RecyclerItemInterface anInterface) {
         this.context = context;
         this.apiResults = apiResults;
         this.anInterface = anInterface;
@@ -50,9 +50,9 @@ public class RecyclerSearchAdapter extends RecyclerView.Adapter<RecyclerSearchAd
                     .into(holder.imageView);
         }
 
-        holder.imageView.setOnClickListener(v -> {
-           anInterface.onItemClick(holder.getBindingAdapterPosition());
-        });
+        holder.imageView.setOnClickListener(v ->
+           anInterface.onItemClick(holder.getBindingAdapterPosition())
+        );
     }
 
     @Override
@@ -62,6 +62,10 @@ public class RecyclerSearchAdapter extends RecyclerView.Adapter<RecyclerSearchAd
 
     public void updateData(ArrayList<SearchApiResults> searchResults) {
         this.apiResults = searchResults;
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -1,46 +1,62 @@
 <resources>
-    <string name="app_name">FigmaMovies</string>
+    <string name="app_name">MovieTimes</string>
 
-    <string name="application_name">MovieTimes</string>
+    <!-- TODO: ImageView ContentDescription-->
     <string name="app_logo">MovieTimes</string>
+    <string name="movie_type_title">Genres List</string>
+    <string name="carouselImages">carousel Slider Image</string>
+    <string name="description">itemImageTitle</string>
+    <string name="mediaPlay">Play_Icon</string>
+
+    <!-- TODO: MainActivity contents -->
+    <string name="application_name">MovieTimes</string>
     <string name="countryCode">+91</string>
     <string name="cellNumber">Mobile Number</string>
     <string name="proceed">Proceed</string>
     <string name="otherLogin">Try some Other Login Methods</string>
     <string name="googleSignIn">Sign In With Google</string>
 
+    <!-- TODO: BottomSheetDialog contents -->
     <string name="otpVerification">OTP Verification</string>
     <string name="closeDialog">Close / Clear</string>
     <string name="resendOtp">Resend OTP</string>
     <string name="verifyOtp">Verify OTP</string>
 
-    <!-- TODO: Fragments view Text-->
+    <!-- TODO: Fragments view contents-->
     <string name="menu_home">Home</string>
     <string name="menu_movies">Movies</string>
     <string name="menu_series">Series</string>
     <string name="menu_search">Search</string>
 
-    <string name="movie_type_title">Genres List</string>
-    <string name="carouselImages">carousel Slider Image</string>
-
-    <string name="upComingS">UpComing Series</string>
-    
+    <!-- TODO: Movie Types contents-->
+    <string name="nowPlayingM">Now Playing Movies</string>
+    <string name="topRatedM">Top Rated Movies</string>
+    <string name="popularM">Popular Movies</string>
     <string name="trendingM">Trending Movies</string>
 
-    <string name="topRatedM">Top Rated Movies</string>
+    <!-- TODO: Series/TV Types contents-->
+    <string name="upComingS">UpComing Series</string>
     <string name="topRatedS">Top Rated Series</string>
-
-    <string name="popularM">Popular Movies</string>
     <string name="popularS">Popular Series</string>
 
-    <string name="nowPlayingM">Now Playing Movies</string>
-
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Search Fragment contents -->
     <string name="search_text">Search by Movie / Series Name</string>
     <string name="recentSearch">Recent Searches</string>
 
-    <!-- TODO: Details for changes in Navigation view text -->
-    <string name="description">itemImageTitle</string>
+    <!-- TODO: Movie Details Activity contents -->
+    <string name="wishList_add"> Add to Wishlist</string>
+    <string name="wishlist_remove">Remove from Wishlist</string>
+    <string name="releaseDate">Release Date: </string>
+    <string name="languages">Languages</string>
+    <string name="multiLanguages">Multiple Languages</string>
+    <string name="trailerTitle">Teasers and Trailers</string>
+    <string name="describe">Description</string>
+    <string name="cast">Cast and Crew</string>
+    <string name="starCastImage">cast Images</string>
+    <string name="castName">Model Name</string>
+    <string name="rollName">RollName</string>
+    <string name="recommended_movie_title">Recommended Movies</string>
+
+    <!-- TODO: -->
 
 </resources>

@@ -2,9 +2,6 @@ package com.samples.phoneverification.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.samples.phoneverification.activity.DemoActivity;
+import com.samples.phoneverification.activity.ItemDetailsActivity;
 import com.samples.phoneverification.adapter.RecentSearchAdapter;
 import com.samples.phoneverification.adapter.RecyclerSearchAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
@@ -31,7 +28,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,13 +54,11 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         retrofit = new Retrofit.Builder()
                 .baseUrl(URLs.BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         anInterface = retrofit.create(APIInterface.class);
     }
 
@@ -99,7 +93,7 @@ public class SearchFragment extends Fragment {
 
         binding.recentSearchLayout.clearAll.setOnClickListener(v -> clearRecentSearch());
 
-        // Load recent search records from storage or database
+        // loadRecent search records from database
         loadRecentSearchRecords();
 
         System.out.println(recentSearch);
@@ -188,7 +182,10 @@ public class SearchFragment extends Fragment {
 
     private void searchResultAdapter() {
         searchOutputAdapter = new RecyclerSearchAdapter(requireContext(), searchResults, position -> {
-            startActivity(new Intent(getContext(), DemoActivity.class));
+            SearchApiResults apiResults = searchResults.get(position);
+            Intent intent = new Intent(getContext(), ItemDetailsActivity.class);
+            intent.putExtra("selectedItemResult", apiResults);
+            startActivity(intent);
         });
         binding.afterSearchRecyclerView.setAdapter(searchOutputAdapter);
     }
@@ -206,6 +203,7 @@ public class SearchFragment extends Fragment {
                 if ((response.isSuccessful()) && (response.body() != null)) {
                     searchResults.clear();
                     searchResults = response.body().getSearchResults();
+                    Log.d(getTag(), "onResponse: "+searchResults);
                     searchOutputAdapter.updateData(searchResults);
                     searchOutputAdapter.notifyDataSetChanged();
                 }

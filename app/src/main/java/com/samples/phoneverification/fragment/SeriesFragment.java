@@ -1,6 +1,7 @@
 package com.samples.phoneverification.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.samples.phoneverification.activity.ItemDetailsActivity;
 import com.samples.phoneverification.adapter.CarouselSAdapter;
 import com.samples.phoneverification.adapter.GenreSAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
@@ -172,7 +174,10 @@ public class SeriesFragment extends Fragment {
 
     private void init_CarouselAdapter() {
         carouselSAdapter = new CarouselSAdapter(getContext(), seriesResults, position -> {
-            Log.d(getTag(), "init_CarouselAdapter: "+seriesResults);
+            SeriesResults results = seriesResults.get(position);
+            Intent intent = new Intent(getContext(), ItemDetailsActivity.class);
+            intent.putExtra("seriesResult", results);
+            startActivity(intent);
         });
         binding.carouselViewPager.setAdapter(carouselSAdapter);
     }

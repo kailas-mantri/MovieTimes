@@ -13,12 +13,14 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-
     <style name="movie_times">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">#FFF</item>
         <item name="android:textStyle">bold|normal</item>
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline5</item>
     </style>
-
+    <style name="ExtendedBarTextStyle" parent="Theme.PhoneVerification">
+        <item name="android:textSize">0sp</item>
+        <item name="android:textColor">@android:color/transparent</item>
+    </style>
 </resources>
