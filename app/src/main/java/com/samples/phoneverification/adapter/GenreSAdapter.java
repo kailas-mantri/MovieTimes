@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class GenreSAdapter extends RecyclerView.Adapter<GenreSAdapter.GenreViewHolder> {
 
+    private int seriesId;
     private final Context context;
     private ArrayList<GenreResults> genreResults;
     private final RecyclerItemInterface anInterface;
@@ -47,7 +48,7 @@ public class GenreSAdapter extends RecyclerView.Adapter<GenreSAdapter.GenreViewH
         // TODO 2: set LayoutManager for Inner Recycler View.
         holder.itemWrtGenres.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.itemWrtGenres.setOnClickListener(view -> {
-            int seriesId = genreResults.get(holder.getBindingAdapterPosition()).getSeriesList().get(position).getSeriesId();
+            seriesId = genreResults.get(holder.getBindingAdapterPosition()).getSeriesList().get(position).getSeriesId();
             if (anInterface!=null) {
                 anInterface.onItemClick(seriesId);
             }

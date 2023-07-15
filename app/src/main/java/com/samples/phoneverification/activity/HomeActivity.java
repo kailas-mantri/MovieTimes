@@ -57,11 +57,12 @@ public class HomeActivity extends AppCompatActivity {
 
     private boolean loadFragment(Fragment fragment) {
 
-//        FragmentManager manager = this.getSupportFragmentManager();
-//        FragmentTransaction transaction = manager.beginTransaction();
-//        transaction.replace(binding.bottomNavFrame.getId(), fragment);
-//        transaction.add(binding.bottomNavFrame.getId(), fragment);
-//        transaction.commit();
+/*        FragmentManager manager = this.getSupportFragmentManager();
+*         FragmentTransaction transaction = manager.beginTransaction();
+*         transaction.replace(binding.bottomNavFrame.getId(), fragment);
+*         transaction.add(binding.bottomNavFrame.getId(), fragment);
+*         transaction.commit();
+ */
 
         if (fragment != null) {
             this.getSupportFragmentManager()

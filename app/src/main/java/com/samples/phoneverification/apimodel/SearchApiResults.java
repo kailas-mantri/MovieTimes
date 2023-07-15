@@ -1,5 +1,7 @@
 package com.samples.phoneverification.apimodel;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -14,7 +16,7 @@ public class SearchApiResults implements Serializable {
     public String backdropPath;
 
     @SerializedName("id")
-    public Integer itemId;
+    public int itemId;
 
     @SerializedName("name")
     public String standardSeriesTitle;
@@ -64,7 +66,7 @@ public class SearchApiResults implements Serializable {
     @SerializedName("release_date")
     public String movieReleaseDate;
 
-    public SearchApiResults(boolean isAdult, String backdropPath, Integer itemId, String standardSeriesTitle, String standardMovieTitle,
+    public SearchApiResults(boolean isAdult, String backdropPath, int itemId, String standardSeriesTitle, String standardMovieTitle,
                             String originalLanguage, String originalSeriesTitle, String originalMovieTitle, String itemOverview,
                             String posterPath, String mediaType, Integer[] genreIds, float popularity, float voteAverage, Integer voteCount,
                             String[] origin_country, boolean trailerVideo, String seriesFirstAirDate, String movieReleaseDate) {
@@ -105,11 +107,11 @@ public class SearchApiResults implements Serializable {
         this.backdropPath = backdropPath;
     }
 
-    public Integer getItemId() {
+    public int getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(int itemId) {
         this.itemId = itemId;
     }
 
@@ -241,6 +243,7 @@ public class SearchApiResults implements Serializable {
         this.movieReleaseDate = movieReleaseDate;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "SearchApiResults{" +

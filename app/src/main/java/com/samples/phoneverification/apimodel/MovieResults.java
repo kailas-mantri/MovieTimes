@@ -22,7 +22,7 @@ public class MovieResults implements Serializable {
     public Integer[] genreIds;
 
     @SerializedName("id")
-    public Integer movieId;
+    public int movieId;
 
     @SerializedName("original_language")
     public String originalLanguage;
@@ -54,7 +54,7 @@ public class MovieResults implements Serializable {
     @SerializedName("vote_count")
     private Integer voteCount;
 
-    public MovieResults(boolean isAdult, String backdropPath, String mediaType, Integer[] genreIds, Integer movieId, String originalLanguage,
+    public MovieResults(boolean isAdult, String backdropPath, String mediaType, Integer[] genreIds, int movieId, String originalLanguage,
                         String originalMovieTitle, String movieOverview, float popularity, String posterPath, String movieReleaseDate,
                         String standardMovieTitle, boolean trailerVideo, float voteAverage, Integer voteCount) {
         this.isAdult = isAdult;
@@ -106,11 +106,11 @@ public class MovieResults implements Serializable {
         this.genreIds = genreIds;
     }
 
-    public Integer getMovieId() {
+    public int getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(Integer movieId) {
+    public void setMovieId(int movieId) {
         this.movieId = movieId;
     }
 

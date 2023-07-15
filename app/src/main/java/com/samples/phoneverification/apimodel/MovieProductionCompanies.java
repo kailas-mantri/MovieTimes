@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class MovieProductionCompanies implements Serializable {
 
     @SerializedName("id")
-    public Integer company_id;
+    public int company_id;
 
     @SerializedName("name")
     public String company_name;
@@ -20,18 +20,18 @@ public class MovieProductionCompanies implements Serializable {
     @SerializedName("origin_country")
     public String company_country;
 
-    public MovieProductionCompanies(Integer company_id, String company_name, String company_logo, String company_country) {
+    public MovieProductionCompanies(int company_id, String company_name, String company_logo, String company_country) {
         this.company_id = company_id;
         this.company_name = company_name;
         this.company_logo = company_logo;
         this.company_country = company_country;
     }
 
-    public Integer getCompany_id() {
+    public int getCompany_id() {
         return company_id;
     }
 
-    public void setCompany_id(Integer company_id) {
+    public void setCompany_id(int company_id) {
         this.company_id = company_id;
     }
 

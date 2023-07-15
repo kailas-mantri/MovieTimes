@@ -203,9 +203,9 @@ public class SearchFragment extends Fragment {
                 if ((response.isSuccessful()) && (response.body() != null)) {
                     searchResults.clear();
                     searchResults = response.body().getSearchResults();
-                    Log.d(getTag(), "onResponse: "+searchResults);
                     searchOutputAdapter.updateData(searchResults);
                     searchOutputAdapter.notifyDataSetChanged();
+                    Log.d(getTag(), "onResponse: "+searchResults);
                 }
             }
 

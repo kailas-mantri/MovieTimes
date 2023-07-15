@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class GenreMAdapter extends RecyclerView.Adapter<GenreMAdapter.GenreViewHolder> {
 
+    private int movieId;
     private final Context context;
     private ArrayList<GenreResults> genreResults;
     private final RecyclerItemInterface anInterface;
@@ -48,7 +49,7 @@ public class GenreMAdapter extends RecyclerView.Adapter<GenreMAdapter.GenreViewH
         holder.itemWrtGenres.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
         holder.itemWrtGenres.setOnClickListener(view -> {
-            int movieId = genreResults.get(holder.getBindingAdapterPosition()).getMovieResults().get(position).getMovieId();
+            movieId = genreResults.get(holder.getBindingAdapterPosition()).getMovieResults().get(position).getMovieId();
             if (anInterface != null) {
                 anInterface.onItemClick(movieId);
             }

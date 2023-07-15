@@ -44,11 +44,11 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        /** Set the media view to get the trailer poster or videoPlayer */
-        Glide.with(holder.mediaPoster).load(URLs.YOUTUBE_THUMBNAILS + mediaList.get(position).getMedia_key() + "/0.jpg")
-                .into(holder.mediaPoster);
+        // TODO: Set the media view to get the trailer poster or videoPlayer
+        Glide.with(holder.mediaPoster).load(URLs.YOUTUBE_THUMBNAILS + mediaList.get(position).getMedia_key() + "/0.jpg").into(holder.mediaPoster);
 
-        holder.mediaPoster.setOnClickListener(view ->{
+        holder.mediaPoster.setOnClickListener(view -> {
+            // TODO: Implicit Intent.
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URLs.YOUTUBE+mediaList.get(position).getMedia_key()));
             view.getContext().startActivity(intent);
         });

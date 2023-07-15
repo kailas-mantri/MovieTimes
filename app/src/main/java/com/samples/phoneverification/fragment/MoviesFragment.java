@@ -42,7 +42,7 @@ public class MoviesFragment extends Fragment implements RecyclerItemInterface {
 
     FragmentMoviesBinding binding;
     CarouselMAdapter adapter;
-    private Integer movieId;
+    private int movieId;
     GenreMAdapter genreMAdapter;
     ArrayList<MovieResults> upComingMovies = new ArrayList<>();
     ArrayList<GenreResults> genreResults = new ArrayList<>();
@@ -171,6 +171,13 @@ public class MoviesFragment extends Fragment implements RecyclerItemInterface {
         });
     }
 
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
+        intent.putExtra("movie_id", movieId);
+        startActivity(intent);
+    }
+
     private void init_CarouselAdapter() {
         adapter = new CarouselMAdapter(requireContext(), upComingMovies, position -> {
             movieId = upComingMovies.get(position).getMovieId();
@@ -210,10 +217,4 @@ public class MoviesFragment extends Fragment implements RecyclerItemInterface {
         handler.postDelayed(slideRunnable, 2000);
     }
 
-    @Override
-    public void onItemClick(int position) {
-        Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
-        intent.putExtra("movie_id", movieId);
-        startActivity(intent);
-    }
 }

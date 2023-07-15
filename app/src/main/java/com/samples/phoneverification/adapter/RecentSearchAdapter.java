@@ -34,13 +34,17 @@ public class RecentSearchAdapter extends RecyclerView.Adapter<RecentSearchAdapte
         );
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull RecentSearchAdapter.RecentSearchHolder holder, int position) {
         String searchQuery = recentSearch.get(position);
         holder.recentSearch.setText(searchQuery);
 
         //TODO: Remove selected recent search query.
-        holder.deleteSearch.setOnClickListener(v -> deleteSearchedQuery(position));
+        holder.deleteSearch.setOnClickListener(v -> {
+            deleteSearchedQuery(position);
+            notifyDataSetChanged();
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")
