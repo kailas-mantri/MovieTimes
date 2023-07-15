@@ -1,6 +1,5 @@
 package com.samples.phoneverification.apimodel;
 
-public interface RecyclerItemViewInterface {
-
+public interface RecyclerItemInterface {
     void onItemClick(int position);
 }

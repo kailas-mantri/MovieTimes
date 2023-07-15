@@ -1,6 +1,7 @@
 package com.samples.phoneverification.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.samples.phoneverification.activity.MovieDetailsActivity;
 import com.samples.phoneverification.adapter.CarouselMAdapter;
 import com.samples.phoneverification.adapter.GenreMAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
@@ -22,6 +24,7 @@ import com.samples.phoneverification.apimodel.GenreModel;
 import com.samples.phoneverification.apimodel.GenreResults;
 import com.samples.phoneverification.apimodel.MovieModel;
 import com.samples.phoneverification.apimodel.MovieResults;
+import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.FragmentMoviesBinding;
 
@@ -35,10 +38,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class MoviesFragment extends Fragment {
+public class MoviesFragment extends Fragment implements RecyclerItemInterface {
 
     FragmentMoviesBinding binding;
     CarouselMAdapter adapter;
+    private int movieId;
     GenreMAdapter genreMAdapter;
     ArrayList<MovieResults> upComingMovies = new ArrayList<>();
     ArrayList<GenreResults> genreResults = new ArrayList<>();
@@ -63,42 +67,37 @@ public class MoviesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        binding = FragmentMoviesBinding.inflate(getLayoutInflater());
+        // TODO: 00. Inflate the layout for this fragment
+        // TODO: 01. setRecycler LayoutManager
+        // TODO: 02. ALL Adapter
+        // TODO: 03. ALL API Calls.
 
-        // TODO: 1. setRecycler LayoutManager
+        binding = FragmentMoviesBinding.inflate(getLayoutInflater());
         binding.recyclerImageList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
-        // TODO: 2. All Adapter
-        initAdapter();
-
-        // TODO: 3. After Setting Adapter use Timer for Auto-Sliding
+        // TODO: 03. After Setting Adapter use Timer for Auto-Sliding
         CarouselSliders();
 
-        // TODO: 4. Call all API.
+        initAdapter();
         DynamicApiCalls();
 
         return binding.getRoot();
     }
 
     private void DynamicApiCalls() {
-        // TODO: 2. Genre Model.
-        dynamicGenreCall();
-
-        // TODO: 1. upcoming Movies.
-        UpComingMovieCall();
+        // TODO: upcoming Movies & Genre Model.
+        GenresWrTMovieId();
+        UpComingMovies();
 
     }
 
     private void initAdapter() {
-        // TODO 02: Genres Recycler Adapter
-        init_GenreAdapter();
-
-        // TODO 01: Carousel Adapter
+        // TODO: carousel & Genres Adapter
         init_CarouselAdapter();
+        init_GenreAdapter();
     }
 
-    private void dynamicGenreCall() {
+    private void GenresWrTMovieId() {
         Call<GenreModel> call = anInterface.MOVIE_GENRE_MODEL_CALL(URLs.API_KEY);
         call.enqueue(new Callback<GenreModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -109,7 +108,7 @@ public class MoviesFragment extends Fragment {
                     genreMAdapter.updateData(genreResults);
                 }
 
-                // TODO **Set parameters for second API call**
+                // TODO Set parameters for second API call
                 for (int i = 0; i < genreResults.size(); i++) {
                     HashMap<String, String> params = new HashMap<>();
                     params.put("api_key", URLs.API_KEY);
@@ -123,7 +122,6 @@ public class MoviesFragment extends Fragment {
                         public void onResponse(@NonNull Call<MovieModel> call, @NonNull Response<MovieModel> response) {
                             if (response.body() != null) {
                                 genreResults.get(finalI).setMovieResults(response.body().getMovieResults());
-//                                System.out.println(genreResults);
                                 genreMAdapter.updateData(genreResults);
                             }
                         }
@@ -134,26 +132,22 @@ public class MoviesFragment extends Fragment {
                         }
                     });
                 }
-
             }
 
             @Override
             public void onFailure(@NonNull Call<GenreModel> call, @NonNull Throwable t) {
-                Log.w(getTag(), "onFailure: "+t.getMessage());
+                Log.w(getTag(), "onFailure: " + t.getMessage());
             }
         });
     }
 
     private void init_GenreAdapter() {
-        genreMAdapter = new GenreMAdapter(requireContext(), genreResults, position -> {
-            Log.d(getTag(), "init_GenreAdapter: "+genreResults.toString());
-        });
+        genreMAdapter = new GenreMAdapter(requireContext(), genreResults, this);
         binding.recyclerImageList.setAdapter(genreMAdapter);
     }
 
-    private void UpComingMovieCall() {
+    private void UpComingMovies() {
         Call<MovieModel> moviesModelCall = anInterface.UP_COMING_MOVIES_MODEL_CALL(URLs.API_KEY);
-
         moviesModelCall.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -177,9 +171,19 @@ public class MoviesFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
+        intent.putExtra("movie_id", movieId);
+        startActivity(intent);
+    }
+
     private void init_CarouselAdapter() {
         adapter = new CarouselMAdapter(requireContext(), upComingMovies, position -> {
-            Log.d(getTag(), upComingMovies.toString());
+            movieId = upComingMovies.get(position).getMovieId();
+            Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
+            intent.putExtra("movie_id", movieId);
+            startActivity(intent);
         });
         binding.carouselViewPager.setAdapter(adapter);
     }

@@ -19,7 +19,7 @@ public class SeriesResults implements Serializable {
     public Integer[] genreIds;
 
     @SerializedName("id")
-    public Integer seriesId;
+    public int seriesId;
 
     @SerializedName("name")
     public String standardName;
@@ -51,7 +51,7 @@ public class SeriesResults implements Serializable {
     public SeriesResults() {
     }
 
-    public SeriesResults(String backdropPath, String firstAirDate, Integer[] genreIds, Integer seriesId, String standardName,
+    public SeriesResults(String backdropPath, String firstAirDate, Integer[] genreIds, int seriesId, String standardName,
                          String[] originCountry, String originalLanguage, String originalName, String seriesOverview, float popularity,
                          String posterPath, float voteAverage, Integer voteCount) {
         this.backdropPath = backdropPath;
@@ -93,11 +93,11 @@ public class SeriesResults implements Serializable {
         this.genreIds = genreIds;
     }
 
-    public Integer getSeriesId() {
+    public int getSeriesId() {
         return seriesId;
     }
 
-    public void setSeriesId(Integer seriesId) {
+    public void setSeriesId(int seriesId) {
         this.seriesId = seriesId;
     }
 

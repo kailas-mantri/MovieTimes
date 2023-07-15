@@ -22,7 +22,7 @@ public class MovieResults implements Serializable {
     public Integer[] genreIds;
 
     @SerializedName("id")
-    public Integer MovieId;
+    public int movieId;
 
     @SerializedName("original_language")
     public String originalLanguage;
@@ -54,14 +54,14 @@ public class MovieResults implements Serializable {
     @SerializedName("vote_count")
     private Integer voteCount;
 
-    public MovieResults(boolean isAdult, String backdropPath, String mediaType, Integer[] genreIds, Integer movieId, String originalLanguage,
+    public MovieResults(boolean isAdult, String backdropPath, String mediaType, Integer[] genreIds, int movieId, String originalLanguage,
                         String originalMovieTitle, String movieOverview, float popularity, String posterPath, String movieReleaseDate,
                         String standardMovieTitle, boolean trailerVideo, float voteAverage, Integer voteCount) {
         this.isAdult = isAdult;
         this.backdropPath = backdropPath;
         this.mediaType = mediaType;
         this.genreIds = genreIds;
-        MovieId = movieId;
+        this.movieId = movieId;
         this.originalLanguage = originalLanguage;
         this.originalMovieTitle = originalMovieTitle;
         this.movieOverview = movieOverview;
@@ -106,12 +106,12 @@ public class MovieResults implements Serializable {
         this.genreIds = genreIds;
     }
 
-    public Integer getMovieId() {
-        return MovieId;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public void setMovieId(Integer movieId) {
-        MovieId = movieId;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     public String getOriginalLanguage() {
@@ -201,7 +201,7 @@ public class MovieResults implements Serializable {
                 "isAdult=" + isAdult +
                 ", backdropPath='" + backdropPath + '\'' +
                 ", genreIds=" + Arrays.toString(genreIds) +
-                ", MovieId=" + MovieId +
+                ", MovieId=" + movieId +
                 ", originalLanguage='" + originalLanguage + '\'' +
                 ", originalMovieTitle='" + originalMovieTitle + '\'' +
                 ", movieOverview='" + movieOverview + '\'' +

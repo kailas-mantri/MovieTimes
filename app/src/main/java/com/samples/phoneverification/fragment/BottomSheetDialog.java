@@ -1,7 +1,6 @@
 package com.samples.phoneverification.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -15,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.FirebaseException;
@@ -45,8 +45,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
     FragmentBottomSheetDialogBinding binding;
     private final static String TAG = "BottomSheetDialog";
     FirebaseAuth mAuth;
-    private Context mContext;
-    private DatabaseReference mDbReference;
+    DatabaseReference mDbReference;
     private String otp, phoneNumber, mVerificationId, seconds = "";
     private CountDownTimer timer;
     private PhoneAuthProvider.ForceResendingToken mResendCode;
@@ -227,20 +226,21 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
             public void onTick(long millisUntilFinished) {
                 binding.resendOtp.setEnabled(false);
                 long secondRemaining = millisUntilFinished / 1000;
-                seconds = String.valueOf(secondRemaining);
                 if (secondRemaining < 10) {
                     seconds = "00:0" + secondRemaining;
                 } else {
                     seconds = "00:" + secondRemaining;
                 }
                 binding.timer.setText(seconds);
-                binding.resendOtp.setTextColor(getResources().getColor(R.color.offWhite));
+                int onTickColor = ContextCompat.getColor(binding.resendOtp.getContext(), R.color.offWhite);
+                binding.resendOtp.setTextColor(onTickColor);
             }
 
             @Override
             public void onFinish() {
                 binding.resendOtp.setEnabled(true);
-                binding.resendOtp.setTextColor(getResources().getColor(R.color.white));
+                int onFinishColor = ContextCompat.getColor(binding.resendOtp.getContext(), R.color.white);
+                binding.resendOtp.setTextColor(onFinishColor);
             }
         };
         timer.start();

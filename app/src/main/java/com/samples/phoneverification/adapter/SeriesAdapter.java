@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.RecyclerItemViewInterface;
+import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.SeriesResults;
 import com.samples.phoneverification.apimodel.URLs;
 
@@ -22,9 +22,9 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
 
     final Context context;
     ArrayList<SeriesResults> seriesResults;
-    final RecyclerItemViewInterface anInterface;
+    final RecyclerItemInterface anInterface;
 
-    public SeriesAdapter(Context context, ArrayList<SeriesResults> seriesResults, RecyclerItemViewInterface anInterface) {
+    public SeriesAdapter(Context context, ArrayList<SeriesResults> seriesResults, RecyclerItemInterface anInterface) {
         this.context = context;
         this.seriesResults = seriesResults;
         this.anInterface = anInterface;
@@ -51,9 +51,9 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
         }
 
         // TODO: 1. Need to set next functionality of OnClick Item View.
-        holder.imageView.setOnClickListener(view -> {
-            anInterface.onItemClick(holder.getBindingAdapterPosition());
-        });
+        holder.imageView.setOnClickListener(view ->
+            anInterface.onItemClick(holder.getBindingAdapterPosition())
+        );
     }
 
     @Override

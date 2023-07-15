@@ -13,12 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.samples.phoneverification.R;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class RecentSearchAdapter extends RecyclerView.Adapter<RecentSearchAdapter.RecentSearchHolder> {
 
-    private Context context;
+    private final Context context;
     private List<String> recentSearch;
     public RecentSearchAdapter(Context context, List<String> recentSearch) {
         this.context = context;
@@ -35,19 +34,24 @@ public class RecentSearchAdapter extends RecyclerView.Adapter<RecentSearchAdapte
         );
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull RecentSearchAdapter.RecentSearchHolder holder, int position) {
         String searchQuery = recentSearch.get(position);
         holder.recentSearch.setText(searchQuery);
 
         //TODO: Remove selected recent search query.
-        holder.clearSearch.setOnClickListener(v -> deleteSearchQuery(position));
+        holder.deleteSearch.setOnClickListener(v -> {
+            deleteSearchedQuery(position);
+            notifyDataSetChanged();
+        });
     }
 
-    private void deleteSearchQuery(int position) {
+    @SuppressLint("NotifyDataSetChanged")
+    private void deleteSearchedQuery(int position) {
         //TODO: delete that search query WRT position.
             recentSearch.remove(position);
-            notifyItemRemoved(position);
+            notifyDataSetChanged();
     }
 
     @Override
@@ -56,19 +60,22 @@ public class RecentSearchAdapter extends RecyclerView.Adapter<RecentSearchAdapte
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setData(List<String> recentSearchWholeRecord) {
+    public void updateData(List<String> recentSearchWholeRecord) {
         this.recentSearch = recentSearchWholeRecord;
         notifyDataSetChanged();
     }
 
+    public Context getContext() {
+        return context;
+    }
+
     public static class RecentSearchHolder extends RecyclerView.ViewHolder {
         TextView recentSearch;
-        ImageView clearSearch;
+        ImageView deleteSearch;
         public RecentSearchHolder(@NonNull View itemView) {
             super(itemView);
-
             recentSearch = itemView.findViewById(R.id.recent_search_item_text);
-            clearSearch = itemView.findViewById(R.id.clearSearchItem);
+            deleteSearch = itemView.findViewById(R.id.clearSearchItem);
         }
     }
 }

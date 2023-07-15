@@ -12,19 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.RecyclerItemViewInterface;
+import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.apimodel.MovieResults;
 
 import java.util.ArrayList;
 
 public class CarouselMAdapter extends RecyclerView.Adapter<CarouselMAdapter.CarouselHolder> {
+    private final Context context;
+    private ArrayList<MovieResults> movieResults;
+    private final RecyclerItemInterface anInterface;
 
-    final Context context;
-    ArrayList<MovieResults> movieResults;
-    final RecyclerItemViewInterface anInterface;
-
-    public CarouselMAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemViewInterface anInterface) {
+    public CarouselMAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemInterface anInterface) {
         this.context = context;
         this.movieResults = movieResults;
         this.anInterface = anInterface;
@@ -51,7 +50,7 @@ public class CarouselMAdapter extends RecyclerView.Adapter<CarouselMAdapter.Caro
         } else {
             Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL + movieResults.get(position).getBackdropPath()).into(holder.imageView);
         }
-        holder.imageView.setOnClickListener(v -> { anInterface.onItemClick(position); });
+        holder.imageView.setOnClickListener(v -> anInterface.onItemClick(position));
 
         if (position == movieResults.size() - 2 ) {
             holder.itemView.post(runnable);
@@ -67,6 +66,10 @@ public class CarouselMAdapter extends RecyclerView.Adapter<CarouselMAdapter.Caro
     public void updateData(ArrayList<MovieResults> upComingMovieArrayList) {
         this.movieResults = upComingMovieArrayList;
         notifyDataSetChanged();
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     public static class CarouselHolder extends RecyclerView.ViewHolder {

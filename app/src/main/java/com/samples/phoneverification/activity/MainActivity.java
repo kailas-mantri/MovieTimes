@@ -31,12 +31,12 @@ import com.samples.phoneverification.datamodel.StoreFirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int RC_SIGN_IN = 1;
-    private static final String TAG = "GoogleSignIn :";
+    private ActivityMainBinding binding;
+    BottomSheetDialog dialogFragment;
     private FirebaseAuth mAuth;
     DatabaseReference reference;
-    BottomSheetDialog dialogFragment;
-    ActivityMainBinding binding;
+    private static final int RC_SIGN_IN = 1;
+    private static final String TAG = "GoogleSignIn :";
     private String phoneNumber = null;
 
     @Override

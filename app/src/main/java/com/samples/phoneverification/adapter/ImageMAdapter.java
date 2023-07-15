@@ -12,18 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.apimodel.MovieResults;
-import com.samples.phoneverification.apimodel.RecyclerItemViewInterface;
+import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
 
 public class ImageMAdapter extends RecyclerView.Adapter<ImageMAdapter.ImageViewHolder> {
 
-    final Context context;
-    final ArrayList<MovieResults> movieResults;
-    final RecyclerItemViewInterface anInterface;
+    private final Context context;
+    private final ArrayList<MovieResults> movieResults;
+    private final RecyclerItemInterface anInterface;
 
-    public ImageMAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemViewInterface anInterface) {
+    public ImageMAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemInterface anInterface) {
         this.context = context;
         this.movieResults = movieResults;
         this.anInterface = anInterface;
@@ -58,6 +58,10 @@ public class ImageMAdapter extends RecyclerView.Adapter<ImageMAdapter.ImageViewH
     @Override
     public int getItemCount() {
         return movieResults.size();
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     public static class ImageViewHolder extends RecyclerView.ViewHolder {

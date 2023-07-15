@@ -6,7 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class SearchDBHelper extends SQLiteOpenHelper {
 
-    private Context context;
+    private final Context context;
     private static final String DB_NAME="search_history.db";
     private static final int DB_version= 1;
     public static final String TABLE_NAME="search_query";
@@ -24,6 +23,7 @@ public class SearchDBHelper extends SQLiteOpenHelper {
 
     public SearchDBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_version);
+        this.context = context;
     }
 
     @Override
@@ -68,5 +68,9 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         }
         db.close();
         return suggestions;
+    }
+
+    public Context getContext() {
+        return context;
     }
 }
