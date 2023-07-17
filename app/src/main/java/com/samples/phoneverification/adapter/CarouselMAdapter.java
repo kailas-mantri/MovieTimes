@@ -34,7 +34,7 @@ public class CarouselMAdapter extends RecyclerView.Adapter<CarouselMAdapter.Caro
     public CarouselHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new CarouselHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.carousel_imageslider,
+                        R.layout.custom_carousel_layout,
                         parent, false
                 )
         );

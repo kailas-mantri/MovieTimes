@@ -12,7 +12,6 @@
         android:layout_height="100sp">
 
         <RelativeLayout
-            android:id="@+id/trailer_vedio_Layer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

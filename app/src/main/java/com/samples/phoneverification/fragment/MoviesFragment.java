@@ -22,9 +22,9 @@ import com.samples.phoneverification.adapter.GenreMAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
 import com.samples.phoneverification.apimodel.GenreModel;
 import com.samples.phoneverification.apimodel.GenreResults;
+import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.MovieModel;
 import com.samples.phoneverification.apimodel.MovieResults;
-import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.FragmentMoviesBinding;
 
@@ -42,10 +42,12 @@ public class MoviesFragment extends Fragment implements RecyclerItemInterface {
 
     FragmentMoviesBinding binding;
     CarouselMAdapter adapter;
-    private int movieId;
+    private int carouselMovies, movieId;
     GenreMAdapter genreMAdapter;
     ArrayList<MovieResults> upComingMovies = new ArrayList<>();
+    ArrayList<MovieResults> movieResults = new ArrayList<>();
     ArrayList<GenreResults> genreResults = new ArrayList<>();
+    private HashMap<String, String> params = new HashMap<>();
 
     final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(URLs.BASE_URL)
@@ -110,7 +112,6 @@ public class MoviesFragment extends Fragment implements RecyclerItemInterface {
 
                 // TODO Set parameters for second API call
                 for (int i = 0; i < genreResults.size(); i++) {
-                    HashMap<String, String> params = new HashMap<>();
                     params.put("api_key", URLs.API_KEY);
                     params.put("with_genres", String.valueOf(genreResults.get(i).getId()));
 
@@ -121,7 +122,8 @@ public class MoviesFragment extends Fragment implements RecyclerItemInterface {
                         @Override
                         public void onResponse(@NonNull Call<MovieModel> call, @NonNull Response<MovieModel> response) {
                             if (response.body() != null) {
-                                genreResults.get(finalI).setMovieResults(response.body().getMovieResults());
+                                movieResults = response.body().getMovieResults();
+                                genreResults.get(finalI).setMovieResults(movieResults);
                                 genreMAdapter.updateData(genreResults);
                             }
                         }
@@ -139,6 +141,25 @@ public class MoviesFragment extends Fragment implements RecyclerItemInterface {
                 Log.w(getTag(), "onFailure: " + t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        carouselMovies = upComingMovies.get(position).getMovieId();
+        if (carouselMovies != 0) {
+            Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
+            intent.putExtra("movie_id", carouselMovies);
+            startActivity(intent);
+        }
+
+//        movieId = genreResults.get(position).getMovieResults().get(position).getMovieId();
+//        if (movieId != 0) {
+//            Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
+//            intent.putExtra("movie_id", movieId);
+//            startActivity(intent);
+//        } else {
+//            Toast.makeText(getContext(), "movie_id is null/Not correct", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     private void init_GenreAdapter() {
@@ -171,15 +192,8 @@ public class MoviesFragment extends Fragment implements RecyclerItemInterface {
         });
     }
 
-    @Override
-    public void onItemClick(int position) {
-        Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
-        intent.putExtra("movie_id", movieId);
-        startActivity(intent);
-    }
-
     private void init_CarouselAdapter() {
-        adapter = new CarouselMAdapter(requireContext(), upComingMovies, position -> {
+        adapter = new CarouselMAdapter(requireContext(), upComingMovies, (position) -> {
             movieId = upComingMovies.get(position).getMovieId();
             Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
             intent.putExtra("movie_id", movieId);

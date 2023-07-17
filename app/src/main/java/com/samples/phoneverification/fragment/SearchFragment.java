@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.samples.phoneverification.activity.ItemDetailsActivity;
+import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.adapter.RecentSearchAdapter;
 import com.samples.phoneverification.adapter.RecyclerSearchAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
@@ -183,7 +183,7 @@ public class SearchFragment extends Fragment {
     private void searchResultAdapter() {
         searchOutputAdapter = new RecyclerSearchAdapter(requireContext(), searchResults, position -> {
             SearchApiResults apiResults = searchResults.get(position);
-            Intent intent = new Intent(getContext(), ItemDetailsActivity.class);
+            Intent intent = new Intent(getContext(), SeriesDetailsActivity.class);
             intent.putExtra("selectedItemResult", apiResults);
             startActivity(intent);
         });

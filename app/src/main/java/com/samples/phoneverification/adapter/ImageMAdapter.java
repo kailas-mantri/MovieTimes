@@ -11,22 +11,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.MovieResults;
 import com.samples.phoneverification.apimodel.RecyclerItemInterface;
+import com.samples.phoneverification.apimodel.MovieResults;
 import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
 
 public class ImageMAdapter extends RecyclerView.Adapter<ImageMAdapter.ImageViewHolder> {
 
+    private int movieId;
     private final Context context;
     private final ArrayList<MovieResults> movieResults;
     private final RecyclerItemInterface anInterface;
+    int genrePosition;
 
-    public ImageMAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemInterface anInterface) {
+    public ImageMAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemInterface anInterface, int genrePosition) {
         this.context = context;
         this.movieResults = movieResults;
         this.anInterface = anInterface;
+        this.genrePosition = genrePosition;
     }
 
     @NonNull
@@ -34,7 +37,7 @@ public class ImageMAdapter extends RecyclerView.Adapter<ImageMAdapter.ImageViewH
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ImageViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.recycler_image_card_layout, parent, false
+                        R.layout.card_images_recycler_layout, parent, false
                 )
         );
     }
@@ -52,13 +55,18 @@ public class ImageMAdapter extends RecyclerView.Adapter<ImageMAdapter.ImageViewH
         }
 
         // TODO: 1. Need to set next functionality of OnClick Item View.
-        holder.imageView.setOnClickListener(view -> anInterface.onItemClick(holder.getBindingAdapterPosition()) );
+        holder.imageView.setOnClickListener(view -> {
+            if (anInterface != null) {
+                anInterface.onItemClick(position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return movieResults.size();
     }
+
 
     public Context getContext() {
         return context;

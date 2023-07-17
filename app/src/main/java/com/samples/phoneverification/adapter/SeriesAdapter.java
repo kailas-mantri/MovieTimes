@@ -35,7 +35,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.recycler_image_card_layout, parent, false
+                        R.layout.card_images_recycler_layout, parent, false
                 )
         );
     }
@@ -52,7 +52,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
 
         // TODO: 1. Need to set next functionality of OnClick Item View.
         holder.imageView.setOnClickListener(view ->
-            anInterface.onItemClick(holder.getBindingAdapterPosition())
+            anInterface.onItemClick(holder.getAdapterPosition())
         );
     }
 

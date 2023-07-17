@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.MediaTypeArray;
 import com.samples.phoneverification.apimodel.RecyclerItemInterface;
+import com.samples.phoneverification.apimodel.MediaTypeArray;
 import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;

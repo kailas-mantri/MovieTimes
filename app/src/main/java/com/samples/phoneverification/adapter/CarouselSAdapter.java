@@ -35,7 +35,7 @@ public class CarouselSAdapter extends RecyclerView.Adapter<CarouselSAdapter.Seri
     public SeriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new SeriesViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.carousel_imageslider, parent, false
+                        R.layout.custom_carousel_layout, parent, false
                 )
         );
     }

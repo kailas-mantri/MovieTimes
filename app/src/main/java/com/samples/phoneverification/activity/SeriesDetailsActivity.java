@@ -6,16 +6,16 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.samples.phoneverification.apimodel.SearchApiResults;
-import com.samples.phoneverification.databinding.ActivityItemDetailsBinding;
+import com.samples.phoneverification.databinding.ActivitySeriesDetailsBinding;
 
-public class ItemDetailsActivity extends AppCompatActivity {
+public class SeriesDetailsActivity extends AppCompatActivity {
 
-    ActivityItemDetailsBinding binding;
+    ActivitySeriesDetailsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityItemDetailsBinding.inflate(getLayoutInflater());
+        binding = ActivitySeriesDetailsBinding.inflate(getLayoutInflater());
 
         Intent intent = getIntent();
         SearchApiResults apiResults = (SearchApiResults) intent.getSerializableExtra("selectedItemResult");

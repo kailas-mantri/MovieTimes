@@ -433,7 +433,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_Carousel() {
-        adapter = new CarouselMAdapter(requireContext(), upComingMovies, position -> {
+        adapter = new CarouselMAdapter(requireContext(), upComingMovies, (position) -> {
             movieId = upComingMovies.get(position).getMovieId();
             Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
             intent.putExtra("movie_id", movieId);

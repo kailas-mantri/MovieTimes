@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,14 +48,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ActivityMovieDetailsBinding binding;
     SimpleDateFormat inputDate, outputDate;
     private int movieId;
+    private boolean isWishListed = false;
     TrailerAdapter trailerAdapter;
     private CastCrewAdapter castsCrewAdapter;
     private MovieAdapter recommendationAdapter;
-    private ArrayList<MediaTypeArray> trailerList = new ArrayList<>();
+    private ArrayList<MediaTypeArray> mediaTypeArrayList = new ArrayList<>();
+    private final ArrayList<MediaTypeArray> filteredMedia = new ArrayList<>();
     private ArrayList<CastCrewArray> castArray = new ArrayList<>();
     private ArrayList<MovieResults> recommendedResults = new ArrayList<>();
-    private ArrayList<CastCrewArray> crewArray = new ArrayList<>();
-    private final List<String> langName = new ArrayList<>();
+    ArrayList<CastCrewArray> crewArray = new ArrayList<>();
+    private final List<String> langList = new ArrayList<>();
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(URLs.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -73,7 +76,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         movieId = (int) intent.getSerializableExtra("movie_id");
         binding.toolbarBack.setOnClickListener(v -> {
-           onBackPressed();
+            onBackPressed();
         });
 
         // TODO: Call API and set UI.
@@ -89,7 +92,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<MovieItemDetails> call, @NonNull Throwable t) {
-                Log.w("API Failing", "onFailure: "+call, t.fillInStackTrace());
+                Log.w("API Failing", "onFailure: " + call, t.fillInStackTrace());
             }
         });
     }
@@ -97,7 +100,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @SuppressLint("SimpleDateFormat")
     private void AddDataToUI(MovieItemDetails itemDetails) {
 
-        /** 5. Release Date, 6. Spoken Languages, 8. Movie Description */
+        // Todo: 5. Release Date, 6. Spoken Languages, 8. Movie Description
 
         AppBarBlock(itemDetails);
 
@@ -105,24 +108,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
         outputDate = new SimpleDateFormat("dd MMMM, yyyy");
         try {
             Date date = inputDate.parse(itemDetails.getMovie_release_date());
-            if(date != null) {
-                binding.releaseOn.append(" "+outputDate.format(date));
+            if (date != null) {
+                binding.releaseOn.append(" " + outputDate.format(date));
             }
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
 
         // TODO: Set Multiple Languages
-        for (SpokenLanguages language: itemDetails.getSpoken_language()) {
-            langName.add(language.getLanguage_name());
+        for (SpokenLanguages language : itemDetails.getSpoken_language()) {
+            langList.add(language.getLanguage_name());
         }
-        String multiLang = TextUtils.join(", ", langName);
+        String multiLang = TextUtils.join(", ", langList);
 
         binding.languageVersions.setText(multiLang);
         binding.movieDescription.setText(itemDetails.getMovieOverview());
 
         // TODO: Set the Layout Mangers before Setting the adapters for recycler view
-        binding.trailerRecycler.setLayoutManager( new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
+        binding.trailerRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
         binding.castRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
         binding.recommendationRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
 
@@ -144,17 +147,28 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mediaGroupCall.enqueue(new Callback<MovieMediaGroup>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(@NonNull Call<MovieMediaGroup> call,@NonNull Response<MovieMediaGroup> response) {
+            public void onResponse(@NonNull Call<MovieMediaGroup> call, @NonNull Response<MovieMediaGroup> response) {
                 if (response.body() != null && response.isSuccessful()) {
-                    trailerList = response.body().getMediaList();
-                    trailerAdapter.updateData(trailerList);
-                    trailerAdapter.notifyDataSetChanged();
+                    //TODO: Whole Response of API.
+                    mediaTypeArrayList = response.body().getMediaList();
+
+                    //TODO: Filtered Response for Trailer and Teaser.
+                    for (MediaTypeArray array : mediaTypeArrayList) {
+                        if (array.getMedia_type().equals("Trailer") || array.getMedia_type().equals("Teaser")) {
+                            filteredMedia.add(array);
+                        }
+                    }
+                    if (!filteredMedia.isEmpty()) {
+                        trailerAdapter.updateData(filteredMedia);
+                        trailerAdapter.notifyDataSetChanged();
+                        Log.d("filteredMedia", "onResponse: " + filteredMedia.size());
+                    }
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<MovieMediaGroup> call, @NonNull Throwable t) {
-                Log.w("TrailerResponse", "onFailure: "+call, t.fillInStackTrace());
+                Log.w("TrailerResponse", "onFailure: " + call, t.fillInStackTrace());
             }
         });
     }
@@ -167,14 +181,20 @@ public class MovieDetailsActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<MovieModel> call, @NonNull Response<MovieModel> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     recommendedResults = response.body().getMovieResults();
+                    if (recommendedResults.size() == 0) {
+                        binding.recommendedHeading.setVisibility(View.INVISIBLE);
+                    } else {
+                        binding.recommendedHeading.setVisibility(View.VISIBLE);
+                    }
                     recommendationAdapter.updateData(recommendedResults);
                     recommendationAdapter.notifyDataSetChanged();
                 }
+
             }
 
             @Override
             public void onFailure(@NonNull Call<MovieModel> call, @NonNull Throwable t) {
-                Log.w("Recommendation Call", "onFailure: "+call, t.fillInStackTrace());
+                Log.w("Recommendation Call", "onFailure: " + call, t.fillInStackTrace());
             }
         });
     }
@@ -194,13 +214,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     // updateCrew Array.
                     crewArray = response.body().getCrewArrays();
                 } else {
-                    Log.w("is Null", "onResponse: "+response.body());
+                    Log.w("is Null", "onResponse: " + response.body());
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<CastPOJOModel> call, @NonNull Throwable t) {
-                Log.w("CastCall", "onFailure: "+ call, t.fillInStackTrace());
+                Log.w("CastCall", "onFailure: " + call, t.fillInStackTrace());
             }
         });
     }
@@ -217,7 +237,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void RecommendedMoviesAdapters() {
-        recommendationAdapter = new MovieAdapter(getApplicationContext(), recommendedResults,position -> {
+        recommendationAdapter = new MovieAdapter(getApplicationContext(), recommendedResults, position -> {
             Intent intent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
             intent.putExtra("movie_id", recommendedResults.get(position).getMovieId());
             startActivity(intent);
@@ -227,18 +247,19 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private void CastAdapter() {
         castsCrewAdapter = new CastCrewAdapter(getApplicationContext(), castArray, position -> {
-            Log.d("TrailerAdapterTag" , "initTrailers: "+castArray.size());
+            Log.d("TrailerAdapterTag", "initTrailers: " + castArray.size());
         });
         binding.castRecycler.setAdapter(castsCrewAdapter);
     }
 
     private void initTrailers() {
-        trailerAdapter = new TrailerAdapter(getApplicationContext(), trailerList, position -> {
-            Log.d("TrailerAdapterTag" , "initTrailers: "+trailerList.size());
+        trailerAdapter = new TrailerAdapter(getApplicationContext(), mediaTypeArrayList, position -> {
+            Log.d("TrailerAdapterTag", "initTrailers: " + mediaTypeArrayList.size());
         });
         binding.trailerRecycler.setAdapter(trailerAdapter);
     }
 
+    @SuppressLint("SetTextI18n")
     private void AppBarBlock(MovieItemDetails itemDetails) {
 
         binding.collapsingToolbar.setTitle(itemDetails.getStandardMovieTitle());
@@ -247,24 +268,23 @@ public class MovieDetailsActivity extends AppCompatActivity {
          * 2. Movie Title,
          * 3. Ratings,
          * 4. setEvent(onClick) on Add_to_wishlist */
-        Glide.with(binding.backdropPath).load(URLs.IMAGE_BASE_URL+itemDetails.getBackdrop_path())
+        Glide.with(binding.backdropPath).load(URLs.IMAGE_BASE_URL + itemDetails.getBackdrop_path())
                 .into(binding.backdropPath);
         binding.movieTitle.setText(itemDetails.getStandardMovieTitle());
 
         // TODO. Rating Bar need to set color.
-        binding.ratingBar.setRating((itemDetails.getVoteAverage()/10) * 5);
+        binding.ratingBar.setRating((itemDetails.getVoteAverage() / 10) * 5);
 
-        binding.wishList.setText(R.string.wishList_add);
 
-        binding.wishList.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                binding.wishList.setText(R.string.wishlist_remove);
-                binding.wishList.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.wishlist_remove,0,0,0);
-                Toast.makeText(this, "Added to Wishlist", Toast.LENGTH_SHORT).show();
-            } else {
+        binding.wishList.setOnClickListener(v -> {
+            if (isWishListed) {
+                isWishListed = false;
                 binding.wishList.setText(R.string.wishList_add);
-                binding.wishList.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.wishlist_add,0,0,0);
-                Toast.makeText(this, "Removed from Wishlist", Toast.LENGTH_SHORT).show();
+                binding.wishList.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.wishlist_add, 0, 0, 0);
+            } else {
+                isWishListed = true;
+                binding.wishList.setText(R.string.wishlist_remove);
+                binding.wishList.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.wishlist_remove, 0, 0, 0);
             }
         });
     }

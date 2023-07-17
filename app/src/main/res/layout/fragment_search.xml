@@ -25,17 +25,17 @@
         android:layout_below="@id/search_edit_text">
 
         <include
+            android:id="@+id/recent_search_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout="@layout/recent_search_items"
-            android:id="@+id/recent_search_layout" />
+            layout="@layout/custom_recent_search" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/after_search_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/search_edit_text"
             android:visibility="gone"
-            android:id="@+id/after_search_recycler_view"
             tools:ignore="NotSibling" />
 
     </RelativeLayout>

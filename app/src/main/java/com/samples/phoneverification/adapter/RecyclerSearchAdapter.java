@@ -34,7 +34,7 @@ public class RecyclerSearchAdapter extends RecyclerView.Adapter<RecyclerSearchAd
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.recycler_image_card_layout, parent, false
+                        R.layout.card_images_recycler_layout, parent, false
                 )
         );
     }
@@ -51,7 +51,7 @@ public class RecyclerSearchAdapter extends RecyclerView.Adapter<RecyclerSearchAd
         }
 
         holder.imageView.setOnClickListener(v ->
-           anInterface.onItemClick(holder.getBindingAdapterPosition())
+           anInterface.onItemClick(holder.getAdapterPosition())
         );
     }
 

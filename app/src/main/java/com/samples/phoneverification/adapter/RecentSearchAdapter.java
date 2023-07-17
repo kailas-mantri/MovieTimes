@@ -29,7 +29,7 @@ public class RecentSearchAdapter extends RecyclerView.Adapter<RecentSearchAdapte
     public RecentSearchAdapter.RecentSearchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new RecentSearchHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.item_recent_search, parent, false
+                        R.layout.custom_recent_keywords, parent, false
                 )
         );
     }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".activity.ItemDetailsActivity">
+    tools:context=".activity.SeriesDetailsActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -12,6 +12,5 @@
         android:id="@+id/movieName"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4" />
-
 
 </RelativeLayout>

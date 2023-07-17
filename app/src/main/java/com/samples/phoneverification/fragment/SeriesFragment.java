@@ -16,7 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.samples.phoneverification.activity.ItemDetailsActivity;
+import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.adapter.CarouselSAdapter;
 import com.samples.phoneverification.adapter.GenreSAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
@@ -166,7 +166,7 @@ public class SeriesFragment extends Fragment {
     }
 
     private void init_GenreAdapter() {
-        genreAdapter = new GenreSAdapter(requireContext(), genreResults, position -> {
+        genreAdapter = new GenreSAdapter(requireContext(), genreResults, (position) -> {
             Log.d(getTag(), "init_GenreAdapter: "+genreResults.toString());
         });
         binding.recyclerImageList.setAdapter(genreAdapter);
@@ -175,7 +175,7 @@ public class SeriesFragment extends Fragment {
     private void init_CarouselAdapter() {
         carouselSAdapter = new CarouselSAdapter(getContext(), seriesResults, position -> {
             SeriesResults results = seriesResults.get(position);
-            Intent intent = new Intent(getContext(), ItemDetailsActivity.class);
+            Intent intent = new Intent(getContext(), SeriesDetailsActivity.class);
             intent.putExtra("seriesResult", results);
             startActivity(intent);
         });

@@ -19,7 +19,6 @@ import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class CastCrewAdapter extends RecyclerView.Adapter<CastCrewAdapter.ViewHolder> {
 
