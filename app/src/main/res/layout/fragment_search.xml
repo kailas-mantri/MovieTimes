@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:background="@drawable/search_bg_with_line"
+        android:background="@drawable/bg_with_line_searchbar"
         app:iconifiedByDefault="false"
         app:queryBackground="@android:color/transparent"
         app:queryHint="@string/search_text"

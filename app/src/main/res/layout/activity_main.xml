@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background"
+    android:background="@drawable/bg_login"
     android:paddingHorizontal="16dp"
     tools:context=".activity.MainActivity">
 
@@ -54,7 +54,7 @@
                 android:layout_height="55dp"
                 android:layout_marginBottom="24sp"
                 android:gravity="start"
-                android:background="@drawable/registration_no_selector"
+                android:background="@drawable/selecter_curver_border_registration"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
@@ -96,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/mobileNumber"
-                android:background="@drawable/button_borders"
+                android:background="@drawable/shape_button_borders"
                 android:text="@string/proceed"
                 android:textAllCaps="false"
                 android:textColor="#020046"
@@ -126,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:layout_below="@id/otherT"
-                android:background="@drawable/button_borders"
+                android:background="@drawable/shape_button_borders"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:padding="8dp"
