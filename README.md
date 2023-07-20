@@ -9,9 +9,9 @@ View Movie Details and Synopsis
 Watch Trailers of Movies
 Add Movies to Wishlist
 
-# Screenshots
+## Screenshots
 
-# Tech Stack
+## Tech Stack
 - Java
 - SQLite Database
 - Retrofit for API calls
@@ -24,7 +24,7 @@ Add Movies to Wishlist
         Kotlin, LiveData, ViewModel
 
 
-#Development Phases.
+## Development Phases.
 Phase 1: *Splash Screen, Login Page*
     
     1.1. Splash Screen:
@@ -69,3 +69,4 @@ Phase 4: *Handling of SearchFunctionality and MovieDetailsActivity*
 
 
 Phase 5: _*SeriesDetailsActivity Design and implementations*_
+    ~ In Development.
