@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.RecyclerItemInterface;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.apimodel.SeriesResults;
 import com.samples.phoneverification.apimodel.URLs;
 
@@ -22,12 +22,13 @@ public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewH
     private int seriesId;
     private final Context context;
     private final ArrayList<SeriesResults> seriesResults;
-    private final RecyclerItemInterface anInterface;
-
-    public ImageSAdapter(Context context, ArrayList<SeriesResults> seriesResults, RecyclerItemInterface anInterface) {
+    private final OnRecyclerItemClickListener<SeriesResults> anInterface;
+    int genrePosition;
+    public ImageSAdapter(Context context, ArrayList<SeriesResults> seriesResults, OnRecyclerItemClickListener<SeriesResults> anInterface, int position) {
         this.context = context;
         this.seriesResults = seriesResults;
         this.anInterface = anInterface;
+        this.genrePosition = position;
     }
 
     @NonNull
@@ -56,7 +57,7 @@ public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewH
         holder.imageView.setOnClickListener(view -> {
             seriesId = seriesResults.get(position).getSeriesId();
             if (anInterface!=null) {
-                anInterface.onItemClick(seriesId);
+                anInterface.onItemClicked(seriesResults.get(position), position, 0);
             }
         } );
     }

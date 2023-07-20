@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.apimodel.GenreResults;
-import com.samples.phoneverification.apimodel.RecyclerItemInterface;
+import com.samples.phoneverification.apimodel.MovieResults;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 
 import java.util.ArrayList;
 
@@ -21,9 +22,9 @@ public class GenreMAdapter extends RecyclerView.Adapter<GenreMAdapter.GenreViewH
 
     private final Context context;
     private ArrayList<GenreResults> genreResults;
-    private final RecyclerItemInterface anInterface;
+    private final OnRecyclerItemClickListener<MovieResults> anInterface;
 
-    public GenreMAdapter(Context context, ArrayList<GenreResults> genreResults, RecyclerItemInterface anInterface) {
+    public GenreMAdapter(Context context, ArrayList<GenreResults> genreResults, OnRecyclerItemClickListener<MovieResults> anInterface) {
         this.context = context;
         this.genreResults = genreResults;
         this.anInterface = anInterface;

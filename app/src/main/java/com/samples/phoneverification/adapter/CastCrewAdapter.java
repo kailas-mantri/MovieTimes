@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.apimodel.CastCrewArray;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.URLs;
 
@@ -24,9 +25,9 @@ public class CastCrewAdapter extends RecyclerView.Adapter<CastCrewAdapter.ViewHo
 
     private final Context context;
     private ArrayList<CastCrewArray> castArrays;
-    private final RecyclerItemInterface anInterface;
+    private final OnRecyclerItemClickListener<CastCrewArray> anInterface;
 
-    public CastCrewAdapter(Context context, ArrayList<CastCrewArray> castArrays, RecyclerItemInterface anInterface) {
+    public CastCrewAdapter(Context context, ArrayList<CastCrewArray> castArrays, OnRecyclerItemClickListener<CastCrewArray> anInterface) {
         this.context = context;
         this.castArrays = castArrays;
         this.anInterface = anInterface;

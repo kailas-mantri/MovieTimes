@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.SeriesResults;
 import com.samples.phoneverification.apimodel.URLs;
@@ -22,9 +23,9 @@ public class CarouselSAdapter extends RecyclerView.Adapter<CarouselSAdapter.Seri
 
     private final Context context;
     private ArrayList<SeriesResults> seriesResults;
-    private final RecyclerItemInterface anInterface;
+    private final OnRecyclerItemClickListener<SeriesResults> anInterface;
 
-    public CarouselSAdapter(Context context, ArrayList<SeriesResults> seriesResults, RecyclerItemInterface anInterface) {
+    public CarouselSAdapter(Context context, ArrayList<SeriesResults> seriesResults, OnRecyclerItemClickListener<SeriesResults> anInterface) {
         this.context = context;
         this.seriesResults = seriesResults;
         this.anInterface = anInterface;
@@ -52,7 +53,7 @@ public class CarouselSAdapter extends RecyclerView.Adapter<CarouselSAdapter.Seri
         }
 
         // TODO:1. OnItemClick check
-        holder.imageView.setOnClickListener(v -> anInterface.onItemClick(position));
+        holder.imageView.setOnClickListener(v -> anInterface.onItemClicked(seriesResults.get(position), position, 0));
 
         if (position == seriesResults.size() - 2) {
             holder.imageView.post(runnable);

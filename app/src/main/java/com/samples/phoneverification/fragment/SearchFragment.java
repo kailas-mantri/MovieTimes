@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.samples.phoneverification.activity.MovieDetailsActivity;
 import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.adapter.RecentSearchAdapter;
 import com.samples.phoneverification.adapter.RecyclerSearchAdapter;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,7 +41,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class SearchFragment extends Fragment {
 
     FragmentSearchBinding binding;
-    ArrayList<SearchApiResults> searchResults = new ArrayList<>();
+    private ArrayList<SearchApiResults> searchResults = new ArrayList<>();
+    private ArrayList<SearchApiResults> filteredMovieList = new ArrayList<>();
+    private ArrayList<SearchApiResults> FilteredSeriesList = new ArrayList<>();
     private final LinkedList<String> recentSearch = new LinkedList<>();
     private final LinkedList<String> sHistoryRecordBook = new LinkedList<>();
     private RecentSearchAdapter recentSearchAdapter;
@@ -181,11 +185,16 @@ public class SearchFragment extends Fragment {
     }
 
     private void searchResultAdapter() {
-        searchOutputAdapter = new RecyclerSearchAdapter(requireContext(), searchResults, position -> {
-            SearchApiResults apiResults = searchResults.get(position);
-            Intent intent = new Intent(getContext(), SeriesDetailsActivity.class);
-            intent.putExtra("selectedItemResult", apiResults);
-            startActivity(intent);
+        searchOutputAdapter = new RecyclerSearchAdapter(requireContext(), searchResults, (item, position, action) -> {
+            if (item.getMediaType().equalsIgnoreCase("movie")) {
+                Intent i = new Intent(getContext(), MovieDetailsActivity.class);
+                i.putExtra("movie_id", searchResults.get(position).getItemId());
+                startActivity(i);
+            } else if (item.getMediaType().equalsIgnoreCase("tv")) {
+                Intent i = new Intent(getContext(), SeriesDetailsActivity.class);
+                i.putExtra("series_id", searchResults.get(position).getItemId());
+                startActivity(i);
+            }
         });
         binding.afterSearchRecyclerView.setAdapter(searchOutputAdapter);
     }

@@ -12,18 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.MovieResults;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
     final Context context;
-    final RecyclerItemInterface anInterface;
-    ArrayList<MovieResults> movieResults;
+    private ArrayList<MovieResults> movieResults;
+    final OnRecyclerItemClickListener<MovieResults> anInterface;
 
-    public MovieAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemInterface anInterface) {
+    public MovieAdapter(Context context, ArrayList<MovieResults> movieResults, OnRecyclerItemClickListener<MovieResults> anInterface) {
         this.context = context;
         this.movieResults = movieResults;
         this.anInterface = anInterface;
@@ -53,7 +53,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         }
 
         // TODO: 1. Need to set next functionality of OnClick Item View.
-        holder.imageView.setOnClickListener(view -> anInterface.onItemClick(holder.getAdapterPosition()) );
+        holder.imageView.setOnClickListener(view -> anInterface.onItemClicked(movieResults.get(position), position, 0) );
     }
 
     @Override

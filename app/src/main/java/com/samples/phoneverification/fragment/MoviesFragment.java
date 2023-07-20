@@ -3,6 +3,11 @@ package com.samples.phoneverification.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -10,21 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.os.Handler;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.samples.phoneverification.activity.MovieDetailsActivity;
 import com.samples.phoneverification.adapter.CarouselMAdapter;
 import com.samples.phoneverification.adapter.GenreMAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
 import com.samples.phoneverification.apimodel.GenreModel;
 import com.samples.phoneverification.apimodel.GenreResults;
-import com.samples.phoneverification.apimodel.RecyclerItemInterface;
 import com.samples.phoneverification.apimodel.MovieModel;
 import com.samples.phoneverification.apimodel.MovieResults;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.FragmentMoviesBinding;
 
@@ -38,24 +37,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class MoviesFragment extends Fragment implements RecyclerItemInterface {
+public class MoviesFragment extends Fragment {
 
     FragmentMoviesBinding binding;
     CarouselMAdapter adapter;
-    private int carouselMovies, movieId;
     GenreMAdapter genreMAdapter;
     ArrayList<MovieResults> upComingMovies = new ArrayList<>();
     ArrayList<MovieResults> movieResults = new ArrayList<>();
     ArrayList<GenreResults> genreResults = new ArrayList<>();
-    private HashMap<String, String> params = new HashMap<>();
-
-    final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(URLs.BASE_URL)
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    APIInterface anInterface = retrofit.create(APIInterface.class);
+    private final HashMap<String, String> params = new HashMap<>();
+    private APIInterface anInterface;
     private final Handler handler = new Handler();
     public MoviesFragment() {
         // Required empty public constructor
@@ -64,11 +55,18 @@ public class MoviesFragment extends Fragment implements RecyclerItemInterface {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URLs.BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        anInterface = retrofit.create(APIInterface.class);
      }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: 00. Inflate the layout for this fragment
         // TODO: 01. setRecycler LayoutManager
         // TODO: 02. ALL Adapter
@@ -77,7 +75,7 @@ public class MoviesFragment extends Fragment implements RecyclerItemInterface {
         binding = FragmentMoviesBinding.inflate(getLayoutInflater());
         binding.recyclerImageList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
-        // TODO: 03. After Setting Adapter use Timer for Auto-Sliding
+        // TODO: 04. After Setting Adapter use Timer for Auto-Sliding
         CarouselSliders();
 
         initAdapter();
@@ -143,27 +141,16 @@ public class MoviesFragment extends Fragment implements RecyclerItemInterface {
         });
     }
 
-    @Override
-    public void onItemClick(int position) {
-        carouselMovies = upComingMovies.get(position).getMovieId();
-        if (carouselMovies != 0) {
-            Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
-            intent.putExtra("movie_id", carouselMovies);
-            startActivity(intent);
-        }
-
-//        movieId = genreResults.get(position).getMovieResults().get(position).getMovieId();
-//        if (movieId != 0) {
-//            Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
-//            intent.putExtra("movie_id", movieId);
-//            startActivity(intent);
-//        } else {
-//            Toast.makeText(getContext(), "movie_id is null/Not correct", Toast.LENGTH_SHORT).show();
-//        }
-    }
-
     private void init_GenreAdapter() {
-        genreMAdapter = new GenreMAdapter(requireContext(), genreResults, this);
+        genreMAdapter = new GenreMAdapter(requireContext(), genreResults, new OnRecyclerItemClickListener<MovieResults>() {
+            @Override
+            public void onItemClicked(MovieResults item, int position, int action) {
+                int movieId = item.getMovieId();
+                Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
+                intent.putExtra("movie_id", movieId);
+                startActivity(intent);
+            }
+        });
         binding.recyclerImageList.setAdapter(genreMAdapter);
     }
 
@@ -193,10 +180,10 @@ public class MoviesFragment extends Fragment implements RecyclerItemInterface {
     }
 
     private void init_CarouselAdapter() {
-        adapter = new CarouselMAdapter(requireContext(), upComingMovies, (position) -> {
-            movieId = upComingMovies.get(position).getMovieId();
+        adapter = new CarouselMAdapter(requireContext(), upComingMovies, (item, position, action) -> {
+            int carouselMovies = upComingMovies.get(position).getMovieId();
             Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
-            intent.putExtra("movie_id", movieId);
+            intent.putExtra("movie_id", carouselMovies);
             startActivity(intent);
         });
         binding.carouselViewPager.setAdapter(adapter);

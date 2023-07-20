@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,10 +73,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         // TODO: Get Movie Id from last fragment.
         Intent intent = getIntent();
+        
         movieId = (int) intent.getSerializableExtra("movie_id");
-        binding.toolbarBack.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        binding.toolbarBack.setOnClickListener(v -> onBackPressed() );
 
         // TODO: Call API and set UI.
         Call<MovieItemDetails> details_call = anInterface.MOVIE_ITEM_DETAILS_CALL(movieId, URLs.API_KEY);
@@ -226,36 +224,34 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void initAdapters() {
-        /** 1. Trailer, Teaser Adapter*/
+        /* 1. Trailer, Teaser Adapter*/
         initTrailers();
 
-        /** 2. castAdapter*/
+        /* 2. castAdapter*/
         CastAdapter();
 
-        /** 3. RecommendedMoviesAdapters*/
+        /* 3. RecommendedMoviesAdapters*/
         RecommendedMoviesAdapters();
     }
 
     private void RecommendedMoviesAdapters() {
-        recommendationAdapter = new MovieAdapter(getApplicationContext(), recommendedResults, position -> {
+        recommendationAdapter = new MovieAdapter(getApplicationContext(), recommendedResults, (item, position, action) -> {
             Intent intent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
-            intent.putExtra("movie_id", recommendedResults.get(position).getMovieId());
+            intent.putExtra("movie_id", item.getMovieId());
             startActivity(intent);
         });
         binding.recommendationRecycler.setAdapter(recommendationAdapter);
     }
 
     private void CastAdapter() {
-        castsCrewAdapter = new CastCrewAdapter(getApplicationContext(), castArray, position -> {
-            Log.d("TrailerAdapterTag", "initTrailers: " + castArray.size());
-        });
+        castsCrewAdapter = new CastCrewAdapter(getApplicationContext(), castArray, (item, position, action) ->
+            Log.d("TrailerAdapterTag", "initTrailers: " + castArray.size()) );
         binding.castRecycler.setAdapter(castsCrewAdapter);
     }
 
     private void initTrailers() {
-        trailerAdapter = new TrailerAdapter(getApplicationContext(), mediaTypeArrayList, position -> {
-            Log.d("TrailerAdapterTag", "initTrailers: " + mediaTypeArrayList.size());
-        });
+        trailerAdapter = new TrailerAdapter(getApplicationContext(), mediaTypeArrayList, (item, position, action) ->
+            Log.d("TrailerAdapterTag", "initTrailers: " + mediaTypeArrayList.size()) );
         binding.trailerRecycler.setAdapter(trailerAdapter);
     }
 
@@ -264,7 +260,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         binding.collapsingToolbar.setTitle(itemDetails.getStandardMovieTitle());
 
-        /** 1. BackPath setup,
+        /* 1. BackPath setup,
          * 2. Movie Title,
          * 3. Ratings,
          * 4. setEvent(onClick) on Add_to_wishlist */
