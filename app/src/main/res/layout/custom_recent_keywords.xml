@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/clear_recent_search"
+        android:background="@drawable/button_delete_recent_search"
         android:contentDescription="@string/closeDialog" />
 
 </RelativeLayout>

@@ -33,7 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.activity.HomeActivity;
-import com.samples.phoneverification.databinding.FragmentBottomSheetDialogBinding;
+import com.samples.phoneverification.databinding.FragmentOtpLayoutBinding;
 import com.samples.phoneverification.datamodel.StoreFirebaseUser;
 
 import java.util.concurrent.TimeUnit;
@@ -42,7 +42,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
 
     // TODO: Rename and change types of parameters
     EditText et1, et2, et3, et4,  et5, et6;
-    FragmentBottomSheetDialogBinding binding;
+    FragmentOtpLayoutBinding binding;
     private final static String TAG = "BottomSheetDialog";
     FirebaseAuth mAuth;
     DatabaseReference mDbReference;
@@ -71,7 +71,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentBottomSheetDialogBinding.inflate(getLayoutInflater());
+        binding = FragmentOtpLayoutBinding.inflate(getLayoutInflater());
         mAuth = FirebaseAuth.getInstance();
         if (getArguments() != null)
             phoneNumber = this.getArguments().getString("phoneNumber");

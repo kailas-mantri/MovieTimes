@@ -13,18 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.apimodel.GenreResults;
-import com.samples.phoneverification.apimodel.RecyclerItemInterface;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
+import com.samples.phoneverification.apimodel.SeriesResults;
 
 import java.util.ArrayList;
 
 public class GenreSAdapter extends RecyclerView.Adapter<GenreSAdapter.GenreViewHolder> {
 
-    private int seriesId;
     private final Context context;
     private ArrayList<GenreResults> genreResults;
-    private final RecyclerItemInterface anInterface;
+    private final OnRecyclerItemClickListener<SeriesResults> anInterface;
 
-    public GenreSAdapter(Context context, ArrayList<GenreResults> genreResults, RecyclerItemInterface anInterface) {
+    public GenreSAdapter(Context context, ArrayList<GenreResults> genreResults, OnRecyclerItemClickListener<SeriesResults> anInterface) {
         this.context = context;
         this.genreResults = genreResults;
         this.anInterface = anInterface;
@@ -35,7 +35,7 @@ public class GenreSAdapter extends RecyclerView.Adapter<GenreSAdapter.GenreViewH
     public GenreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new GenreViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.recycler_card_layout, parent, false
+                        R.layout.custom_genres_recycler_layout, parent, false
                 )
         );
     }
@@ -47,15 +47,9 @@ public class GenreSAdapter extends RecyclerView.Adapter<GenreSAdapter.GenreViewH
 
         // TODO 2: set LayoutManager for Inner Recycler View.
         holder.itemWrtGenres.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        holder.itemWrtGenres.setOnClickListener(view -> {
-            seriesId = genreResults.get(holder.getBindingAdapterPosition()).getSeriesList().get(position).getSeriesId();
-            if (anInterface!=null) {
-                anInterface.onItemClick(seriesId);
-            }
-        });
 
         // TODO 3: set Adapter for items With Respect To Genres in ImageRecycler
-        holder.itemWrtGenres.setAdapter(new ImageSAdapter(context, genreResults.get(position).getSeriesList(), anInterface));
+        holder.itemWrtGenres.setAdapter(new ImageSAdapter(context, genreResults.get(position).getSeriesList(), anInterface, position));
     }
 
     @Override

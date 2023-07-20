@@ -12,18 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.RecyclerItemInterface;
-import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.apimodel.MovieResults;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
+import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
 
 public class CarouselMAdapter extends RecyclerView.Adapter<CarouselMAdapter.CarouselHolder> {
     private final Context context;
     private ArrayList<MovieResults> movieResults;
-    private final RecyclerItemInterface anInterface;
+    private final OnRecyclerItemClickListener<MovieResults> anInterface;
 
-    public CarouselMAdapter(Context context, ArrayList<MovieResults> movieResults, RecyclerItemInterface anInterface) {
+    public CarouselMAdapter(Context context, ArrayList<MovieResults> movieResults, OnRecyclerItemClickListener<MovieResults> anInterface) {
         this.context = context;
         this.movieResults = movieResults;
         this.anInterface = anInterface;
@@ -34,7 +34,7 @@ public class CarouselMAdapter extends RecyclerView.Adapter<CarouselMAdapter.Caro
     public CarouselHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new CarouselHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.carousel_imageslider,
+                        R.layout.custom_carousel_layout,
                         parent, false
                 )
         );
@@ -50,7 +50,7 @@ public class CarouselMAdapter extends RecyclerView.Adapter<CarouselMAdapter.Caro
         } else {
             Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL + movieResults.get(position).getBackdropPath()).into(holder.imageView);
         }
-        holder.imageView.setOnClickListener(v -> anInterface.onItemClick(position));
+        holder.imageView.setOnClickListener(v -> anInterface.onItemClicked(movieResults.get(position), position, 0));
 
         if (position == movieResults.size() - 2 ) {
             holder.itemView.post(runnable);

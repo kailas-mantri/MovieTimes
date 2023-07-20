@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.samples.phoneverification.activity.MovieDetailsActivity;
+import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.adapter.CarouselMAdapter;
 import com.samples.phoneverification.adapter.SeriesAdapter;
 import com.samples.phoneverification.adapter.MovieAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.apimodel.SeriesModel;
 import com.samples.phoneverification.apimodel.SeriesResults;
 import com.samples.phoneverification.apimodel.URLs;
@@ -42,7 +44,6 @@ public class HomeFragment extends Fragment {
     private CarouselMAdapter adapter;
     private MovieAdapter trendingMovieAdapter, nowPlayingMovieAdapter, topRatedMovieAdapter, popularMovieAdapter;
     private SeriesAdapter topRatedSeriesAdapter, popularSeriesAdapter, upComingSeriesAdapter;
-    private Integer movieId, seriesId;
     private ArrayList<MovieResults> upComingMovies = new ArrayList<>();
     private ArrayList<MovieResults> trendingMovies = new ArrayList<>();
     private ArrayList<MovieResults> nowPlayingMovies = new ArrayList<>();
@@ -189,12 +190,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_popularSeries() {
-        popularSeriesAdapter = new SeriesAdapter(requireContext(), popularSeries, position -> {
-            seriesId = popularSeries.get(position).getSeriesId();
-//            Intent intent = new Intent(requireActivity(), SeriesDetailsActivity.class);
-//            intent.putExtra("series_id", seriesId);
-//            startActivity(intent);
-            Log.d(getTag(), "initAdapter_topRatedSeries: "+popularSeries.toString());
+        popularSeriesAdapter = new SeriesAdapter(requireContext(), popularSeries, (item, position, action) -> {
+            int seriesId = item.getSeriesId();
+            Intent intent = new Intent(requireActivity(), SeriesDetailsActivity.class);
+            intent.putExtra("series_id", seriesId);
+            startActivity(intent);
         });
         binding.popularSeries.setAdapter(popularSeriesAdapter);
     }
@@ -222,8 +222,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_popularMovies() {
-        popularMovieAdapter = new MovieAdapter(requireContext(), popularMovies, position ->{
-            movieId = popularMovies.get(position).getMovieId();
+        popularMovieAdapter = new MovieAdapter(requireContext(), popularMovies, (item, position, action) -> {
+            int movieId = item.getMovieId();
             Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
             intent.putExtra("movie_id", movieId);
             startActivity(intent);
@@ -254,11 +254,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_topRatedSeries() {
-        topRatedSeriesAdapter = new SeriesAdapter(requireContext(), topRatedSeries, position -> {
-            seriesId = topRatedSeries.get(position).getSeriesId();
-//            Intent intent = new Intent(requireActivity(), SeriesDetailsActivity.class);
-//            intent.putExtra("series_id", seriesId);
-//            startActivity(intent);
+        topRatedSeriesAdapter = new SeriesAdapter(requireContext(), topRatedSeries, (item, position, action) -> {
+            int seriesId = item.getSeriesId();
+            Intent intent = new Intent(requireActivity(), SeriesDetailsActivity.class);
+            intent.putExtra("series_id", seriesId);
+            startActivity(intent);
             Log.d(getTag(), "initAdapter_topRatedSeries: "+topRatedSeries.toString());
         });
         binding.topRatedSeries.setAdapter(topRatedSeriesAdapter);
@@ -287,8 +287,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_topRatedMovies() {
-        topRatedMovieAdapter = new MovieAdapter(requireContext(), topRatedMovies, position -> {
-            movieId = topRatedMovies.get(position).getMovieId();
+        topRatedMovieAdapter = new MovieAdapter(requireContext(), topRatedMovies, (item, position, action) -> {
+            int movieId = item.getMovieId();
             Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
             intent.putExtra("movie_id", movieId);
             startActivity(intent);
@@ -319,11 +319,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_NowPlayingMovies() {
-        nowPlayingMovieAdapter = new MovieAdapter(requireContext(), nowPlayingMovies, position -> {
-            movieId = nowPlayingMovies.get(position).getMovieId();
-            Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
-            intent.putExtra("movie_id", movieId);
-            startActivity(intent);
+        nowPlayingMovieAdapter = new MovieAdapter(requireContext(), nowPlayingMovies, (item, position, action) -> {
+            int movieId = item.getMovieId();
+            Intent i = new Intent(requireActivity(), MovieDetailsActivity.class);
+            i.putExtra("movie_id", movieId);
+            startActivity(i);
         });
         binding.nowPlayingMovies.setAdapter(nowPlayingMovieAdapter);
     }
@@ -351,12 +351,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_upComingSeries() {
-        upComingSeriesAdapter = new SeriesAdapter(requireContext(), upComingSeries, position -> {
-            seriesId = upComingSeries.get(position).getSeriesId();
-//            Intent intent = new Intent(requireActivity(), SeriesDetailsActivity.class);
-//            intent.putExtra("series_id", seriesId);
-//            startActivity(intent);
-            Log.d(getTag(), "initAdapter_topRatedSeries: "+upComingSeries.toString());
+        upComingSeriesAdapter = new SeriesAdapter(requireContext(), upComingSeries, (item, position, action) -> {
+            int seriesId = item.getSeriesId();
+            Intent intent = new Intent(requireActivity(), SeriesDetailsActivity.class);
+            intent.putExtra("series_id", seriesId);
+            startActivity(intent);
         });
         binding.upComingSeries.setAdapter(upComingSeriesAdapter);
     }
@@ -387,8 +386,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_trendingMovies() {
-        trendingMovieAdapter = new MovieAdapter(getContext(), trendingMovies, position -> {
-            movieId = trendingMovies.get(position).getMovieId();
+        trendingMovieAdapter = new MovieAdapter(getContext(), trendingMovies, (item, position, action) -> {
+            int movieId = item.getMovieId();
             Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
             intent.putExtra("movie_id", movieId);
             startActivity(intent);
@@ -433,11 +432,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_Carousel() {
-        adapter = new CarouselMAdapter(requireContext(), upComingMovies, position -> {
-            movieId = upComingMovies.get(position).getMovieId();
-            Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
-            intent.putExtra("movie_id", movieId);
-            startActivity(intent);
+        adapter = new CarouselMAdapter(requireContext(), upComingMovies, new OnRecyclerItemClickListener<MovieResults>() {
+            @Override
+            public void onItemClicked(MovieResults item, int position, int action) {
+                int movieId = upComingMovies.get(position).getMovieId();
+                Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
+                intent.putExtra("movie_id", movieId);
+                startActivity(intent);
+            }
         });
         binding.myViewPager.setAdapter(adapter);
     }

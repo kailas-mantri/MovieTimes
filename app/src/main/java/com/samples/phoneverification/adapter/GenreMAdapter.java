@@ -13,18 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.apimodel.GenreResults;
-import com.samples.phoneverification.apimodel.RecyclerItemInterface;
+import com.samples.phoneverification.apimodel.MovieResults;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 
 import java.util.ArrayList;
 
 public class GenreMAdapter extends RecyclerView.Adapter<GenreMAdapter.GenreViewHolder> {
 
-    private int movieId;
     private final Context context;
     private ArrayList<GenreResults> genreResults;
-    private final RecyclerItemInterface anInterface;
+    private final OnRecyclerItemClickListener<MovieResults> anInterface;
 
-    public GenreMAdapter(Context context, ArrayList<GenreResults> genreResults, RecyclerItemInterface anInterface) {
+    public GenreMAdapter(Context context, ArrayList<GenreResults> genreResults, OnRecyclerItemClickListener<MovieResults> anInterface) {
         this.context = context;
         this.genreResults = genreResults;
         this.anInterface = anInterface;
@@ -35,7 +35,7 @@ public class GenreMAdapter extends RecyclerView.Adapter<GenreMAdapter.GenreViewH
     public GenreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new GenreViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.recycler_card_layout, parent, false
+                        R.layout.custom_genres_recycler_layout, parent, false
                 )
         );
     }
@@ -48,15 +48,8 @@ public class GenreMAdapter extends RecyclerView.Adapter<GenreMAdapter.GenreViewH
         // TODO 2: set LayoutManager for Inner Recycler View.
         holder.itemWrtGenres.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
-        holder.itemWrtGenres.setOnClickListener(view -> {
-            movieId = genreResults.get(holder.getBindingAdapterPosition()).getMovieResults().get(position).getMovieId();
-            if (anInterface != null) {
-                anInterface.onItemClick(movieId);
-            }
-        });
-
         // TODO 3: set Adapter for items With Respect To Genres in ImageRecycler
-        holder.itemWrtGenres.setAdapter(new ImageMAdapter(context, genreResults.get(position).getMovieResults(), anInterface));
+        holder.itemWrtGenres.setAdapter(new ImageMAdapter(context, genreResults.get(position).getMovieResults(), anInterface, position));
     }
 
     @Override

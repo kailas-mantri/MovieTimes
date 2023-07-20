@@ -44,11 +44,11 @@
     <string name="recentSearch">Recent Searches</string>
 
     <!-- TODO: Movie Details Activity contents -->
-    <string name="wishList_add"> Add to Wishlist</string>
+    <string name="wishList_add">  Add to Wishlist</string>
     <string name="wishlist_remove">Remove from Wishlist</string>
-    <string name="releaseDate">Release Date: </string>
+    <string name="releaseDate">Release Date : </string>
+    <string name="availableOn">Available On</string>
     <string name="languages">Languages</string>
-    <string name="multiLanguages">Multiple Languages</string>
     <string name="trailerTitle">Teasers and Trailers</string>
     <string name="describe">Description</string>
     <string name="cast">Cast and Crew</string>
@@ -58,5 +58,8 @@
     <string name="recommended_movie_title">Recommended Movies</string>
 
     <!-- TODO: -->
+    <string name="series_title">Series Title</string>
+    <string name="series_date">series date</string>
+    <string name="episodes">Episodes</string>
 
 </resources>

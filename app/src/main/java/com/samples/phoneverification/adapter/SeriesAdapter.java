@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.RecyclerItemInterface;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.apimodel.SeriesResults;
 import com.samples.phoneverification.apimodel.URLs;
 
@@ -22,9 +22,9 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
 
     final Context context;
     ArrayList<SeriesResults> seriesResults;
-    final RecyclerItemInterface anInterface;
+    final OnRecyclerItemClickListener<SeriesResults> anInterface;
 
-    public SeriesAdapter(Context context, ArrayList<SeriesResults> seriesResults, RecyclerItemInterface anInterface) {
+    public SeriesAdapter(Context context, ArrayList<SeriesResults> seriesResults, OnRecyclerItemClickListener<SeriesResults> anInterface) {
         this.context = context;
         this.seriesResults = seriesResults;
         this.anInterface = anInterface;
@@ -35,7 +35,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.recycler_image_card_layout, parent, false
+                        R.layout.card_images_recycler_layout, parent, false
                 )
         );
     }
@@ -52,7 +52,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
 
         // TODO: 1. Need to set next functionality of OnClick Item View.
         holder.imageView.setOnClickListener(view ->
-            anInterface.onItemClick(holder.getBindingAdapterPosition())
+            anInterface.onItemClicked(seriesResults.get(position), position, 0)
         );
     }
 

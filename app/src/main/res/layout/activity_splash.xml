@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:layout_centerInParent="true"
-    android:background="@drawable/launch_background"
+    android:background="@drawable/bg_launch"
     tools:context=".activity.SplashActivity">
 
     <ImageView

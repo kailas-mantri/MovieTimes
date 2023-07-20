@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.RecyclerItemInterface;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.apimodel.SearchApiResults;
 import com.samples.phoneverification.apimodel.URLs;
 
@@ -21,9 +21,9 @@ public class RecyclerSearchAdapter extends RecyclerView.Adapter<RecyclerSearchAd
 
     private final Context context;
     private ArrayList<SearchApiResults> apiResults;
-    private final RecyclerItemInterface anInterface;
+    private final OnRecyclerItemClickListener<SearchApiResults> anInterface;
 
-    public RecyclerSearchAdapter(Context context, ArrayList<SearchApiResults> apiResults, RecyclerItemInterface anInterface) {
+    public RecyclerSearchAdapter(Context context, ArrayList<SearchApiResults> apiResults, OnRecyclerItemClickListener<SearchApiResults> anInterface) {
         this.context = context;
         this.apiResults = apiResults;
         this.anInterface = anInterface;
@@ -34,7 +34,7 @@ public class RecyclerSearchAdapter extends RecyclerView.Adapter<RecyclerSearchAd
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.recycler_image_card_layout, parent, false
+                        R.layout.card_images_recycler_layout, parent, false
                 )
         );
     }
@@ -51,7 +51,7 @@ public class RecyclerSearchAdapter extends RecyclerView.Adapter<RecyclerSearchAd
         }
 
         holder.imageView.setOnClickListener(v ->
-           anInterface.onItemClick(holder.getBindingAdapterPosition())
+           anInterface.onItemClicked(apiResults.get(position), position, 0)
         );
     }
 

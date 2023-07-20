@@ -3,6 +3,11 @@ package com.samples.phoneverification.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -10,18 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.os.Handler;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.samples.phoneverification.activity.ItemDetailsActivity;
+import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.adapter.CarouselSAdapter;
 import com.samples.phoneverification.adapter.GenreSAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
 import com.samples.phoneverification.apimodel.GenreModel;
 import com.samples.phoneverification.apimodel.GenreResults;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.apimodel.SeriesModel;
 import com.samples.phoneverification.apimodel.SeriesResults;
 import com.samples.phoneverification.apimodel.URLs;
@@ -44,13 +44,7 @@ public class SeriesFragment extends Fragment {
     GenreSAdapter genreAdapter;
     ArrayList<SeriesResults> seriesResults = new ArrayList<>();
     ArrayList<GenreResults> genreResults = new ArrayList<>();
-    final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(URLs.BASE_URL)
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    APIInterface anInterface = retrofit.create(APIInterface.class);
+    private APIInterface anInterface;
     private final Handler handler = new Handler();
 
     public SeriesFragment() {
@@ -60,6 +54,12 @@ public class SeriesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URLs.BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        anInterface = retrofit.create(APIInterface.class);
     }
 
     @Override
@@ -166,18 +166,24 @@ public class SeriesFragment extends Fragment {
     }
 
     private void init_GenreAdapter() {
-        genreAdapter = new GenreSAdapter(requireContext(), genreResults, position -> {
-            Log.d(getTag(), "init_GenreAdapter: "+genreResults.toString());
+        genreAdapter = new GenreSAdapter(requireContext(), genreResults, new OnRecyclerItemClickListener<SeriesResults>() {
+            @Override
+            public void onItemClicked(SeriesResults item, int position, int action) {
+                int seriesId = item.getSeriesId();
+                Intent intent = new Intent(requireActivity(), SeriesDetailsActivity.class);
+                intent.putExtra("series_id", seriesId);
+                startActivity(intent);
+            }
         });
         binding.recyclerImageList.setAdapter(genreAdapter);
     }
 
     private void init_CarouselAdapter() {
-        carouselSAdapter = new CarouselSAdapter(getContext(), seriesResults, position -> {
-            SeriesResults results = seriesResults.get(position);
-            Intent intent = new Intent(getContext(), ItemDetailsActivity.class);
-            intent.putExtra("seriesResult", results);
-            startActivity(intent);
+        carouselSAdapter = new CarouselSAdapter(requireContext(), seriesResults, (item, position, action) -> {
+            int seriesId = item.getSeriesId();
+            Intent i = new Intent(requireActivity(), SeriesDetailsActivity.class);
+            i.putExtra("series_id", seriesId);
+            startActivity(i);
         });
         binding.carouselViewPager.setAdapter(carouselSAdapter);
     }

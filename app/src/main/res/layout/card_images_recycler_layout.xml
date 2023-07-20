@@ -12,7 +12,7 @@
         android:layout_height="170dp"
         android:id="@+id/movieOrSeriesImages"
         android:scaleType="fitXY"
-        android:background="@drawable/rounded_borders"
+        android:background="@drawable/bg_border_round"
         android:src="@drawable/ic_launcher_foreground"
         android:contentDescription="@string/description" />
 

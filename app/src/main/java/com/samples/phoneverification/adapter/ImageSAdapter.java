@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.apimodel.RecyclerItemInterface;
+import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.apimodel.SeriesResults;
 import com.samples.phoneverification.apimodel.URLs;
 
@@ -19,14 +19,16 @@ import java.util.ArrayList;
 
 public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewHolder> {
 
+    private int seriesId;
     private final Context context;
     private final ArrayList<SeriesResults> seriesResults;
-    private final RecyclerItemInterface anInterface;
-
-    public ImageSAdapter(Context context, ArrayList<SeriesResults> seriesResults, RecyclerItemInterface anInterface) {
+    private final OnRecyclerItemClickListener<SeriesResults> anInterface;
+    int genrePosition;
+    public ImageSAdapter(Context context, ArrayList<SeriesResults> seriesResults, OnRecyclerItemClickListener<SeriesResults> anInterface, int position) {
         this.context = context;
         this.seriesResults = seriesResults;
         this.anInterface = anInterface;
+        this.genrePosition = position;
     }
 
     @NonNull
@@ -34,7 +36,7 @@ public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewH
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ImageViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.recycler_image_card_layout, parent, false
+                        R.layout.card_images_recycler_layout, parent, false
                 )
         );
     }
@@ -52,7 +54,12 @@ public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewH
         }
 
         // TODO: 1. Need to set next functionality of OnClick Item View.
-        holder.imageView.setOnClickListener(view -> anInterface.onItemClick(holder.getBindingAdapterPosition()) );
+        holder.imageView.setOnClickListener(view -> {
+            seriesId = seriesResults.get(position).getSeriesId();
+            if (anInterface!=null) {
+                anInterface.onItemClicked(seriesResults.get(position), position, 0);
+            }
+        } );
     }
 
     @Override

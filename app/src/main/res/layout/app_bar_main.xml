@@ -23,7 +23,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:src="@drawable/nav_menu"
+                    android:src="@drawable/app_nav_menu"
                     android:scaleType="fitCenter"
                     android:layout_alignParentStart="true"
                     android:contentDescription="@string/app_logo" />
@@ -43,7 +43,7 @@
                     android:layout_height="28sp"
                     android:id="@+id/launch_screen"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/nav_logo"
+                    android:src="@drawable/app_nav_logo"
                     android:contentDescription="@string/app_logo" />
 
             </RelativeLayout>
