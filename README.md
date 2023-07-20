@@ -1,15 +1,16 @@
-# figma
+# MovieTimes
 
 MovieTimes is a mobile application that allows users to discover and explore movies and TV shows easily. It provides a user-friendly interface to browse through various genres, view movie details, watch trailers, and add movies to the wishlist.
 
-# Features
-Browse Trending Movies and TV Shows
-Filter Movies and TV Shows by Genres
-View Movie Details and Synopsis
-Watch Trailers of Movies
-Add Movies to Wishlist
+## Features
+- Browse Trending Movies and TV Shows
+- Filter Movies and TV Shows by Genres
+- View Movie Details and Synopsis
+- Watch Trailers of Movies
+- Add Movies to Wishlist
 
 ## Screenshots
+    - In Upcoming Updates.
 
 ## Tech Stack
 - Java
