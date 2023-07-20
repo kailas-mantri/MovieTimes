@@ -12,12 +12,12 @@ Add Movies to Wishlist
 # Screenshots
 
 # Tech Stack
-Java
-SQLite Database
-Retrofit for API calls
-Glide for Image Loading
-Material Design Components
-RecyclerView for List Display
+- Java
+- SQLite Database
+- Retrofit for API calls
+- Glide for Image Loading
+- Material Design Components
+- RecyclerView for List Display
 
 - Upcoming Updates:
     Kotlin, LiveData, ViewModel
