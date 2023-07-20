@@ -16,14 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.samples.phoneverification.activity.SeriesDetailsActivity;
-import com.samples.phoneverification.adapter.CarouselSAdapter;
-import com.samples.phoneverification.adapter.GenreSAdapter;
+import com.samples.phoneverification.controller.CarouselSAdapter;
+import com.samples.phoneverification.controller.GenreSAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
-import com.samples.phoneverification.apimodel.GenreModel;
-import com.samples.phoneverification.apimodel.GenreResults;
+import com.samples.phoneverification.model.GenreModel;
+import com.samples.phoneverification.model.GenreResults;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
-import com.samples.phoneverification.apimodel.SeriesModel;
-import com.samples.phoneverification.apimodel.SeriesResults;
+import com.samples.phoneverification.model.SeriesModel;
+import com.samples.phoneverification.model.SeriesResults;
 import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.FragmentSeriesBinding;
 

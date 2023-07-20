@@ -17,16 +17,16 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.samples.phoneverification.activity.MovieDetailsActivity;
 import com.samples.phoneverification.activity.SeriesDetailsActivity;
-import com.samples.phoneverification.adapter.CarouselMAdapter;
-import com.samples.phoneverification.adapter.SeriesAdapter;
-import com.samples.phoneverification.adapter.MovieAdapter;
+import com.samples.phoneverification.controller.CarouselMAdapter;
+import com.samples.phoneverification.controller.SeriesAdapter;
+import com.samples.phoneverification.controller.MovieAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
-import com.samples.phoneverification.apimodel.SeriesModel;
-import com.samples.phoneverification.apimodel.SeriesResults;
+import com.samples.phoneverification.model.SeriesModel;
+import com.samples.phoneverification.model.SeriesResults;
 import com.samples.phoneverification.apimodel.URLs;
-import com.samples.phoneverification.apimodel.MovieResults;
-import com.samples.phoneverification.apimodel.MovieModel;
+import com.samples.phoneverification.model.MovieResults;
+import com.samples.phoneverification.model.MovieModel;
 import com.samples.phoneverification.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;

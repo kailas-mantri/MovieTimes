@@ -120,23 +120,49 @@
         android:layout_below="@id/app_bar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:paddingHorizontal="8dp" >
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_seasons"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="textStart"
-                app:tabGravity="fill"
-                app:tabMode="scrollable" />
+                android:layout_height="wrap_content" />
 
+                <include
+                    android:id="@+id/season_short_information"
+                    layout="@layout/card_series_details_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/recycler_seasons"/>
 
-        </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/season_short_information"
+                    android:layout_marginTop="8sp">
+
+                    <TextView
+                        android:id="@+id/episode_heading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5sp"
+                        android:text="@string/episodes"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/episode_recycler_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/episode_heading" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

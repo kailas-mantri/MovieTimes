@@ -61,5 +61,6 @@
     <string name="series_title">Series Title</string>
     <string name="series_date">series date</string>
     <string name="episodes">Episodes</string>
+    <string name="seasonNo">Season </string>
 
 </resources>

@@ -14,18 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.adapter.CastCrewAdapter;
-import com.samples.phoneverification.adapter.MovieAdapter;
-import com.samples.phoneverification.adapter.TrailerAdapter;
+import com.samples.phoneverification.controller.CastCrewAdapter;
+import com.samples.phoneverification.controller.MovieAdapter;
+import com.samples.phoneverification.controller.TrailerAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
-import com.samples.phoneverification.apimodel.CastCrewArray;
-import com.samples.phoneverification.apimodel.CastPOJOModel;
-import com.samples.phoneverification.apimodel.MediaTypeArray;
-import com.samples.phoneverification.apimodel.MovieItemDetails;
-import com.samples.phoneverification.apimodel.MovieMediaGroup;
-import com.samples.phoneverification.apimodel.MovieModel;
-import com.samples.phoneverification.apimodel.MovieResults;
-import com.samples.phoneverification.apimodel.SpokenLanguages;
+import com.samples.phoneverification.model.CastCrewArray;
+import com.samples.phoneverification.model.CastPOJOModel;
+import com.samples.phoneverification.model.MediaTypeArray;
+import com.samples.phoneverification.model.MovieItemDetails;
+import com.samples.phoneverification.model.MovieMediaGroup;
+import com.samples.phoneverification.model.MovieModel;
+import com.samples.phoneverification.model.MovieResults;
+import com.samples.phoneverification.model.SpokenLanguages;
 import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.ActivityMovieDetailsBinding;
 
@@ -269,8 +269,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         binding.movieTitle.setText(itemDetails.getStandardMovieTitle());
 
         // TODO. Rating Bar need to set color.
-        binding.ratingBar.setRating((itemDetails.getVoteAverage() / 10) * 5);
-
+        binding.ratingBar.setRating((float) (itemDetails.getVoteAverage() / 10) * 5);
 
         binding.wishList.setOnClickListener(v -> {
             if (isWishListed) {
