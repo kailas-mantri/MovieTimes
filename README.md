@@ -19,8 +19,9 @@ Add Movies to Wishlist
 - Material Design Components
 - RecyclerView for List Display
 
-- Upcoming Updates:
-    Kotlin, LiveData, ViewModel
+
+    - Upcoming Updates:
+        Kotlin, LiveData, ViewModel
 
 
 #Development Phases.
