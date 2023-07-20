@@ -1,55 +1,70 @@
 # figma
 
-The Customised Android Application with Firebase Authentication, Realtime Database as well as TMDB
-database, and implementation of API's. continues to develop further to achieve the payment gateway 
-implementation for subscribers to watch LATEST, premium movies, serise on rent for 30 days.  
+MovieTimes is a mobile application that allows users to discover and explore movies and TV shows easily. It provides a user-friendly interface to browse through various genres, view movie details, watch trailers, and add movies to the wishlist.
 
-Phase 1: *Completed*
-    ~ Splash Screen, Login Page
+# Features
+Browse Trending Movies and TV Shows
+Filter Movies and TV Shows by Genres
+View Movie Details and Synopsis
+Watch Trailers of Movies
+Add Movies to Wishlist
+
+# Screenshots
+
+# Tech Stack
+Java
+SQLite Database
+Retrofit for API calls
+Glide for Image Loading
+Material Design Components
+RecyclerView for List Display
+
+- Upcoming Updates:
+    Kotlin, LiveData, ViewModel
+
+
+#Development Phases.
+Phase 1: *Splash Screen, Login Page*
     
     1.1. Splash Screen:
-         The screen with Application logo while launching the application.
+         The launch screen of application.
             
     1.2. Login Page : 
-         followed by Phone Authentication and GoogleSign In Authentication using Firebase 
-         Database.
-
-    1.3. Phone Authentication:
-         Contain the mobile Number with a Constant CC (+91) IND, follows with OTP verification.
+         followed by 'Phone & GoogleSignIn' Authentication using Firebase Database.
+         
+         1.2.1. Phone Authentication:
+             Authorization with mobile Number with OTP verification.
            
     1.4. GoogleSign In:
          Google Account Sign In.
 
-Phase 2: **In Process*
-    ~ **Navigation Drawer** customization for fragment Layout in Navigation drawer using fragment 
-    instead of menu items for navigation, then **BottomNavigation** using menu items with help of
-    supportive fragments.
+Phase 2: Customise **BottomNavigation** using menu items with supportive fragments.
+
+    Upcoming Feature: *Navigation Drawer* for Navigation using fragment instead of menu items for navigation.
 
     2.1. Bottom Navigation:
-         The Bottom Navigation View is created using menu items and frameLayout to make movements 
-         of fragments with respect to menu items.
+         The BottomNavigation View using menu items and frameLayout Manager to switch fragments with respect to menu Id.
 
     2.2. Navigation Drawer:
          **In Progress**
 
-
-Phase 3: **In Process*
-    ~ *Implementation of API* for (HOME Fragment, Movie Fragment, Series Fragment, Search 
-    Fragment).
+Phase 3: *API Implementation* - (HOME, Movie, Series, Search) Fragment.
+    ~ POJO class creation, Adapter creation. 
 
     3.1. HomeFragment:
-         This page Contain Movie Carousel and Various Adapter classes ("Need to minimize it by 
-         single Adapter)", As well as movie and series types.
+         Home has movie and series types in RecyclerView.
 
     3.2. MovieFragment:
-         This page contain Movie Carousel and RecyclerView to get movies.
+         This page has movies Carousel and RecyclerView.
 
-    3.3. SeriesFragment:
-         This page contain Series Carousel and RecyclerView to get Series.
+    3.3. SerisFragment:
+         This page has Series Carousel and RecyclerView.
 
     3.4. SearchFragment:
-         This Page contain Mix search bar to serach movie or series, accross the application.
+         This Page has (MIX - API call) to SearchBar for movie/series search and recent search.
+
+Phase 4: *Handling of SearchFunctionality and MovieDetailsActivity*
+    ~ Activation of OnItemClicked Function with respect to id, API Implementation, Adapter Creation, Inplicite Intent, Collapsing Toolbar.
 
 
-Phase 4:
-    ~ **Implement onClick Functionality** on each item of each fragment **w.r.t. position*.
+Phase 5: _*SeriesDetailsActivity Design and implementations*_
