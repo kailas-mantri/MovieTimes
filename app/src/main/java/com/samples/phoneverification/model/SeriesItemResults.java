@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SeriesItemIdResults implements Serializable {
+public class SeriesItemResults implements Serializable {
 
     @SerializedName("adult")
     public boolean isAdult;
@@ -106,14 +106,14 @@ public class SeriesItemIdResults implements Serializable {
     @SerializedName("vote_count")
     private int voteCount;
 
-    public SeriesItemIdResults(boolean isAdult, String backdropPath, ArrayList<SeriesCreatedBy> seriesCreatedBy, int[] episodeRunTime,
-                               String firstAirDate, ArrayList<GenreResults> genreResults, String webHomepage, int seriesId, boolean inProduction,
-                               String[] languageUsed, String lastAirDate, LastEpisodeToAir lastEpisodeToAir, String seriesTitle,
-                               Object nextEpisodeToAir, ArrayList<SeriesNetworks> networks, int numberOfEpisodes, int numberOfSeasons,
-                               String[] originCountry, String originalLanguage, String originalName, String seriesOverview,
-                               double popularity, String posterPath, ArrayList<ProductionCompanies> productionCompanies,
-                               ArrayList<ProductionCountries> productionCountries, ArrayList<Seasons> seasons, ArrayList<SpokenLanguages> spokenLanguages,
-                               String status, String tagline, String type, double voteAverage, int voteCount) {
+    public SeriesItemResults(boolean isAdult, String backdropPath, ArrayList<SeriesCreatedBy> seriesCreatedBy, int[] episodeRunTime,
+                             String firstAirDate, ArrayList<GenreResults> genreResults, String webHomepage, int seriesId, boolean inProduction,
+                             String[] languageUsed, String lastAirDate, LastEpisodeToAir lastEpisodeToAir, String seriesTitle,
+                             Object nextEpisodeToAir, ArrayList<SeriesNetworks> networks, int numberOfEpisodes, int numberOfSeasons,
+                             String[] originCountry, String originalLanguage, String originalName, String seriesOverview,
+                             double popularity, String posterPath, ArrayList<ProductionCompanies> productionCompanies,
+                             ArrayList<ProductionCountries> productionCountries, ArrayList<Seasons> seasons, ArrayList<SpokenLanguages> spokenLanguages,
+                             String status, String tagline, String type, double voteAverage, int voteCount) {
         this.isAdult = isAdult;
         this.backdropPath = backdropPath;
         this.seriesCreatedBy = seriesCreatedBy;

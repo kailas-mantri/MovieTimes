@@ -62,5 +62,6 @@
     <string name="series_date">series date</string>
     <string name="episodes">Episodes</string>
     <string name="seasonNo">Season </string>
+    <string name="recommended_series_title">Recommended Series</string>
 
 </resources>

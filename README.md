@@ -8,6 +8,7 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 - View Movie Details and Synopsis
 - Watch Trailers of Movies
 - Add Movies to Wishlist
+- Architecture MVC model.
 
 ## Screenshots
     - In Upcoming Updates.
@@ -21,8 +22,7 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 - RecyclerView for List Display
 
 
-    - Upcoming Updates:
-        Kotlin, LiveData, ViewModel
+    - Upcoming Updates: *Kotlin, LiveData, ViewModel*
 
 
 ## Development Phases.
@@ -66,7 +66,7 @@ Phase 3: *API Implementation* - (HOME, Movie, Series, Search) Fragment.
          This Page has (MIX - API call) to SearchBar for movie/series search and recent search.
 
 Phase 4: *Handling of SearchFunctionality and MovieDetailsActivity*
-    ~ Activation of OnItemClicked Function with respect to id, API Implementation, Adapter Creation, Inplicite Intent, Collapsing Toolbar.
+    ~ Activation of OnItemClicked Function with respect to id, API Implementation, Adapter Creation, Implicit Intent, Collapsing Toolbar.
 
 
 Phase 5: _*SeriesDetailsActivity Design and implementations*_

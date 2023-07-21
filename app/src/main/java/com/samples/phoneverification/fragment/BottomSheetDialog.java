@@ -34,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.activity.HomeActivity;
 import com.samples.phoneverification.databinding.FragmentOtpLayoutBinding;
-import com.samples.phoneverification.datamodel.StoreFirebaseUser;
+import com.samples.phoneverification.dbmodel.StoreFirebaseUser;
 
 import java.util.concurrent.TimeUnit;
 

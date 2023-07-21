@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_activity"
     android:fitsSystemWindows="true"
     tools:context=".activity.SeriesDetailsActivity">
 
@@ -122,46 +123,199 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="8dp" >
+            android:layout_height="wrap_content">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_seasons"
+            <RelativeLayout
+                android:id="@+id/season_title_block"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="?attr/actionBarSize">
 
-                <include
-                    android:id="@+id/season_short_information"
-                    layout="@layout/card_series_details_layout"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_seasons"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/recycler_seasons"/>
+                    android:layout_height="match_parent" />
 
-                <RelativeLayout
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/season_short_note"
+                layout="@layout/card_series_details_layout"
+                android:layout_width="match_parent"
+                android:layout_marginVertical="8sp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/season_title_block" />
+
+            <RelativeLayout
+                android:id="@+id/episodes_block"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/season_short_note"
+                android:paddingStart="16sp"
+                android:paddingBottom="8sp"
+                android:paddingEnd="8sp">
+
+                <TextView
+                    android:id="@+id/episode_heading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/season_short_information"
-                    android:layout_marginTop="8sp">
+                    android:text="@string/episodes"
+                    android:paddingBottom="6sp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/episode_recycler_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/episode_heading" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/static_season_block"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16sp"
+                android:paddingEnd="2sp"
+                android:layout_below="@id/episodes_block"
+                tools:ignore="RtlSymmetry">
+
+                <TextView
+                    android:id="@+id/releaseDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4sp"
+                    android:text="@string/releaseDate"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/releaseOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toEndOf="@+id/releaseDate"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/availableOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/releaseOn"
+                    android:paddingTop="8sp"
+                    android:text="@string/availableOn"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+
+                <RelativeLayout
+                    android:id="@+id/block"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/availableOn"
+                    android:paddingTop="8sp"
+                    android:paddingBottom="16sp">
 
                     <TextView
-                        android:id="@+id/episode_heading"
+                        android:id="@+id/languageHeading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5sp"
-                        android:text="@string/episodes"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:paddingBottom="3sp"
+                        android:text="@string/languages"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/languageVersions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/languageHeading"
+                        android:paddingBottom="8sp"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/trailerHeading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/languageVersions"
+                        android:paddingBottom="4sp"
+                        android:text="@string/trailerTitle"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/episode_recycler_list"
+                        android:id="@+id/trailer_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/episode_heading" />
+                        android:layout_below="@+id/trailerHeading"
+                        android:paddingBottom="8sp" />
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/trailer_recycler"
+                        android:paddingBottom="3sp"
+                        android:text="@string/describe"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seriesDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/description"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textColor="@color/white" />
 
                 </RelativeLayout>
 
+                <TextView
+                    android:id="@+id/starCastTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/block"
+                    android:paddingBottom="4sp"
+                    android:text="@string/cast"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cast_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/starCastTitle"
+                    android:layout_marginBottom="9sp"
+                    android:paddingBottom="16dp" />
+
+                <TextView
+                    android:id="@+id/recommendedHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cast_recycler"
+                    android:text="@string/recommended_series_title"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recommendationRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/recommendedHeading" />
+
             </RelativeLayout>
+
+        </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
 

@@ -1,6 +1,5 @@
-package com.samples.phoneverification.controller;
+package com.samples.phoneverification.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,30 +17,31 @@ import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
-    final Context context;
-    private ArrayList<MovieResults> movieResults;
-    final OnRecyclerItemClickListener<MovieResults> anInterface;
+public class ImageMAdapter extends RecyclerView.Adapter<ImageMAdapter.ImageViewHolder> {
 
-    public MovieAdapter(Context context, ArrayList<MovieResults> movieResults, OnRecyclerItemClickListener<MovieResults> anInterface) {
+    private final Context context;
+    private final ArrayList<MovieResults> movieResults;
+    private final OnRecyclerItemClickListener<MovieResults> anInterface;
+    int genrePosition;
+    public ImageMAdapter(Context context, ArrayList<MovieResults> movieResults, OnRecyclerItemClickListener<MovieResults> anInterface, int genrePosition) {
         this.context = context;
         this.movieResults = movieResults;
         this.anInterface = anInterface;
+        this.genrePosition = genrePosition;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(
+    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ImageViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.card_images_recycler_layout,
-                        parent, false
+                        R.layout.card_images_recycler_layout, parent, false
                 )
         );
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         String posterPath = movieResults.get(position).getPosterPath();
 
         if (posterPath == null) {
@@ -53,7 +53,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         }
 
         // TODO: 1. Need to set next functionality of OnClick Item View.
-        holder.imageView.setOnClickListener(view -> anInterface.onItemClicked(movieResults.get(position), position, 0) );
+        holder.imageView.setOnClickListener(view -> {
+            if (anInterface != null) {
+                anInterface.onItemClicked(movieResults.get(position), position, 0);
+            }
+        });
     }
 
     @Override
@@ -61,17 +65,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         return movieResults.size();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateData(ArrayList<MovieResults> trendingMovies) {
-        this.movieResults = trendingMovies;
-        notifyDataSetChanged();
+
+    public Context getContext() {
+        return context;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ImageViewHolder extends RecyclerView.ViewHolder {
 
         final ImageView imageView;
-
-        public ViewHolder(@NonNull View itemView) {
+        public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movieOrSeriesImages);
         }

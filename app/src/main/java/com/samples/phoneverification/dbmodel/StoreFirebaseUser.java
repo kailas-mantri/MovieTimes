@@ -1,4 +1,4 @@
-package com.samples.phoneverification.datamodel;
+package com.samples.phoneverification.dbmodel;
 
 public class StoreFirebaseUser {
 

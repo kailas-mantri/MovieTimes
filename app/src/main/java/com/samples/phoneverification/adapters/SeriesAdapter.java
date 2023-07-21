@@ -1,5 +1,6 @@
-package com.samples.phoneverification.controller;
+package com.samples.phoneverification.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,24 +18,22 @@ import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
 
-public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewHolder> {
+public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder> {
 
-    private int seriesId;
-    private final Context context;
-    private final ArrayList<SeriesResults> seriesResults;
-    private final OnRecyclerItemClickListener<SeriesResults> anInterface;
-    int genrePosition;
-    public ImageSAdapter(Context context, ArrayList<SeriesResults> seriesResults, OnRecyclerItemClickListener<SeriesResults> anInterface, int position) {
+    final Context context;
+    ArrayList<SeriesResults> seriesResults;
+    final OnRecyclerItemClickListener<SeriesResults> anInterface;
+
+    public SeriesAdapter(Context context, ArrayList<SeriesResults> seriesResults, OnRecyclerItemClickListener<SeriesResults> anInterface) {
         this.context = context;
         this.seriesResults = seriesResults;
         this.anInterface = anInterface;
-        this.genrePosition = position;
     }
 
     @NonNull
     @Override
-    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ImageViewHolder(
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
                         R.layout.card_images_recycler_layout, parent, false
                 )
@@ -42,24 +41,19 @@ public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String posterPath = seriesResults.get(position).getPosterPath();
-
         if (posterPath == null) {
             holder.imageView.setImageResource(R.drawable.no_poster);
         } else {
-            // Glide library to display ImageBaseURL link before image string
-            Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL + seriesResults.get(position).getPosterPath())
+            Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL+seriesResults.get(position).getPosterPath())
                     .into(holder.imageView);
         }
 
         // TODO: 1. Need to set next functionality of OnClick Item View.
-        holder.imageView.setOnClickListener(view -> {
-            seriesId = seriesResults.get(position).getSeriesId();
-            if (anInterface!=null) {
-                anInterface.onItemClicked(seriesResults.get(position), position, 0);
-            }
-        } );
+        holder.imageView.setOnClickListener(view ->
+            anInterface.onItemClicked(seriesResults.get(position), position, 0)
+        );
     }
 
     @Override
@@ -67,14 +61,14 @@ public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewH
         return seriesResults.size();
     }
 
-    public Context getContext() {
-        return context;
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateData(ArrayList<SeriesResults> seriesResults) {
+        this.seriesResults = seriesResults;
+        notifyDataSetChanged();
     }
-
-    public static class ImageViewHolder extends RecyclerView.ViewHolder {
-
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView imageView;
-        public ImageViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movieOrSeriesImages);
         }

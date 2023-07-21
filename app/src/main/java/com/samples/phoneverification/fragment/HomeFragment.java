@@ -17,9 +17,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.samples.phoneverification.activity.MovieDetailsActivity;
 import com.samples.phoneverification.activity.SeriesDetailsActivity;
-import com.samples.phoneverification.controller.CarouselMAdapter;
-import com.samples.phoneverification.controller.SeriesAdapter;
-import com.samples.phoneverification.controller.MovieAdapter;
+import com.samples.phoneverification.adapters.CarouselMAdapter;
+import com.samples.phoneverification.adapters.SeriesAdapter;
+import com.samples.phoneverification.adapters.MovieAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.model.SeriesModel;
