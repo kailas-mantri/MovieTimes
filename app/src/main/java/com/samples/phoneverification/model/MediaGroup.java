@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MovieMediaGroup implements Serializable {
+public class MediaGroup implements Serializable {
 
     @SerializedName("id")
     public int movieId;
@@ -15,10 +15,10 @@ public class MovieMediaGroup implements Serializable {
     @SerializedName("results")
     public ArrayList<MediaTypeArray> mediaList;
 
-    public MovieMediaGroup() {
+    public MediaGroup() {
     }
 
-    public MovieMediaGroup(int movieId, ArrayList<MediaTypeArray> mediaList) {
+    public MediaGroup(int movieId, ArrayList<MediaTypeArray> mediaList) {
         this.movieId = movieId;
         this.mediaList = mediaList;
     }

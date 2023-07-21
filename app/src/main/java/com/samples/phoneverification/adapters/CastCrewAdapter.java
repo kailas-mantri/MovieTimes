@@ -1,4 +1,4 @@
-package com.samples.phoneverification.controller;
+package com.samples.phoneverification.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

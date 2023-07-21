@@ -14,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.controller.CastCrewAdapter;
-import com.samples.phoneverification.controller.MovieAdapter;
-import com.samples.phoneverification.controller.TrailerAdapter;
+import com.samples.phoneverification.adapters.CastCrewAdapter;
+import com.samples.phoneverification.adapters.MovieAdapter;
+import com.samples.phoneverification.adapters.TrailerAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
 import com.samples.phoneverification.model.CastCrewArray;
 import com.samples.phoneverification.model.CastPOJOModel;
 import com.samples.phoneverification.model.MediaTypeArray;
 import com.samples.phoneverification.model.MovieItemDetails;
-import com.samples.phoneverification.model.MovieMediaGroup;
+import com.samples.phoneverification.model.MediaGroup;
 import com.samples.phoneverification.model.MovieModel;
 import com.samples.phoneverification.model.MovieResults;
 import com.samples.phoneverification.model.SpokenLanguages;
@@ -141,11 +141,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void MediaTrailers() {
-        Call<MovieMediaGroup> mediaGroupCall = anInterface.MOVIE_MEDIA_GROUP_CALL(movieId, URLs.API_KEY);
-        mediaGroupCall.enqueue(new Callback<MovieMediaGroup>() {
+        Call<MediaGroup> mediaGroupCall = anInterface.MOVIE_MEDIA_GROUP_CALL(movieId, URLs.API_KEY);
+        mediaGroupCall.enqueue(new Callback<MediaGroup>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(@NonNull Call<MovieMediaGroup> call, @NonNull Response<MovieMediaGroup> response) {
+            public void onResponse(@NonNull Call<MediaGroup> call, @NonNull Response<MediaGroup> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     //TODO: Whole Response of API.
                     mediaTypeArrayList = response.body().getMediaList();
@@ -165,7 +165,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(@NonNull Call<MovieMediaGroup> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<MediaGroup> call, @NonNull Throwable t) {
                 Log.w("TrailerResponse", "onFailure: " + call, t.fillInStackTrace());
             }
         });
@@ -198,7 +198,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void StarCast() {
-        Call<CastPOJOModel> castPOJOCall = anInterface.CAST_POJO_MODEL_CALL(movieId, URLs.API_KEY);
+        Call<CastPOJOModel> castPOJOCall = anInterface.MOVIE_CAST_POJO_MODEL_CALL(movieId, URLs.API_KEY);
         castPOJOCall.enqueue(new Callback<CastPOJOModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override

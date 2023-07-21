@@ -1,5 +1,6 @@
-package com.samples.phoneverification.controller;
+package com.samples.phoneverification.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.model.Seasons;
-import com.samples.phoneverification.model.SeriesItemIdResults;
 
 import java.util.ArrayList;
 
@@ -21,11 +21,23 @@ public class SeasonTextAdapter extends RecyclerView.Adapter<SeasonTextAdapter.Vi
     private final Context context;
     private ArrayList<Seasons> seasons;
     private OnRecyclerItemClickListener<Seasons> anInterface;
+    private int defaultSelectedPosition = -1;
 
     public SeasonTextAdapter(Context context, ArrayList<Seasons> seasons, OnRecyclerItemClickListener<Seasons> anInterface) {
         this.context = context;
         this.seasons = seasons;
         this.anInterface = anInterface;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setDefaultSelectedPosition(int position) {
+        for (int i = 0; i < seasons.size(); i++) {
+            if (seasons.get(i).getSeasonNumber() == position) {
+                defaultSelectedPosition = i;
+                notifyDataSetChanged();
+                break;
+            }
+        }
     }
 
     @NonNull
@@ -38,8 +50,7 @@ public class SeasonTextAdapter extends RecyclerView.Adapter<SeasonTextAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.seasonsText.setText(seasons.get(position).getSeasonName());
-
+        holder.seasonsText.append( " " + Integer.toString(seasons.get(position).getSeasonNumber()));
         holder.seasonsText.setOnClickListener(view -> {
             if (anInterface!= null) {
                 anInterface.onItemClicked(seasons.get(position), position, 0);
@@ -57,6 +68,7 @@ public class SeasonTextAdapter extends RecyclerView.Adapter<SeasonTextAdapter.Vi
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             seasonsText = itemView.findViewById(R.id.season_no);
         }
     }

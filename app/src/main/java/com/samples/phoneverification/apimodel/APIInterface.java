@@ -3,10 +3,11 @@ package com.samples.phoneverification.apimodel;
 import com.samples.phoneverification.model.CastPOJOModel;
 import com.samples.phoneverification.model.GenreModel;
 import com.samples.phoneverification.model.MovieItemDetails;
-import com.samples.phoneverification.model.MovieMediaGroup;
+import com.samples.phoneverification.model.MediaGroup;
 import com.samples.phoneverification.model.MovieModel;
 import com.samples.phoneverification.model.SearchApiModel;
-import com.samples.phoneverification.model.SeriesItemIdResults;
+import com.samples.phoneverification.model.SeriesItemResults;
+import com.samples.phoneverification.model.SeriesItemSeasonDetails;
 import com.samples.phoneverification.model.SeriesModel;
 
 import java.util.HashMap;
@@ -91,13 +92,13 @@ public interface APIInterface {
     );
 
     @GET(URLConstants.MOVIE_MEDIA_GROUP)
-    Call<MovieMediaGroup> MOVIE_MEDIA_GROUP_CALL(
+    Call<MediaGroup> MOVIE_MEDIA_GROUP_CALL(
             @Path("movie_id") int movieId,
             @Query("api_key") String apiKey
     );
 
     @GET(URLConstants.MOVIE_CAST_CREDITS)
-    Call<CastPOJOModel> CAST_POJO_MODEL_CALL(
+    Call<CastPOJOModel> MOVIE_CAST_POJO_MODEL_CALL(
             @Path("movie_id") int movieId,
             @Query("api_key") String apiKey
     );
@@ -109,9 +110,33 @@ public interface APIInterface {
     );
 
     @GET(URLConstants.SERIES_ITEM_DETAILS)
-    Call<SeriesItemIdResults> SERIES_ITEM_ID_RESULTS_CALL(
+    Call<SeriesItemResults> SERIES_ITEM_ID_RESULTS_CALL(
             @Path("series_id") int seriesId,
             @Query("api_key") String apiKey
     );
 
+    @GET(URLConstants.SERIES_MEDIA_GROUP)
+    Call<MediaGroup> SERIES_MEDIA_GROUP_CALL(
+            @Path("series_id") int seriesId,
+            @Query("api_key") String apiKey
+    );
+    @GET(URLConstants.SERIES_ITEM_SEASON_NO_DETAILS)
+    Call<SeriesItemSeasonDetails> SERIES_ITEM_SEASON_DETAILS_CALL(
+            @Path("series_id") int seriesId,
+            @Path("season_number") int season_no,
+            @Query("api_key") String apiKey
+    );
+
+    @GET(URLConstants.SERIES_CAST_CREDITS)
+    Call<CastPOJOModel> SERIES_CAST_POJO_MODEL_CALL(
+            @Path("series_id") int seriesId,
+            @Path("season_number") int season_no,
+            @Query("api_key") String apiKey
+    );
+
+    @GET(URLConstants.RECOMMENDED_SERIES_BY_SERIES_ID)
+    Call<SeriesModel> RECOMMENDED_SERIES_ITEM_RESULTS_CALL(
+            @Path("series_id") int seriesId,
+            @Query("api_key") String apiKey
+    );
 }
