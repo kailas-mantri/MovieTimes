@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.samples.phoneverification.activity.MovieDetailsActivity;
 import com.samples.phoneverification.activity.SeriesDetailsActivity;
-import com.samples.phoneverification.adapter.RecentSearchAdapter;
-import com.samples.phoneverification.adapter.RecyclerSearchAdapter;
+import com.samples.phoneverification.controller.RecentSearchAdapter;
+import com.samples.phoneverification.controller.RecyclerSearchAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
-import com.samples.phoneverification.apimodel.SearchApiModel;
-import com.samples.phoneverification.apimodel.SearchApiResults;
+import com.samples.phoneverification.model.SearchApiModel;
+import com.samples.phoneverification.model.SearchApiResults;
 import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.FragmentSearchBinding;
 import com.samples.phoneverification.datamodel.SearchDBHelper;
@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;

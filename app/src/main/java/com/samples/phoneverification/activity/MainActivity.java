@@ -26,8 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.databinding.ActivityMainBinding;
-import com.samples.phoneverification.fragment.BottomSheetDialog;
 import com.samples.phoneverification.datamodel.StoreFirebaseUser;
+import com.samples.phoneverification.fragment.BottomSheetDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "GoogleSignIn :";
     private String phoneNumber = null;
 
+    //Update Feature required - How to use it. for deprecated API?
+    //private ActivityResultLauncher<Intent> signInLauncher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
-//        Objects.requireNonNull(getSupportActionBar()).hide();
         dialogFragment = new BottomSheetDialog();
 
         binding.proceedBtn.setOnClickListener(v -> {
@@ -102,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Firebase fetch Authentication details for realtime database.
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential mAuthCredential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(mAuthCredential).addOnCompleteListener(this, task -> {
@@ -123,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Store values in Database
     private void checkUser(String userId, String userName, String userEmail) {
         DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference("Users");
         dbReference.addValueEventListener(new ValueEventListener() {

@@ -1,5 +1,14 @@
 package com.samples.phoneverification.apimodel;
 
+import com.samples.phoneverification.model.CastPOJOModel;
+import com.samples.phoneverification.model.GenreModel;
+import com.samples.phoneverification.model.MovieItemDetails;
+import com.samples.phoneverification.model.MovieMediaGroup;
+import com.samples.phoneverification.model.MovieModel;
+import com.samples.phoneverification.model.SearchApiModel;
+import com.samples.phoneverification.model.SeriesItemIdResults;
+import com.samples.phoneverification.model.SeriesModel;
+
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -98,4 +107,11 @@ public interface APIInterface {
             @Path("movie_id") int movieId,
             @Query("api_key") String apiKey
     );
+
+    @GET(URLConstants.SERIES_ITEM_DETAILS)
+    Call<SeriesItemIdResults> SERIES_ITEM_ID_RESULTS_CALL(
+            @Path("series_id") int seriesId,
+            @Query("api_key") String apiKey
+    );
+
 }

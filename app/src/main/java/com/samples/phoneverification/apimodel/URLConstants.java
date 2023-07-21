@@ -19,4 +19,5 @@ public class URLConstants {
     public static final String MOVIE_MEDIA_GROUP = "/3/movie/{movie_id}/videos";
     public static final String MOVIE_CAST_CREDITS = "/3/movie/{movie_id}/credits";
     public static final String RECOMMENDED_MOVIES_BY_MOVIE_ID = "/3/movie/{movie_id}/recommendations";
+    public static final String SERIES_ITEM_DETAILS = "/3/tv/{series_id}";
 }
