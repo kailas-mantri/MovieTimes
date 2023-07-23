@@ -32,18 +32,18 @@ public class CastCrewArray implements Serializable {
     @SerializedName("profile_path")
     public String personProfile_path;
 
+    @SerializedName("character")
+    public String rollName;
+
     @SerializedName("credit_id")
     public String cast_credit_id;
+
+    @SerializedName("order")
+    public int cast_order;
 
     //Cast Array changes
     @SerializedName("cast_id")
     public int cast_id;
-
-    @SerializedName("character")
-    public String rollName;
-
-    @SerializedName("order")
-    public int cast_order;
 
     //Crew Array changes
     @SerializedName("department")

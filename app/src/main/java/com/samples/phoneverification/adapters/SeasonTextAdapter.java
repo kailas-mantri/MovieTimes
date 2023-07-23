@@ -18,57 +18,65 @@ import java.util.ArrayList;
 
 public class SeasonTextAdapter extends RecyclerView.Adapter<SeasonTextAdapter.ViewHolder> {
 
-    private final Context context;
-    private ArrayList<Seasons> seasons;
-    private OnRecyclerItemClickListener<Seasons> anInterface;
-    private int defaultSelectedPosition = -1;
+    private final ArrayList<Seasons> seasonsList;
+    private final OnRecyclerItemClickListener<Seasons> anInterface;
+    private int selectedItem;
 
-    public SeasonTextAdapter(Context context, ArrayList<Seasons> seasons, OnRecyclerItemClickListener<Seasons> anInterface) {
-        this.context = context;
-        this.seasons = seasons;
+    public SeasonTextAdapter(Context context, ArrayList<Seasons> seasonsList, OnRecyclerItemClickListener<Seasons> anInterface) {
+        this.seasonsList = seasonsList;
         this.anInterface = anInterface;
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void setDefaultSelectedPosition(int position) {
-        for (int i = 0; i < seasons.size(); i++) {
-            if (seasons.get(i).getSeasonNumber() == position) {
-                defaultSelectedPosition = i;
-                notifyDataSetChanged();
-                break;
-            }
-        }
+        selectedItem = 0;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_season_title, parent, false)
-        );
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_season_title, parent, false));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.seasonsText.append( " " + Integer.toString(seasons.get(position).getSeasonNumber()));
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+//        int seasonNumber = seasonsList.get(position).getSeasonNumber();
+        holder.seasonsText.setText("Season "+seasonsList.get(position).getSeasonNumber());
+        if (selectedItem == position) {
+            holder.seasonsText.setBackgroundResource(R.drawable.bg_line);
+        } else {
+            holder.seasonsText.setBackgroundResource(R.drawable.bg_without_line);
+        }
+
         holder.seasonsText.setOnClickListener(view -> {
+            int previousSelectedItem = selectedItem;
+            selectedItem = position;
+            notifyItemChanged(previousSelectedItem);
+            notifyItemChanged(selectedItem);
+
             if (anInterface!= null) {
-                anInterface.onItemClicked(seasons.get(position), position, 0);
+                anInterface.onItemClicked(seasonsList.get(position), position, 0);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return seasons.size();
+        return seasonsList.size();
     }
 
+    public void setDefaultItem() {
+        int defaultPosition = 0;
+        if (defaultPosition < seasonsList.size()) {
+            int previousSelectedItem = selectedItem;
+            selectedItem = defaultPosition;
+            notifyDataSetChanged();
+            if (anInterface != null) {
+                anInterface.onItemClicked(seasonsList.get(selectedItem), selectedItem, 0);
+            }
+        }
+    }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView seasonsText;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             seasonsText = itemView.findViewById(R.id.season_no);
         }
     }

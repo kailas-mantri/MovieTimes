@@ -14,7 +14,7 @@ import com.samples.phoneverification.fragment.MoviesFragment;
 import com.samples.phoneverification.fragment.SearchFragment;
 import com.samples.phoneverification.fragment.SeriesFragment;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
     Fragment fragment;
     private final Fragment homeFragment = new HomeFragment();

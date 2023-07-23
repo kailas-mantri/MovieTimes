@@ -40,7 +40,7 @@ public class Episodes implements Serializable {
     public String episode_still_path;
 
     @SerializedName("vote_average")
-    public int episode_vote_average;
+    public Float episode_vote_average;
 
     @SerializedName("vote_count")
     public int season_vote_count;
@@ -52,7 +52,7 @@ public class Episodes implements Serializable {
     public ArrayList<GuestStars> guestStars;
 
     public Episodes(String episode_air_date, int episode_number, int episode_id, String episode_name, String episode_overview, String episode_production_code,
-                    int episode_runtime, int season_number, int episode_show_id, String episode_still_path, int episode_vote_average,
+                    int episode_runtime, int season_number, int episode_show_id, String episode_still_path, Float episode_vote_average,
                     int season_vote_count, ArrayList<CastCrewArray> crewArrays, ArrayList<GuestStars> guestStars) {
         this.episode_air_date = episode_air_date;
         this.episode_number = episode_number;
@@ -150,11 +150,11 @@ public class Episodes implements Serializable {
         this.episode_still_path = episode_still_path;
     }
 
-    public int getEpisode_vote_average() {
+    public Float getEpisode_vote_average() {
         return episode_vote_average;
     }
 
-    public void setEpisode_vote_average(int episode_vote_average) {
+    public void setEpisode_vote_average(Float episode_vote_average) {
         this.episode_vote_average = episode_vote_average;
     }
 

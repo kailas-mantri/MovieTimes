@@ -19,7 +19,7 @@ public class URLConstants {
     public static final String MOVIE_CAST_CREDITS = "/3/movie/{movie_id}/credits";
     public static final String RECOMMENDED_MOVIES_BY_MOVIE_ID = "/3/movie/{movie_id}/recommendations";
     public static final String SERIES_ITEM_DETAILS = "/3/tv/{series_id}";
-    public static final String SERIES_ITEM_SEASON_NO_DETAILS = "/3/tv/{series_id}/season/{season_number}";
+    public static final String SERIES_SEASON_ITEM_DETAILS = "/3/tv/{series_id}/season/{season_number}";
     public static final String SERIES_CAST_CREDITS = "/3/tv/{series_id}/season/{season_number}/credits";
     public static final String SERIES_MEDIA_GROUP = "/3/tv/{series_id}/videos";
     public static final String RECOMMENDED_SERIES_BY_SERIES_ID = "/3/tv/{series_id}/recommendations";
