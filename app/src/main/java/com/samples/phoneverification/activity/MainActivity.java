@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,8 +28,7 @@ import com.samples.phoneverification.databinding.ActivityMainBinding;
 import com.samples.phoneverification.dbmodel.StoreFirebaseUser;
 import com.samples.phoneverification.fragment.BottomSheetDialog;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
     BottomSheetDialog dialogFragment;
     private FirebaseAuth mAuth;
@@ -39,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "GoogleSignIn :";
     private String phoneNumber = null;
 
-    //Update Feature required - How to use it. for deprecated API?
-    //private ActivityResultLauncher<Intent> signInLauncher;
+    /*Update Feature required - How to use it. for deprecated API?
+    private ActivityResultLauncher<Intent> signInLauncher;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

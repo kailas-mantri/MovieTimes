@@ -1,56 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/trailerRecycler"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@android:color/transparent"
-    app:cardCornerRadius="8sp"
+    app:cardCornerRadius="10sp"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingStart="0dp"
+        android:paddingEnd="8dp"
+        tools:ignore="RtlSymmetry">
 
-        <RelativeLayout
-            android:id="@+id/media_poster_block"
-            android:layout_width="160dp"
+        <ImageView
+            android:id="@+id/mediaPoster"
+            android:layout_width="150dp"
             android:layout_height="100sp"
-            android:layout_marginEnd="8dp">
-
-            <ImageView
-                android:id="@+id/mediaPoster"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/starCastImage"
-                android:scaleType="fitXY" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
-
-                <ImageView
-                    android:id="@+id/play_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:contentDescription="@string/mediaPlay"
-                    android:src="@drawable/media_play" />
-
-            </RelativeLayout>
-
-        </RelativeLayout>
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/starCastImage"
+            android:background="@drawable/bg_border_round"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_foreground" />
 
         <TextView
             android:id="@+id/episode_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/media_poster_block"
+            android:paddingBottom="4dp"
+            android:layout_toEndOf="@id/mediaPoster"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingBottom="8dp"
-            android:text="@string/episodes"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textStyle="bold" />
 
@@ -59,11 +42,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/episode_name"
-            android:layout_toEndOf="@id/media_poster_block"
+            android:layout_toEndOf="@id/mediaPoster"
             android:ellipsize="end"
-            android:maxLines="3"
-            android:text="@string/episodes"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+            android:maxLines="4"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:typeface="serif" />
 
     </RelativeLayout>
 

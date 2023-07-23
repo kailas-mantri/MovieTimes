@@ -7,9 +7,9 @@
     android:paddingHorizontal="16sp">
 
     <ImageView
-        android:id="@+id/seriesImages"
-        android:layout_width="110dp"
-        android:layout_height="175dp"
+        android:id="@+id/series_season_images"
+        android:layout_width="104dp"
+        android:layout_height="160dp"
         android:background="@drawable/bg_border_round"
         android:contentDescription="@string/description"
         android:scaleType="fitXY"
@@ -19,15 +19,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/seriesImages"
+        android:layout_toEndOf="@id/series_season_images"
         tools:ignore="RtlSymmetry">
 
         <TextView
-            android:id="@+id/series_Title"
+            android:id="@+id/series_season_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/series_title"
+            android:layout_marginVertical="8sp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textStyle="bold" />
 
@@ -35,17 +34,16 @@
             android:id="@+id/series_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/series_Title"
+            android:layout_below="@id/series_season_title"
             android:layout_marginBottom="8sp"
-            android:text="@string/series_date"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <TextView
-            android:id="@+id/seriesDescription"
+            android:id="@+id/season_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/series_date"
-            android:maxLines="5"
+            android:maxLines="4"
             android:ellipsize="end"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textColor="@color/white" />

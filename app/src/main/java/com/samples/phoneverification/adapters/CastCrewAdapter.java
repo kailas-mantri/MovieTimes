@@ -24,7 +24,7 @@ public class CastCrewAdapter extends RecyclerView.Adapter<CastCrewAdapter.ViewHo
 
     private final Context context;
     private ArrayList<CastCrewArray> castArrays;
-    private final OnRecyclerItemClickListener<CastCrewArray> anInterface;
+    final OnRecyclerItemClickListener<CastCrewArray> anInterface;
 
     public CastCrewAdapter(Context context, ArrayList<CastCrewArray> castArrays, OnRecyclerItemClickListener<CastCrewArray> anInterface) {
         this.context = context;
@@ -47,7 +47,7 @@ public class CastCrewAdapter extends RecyclerView.Adapter<CastCrewAdapter.ViewHo
         CastCrewArray cast = castArrays.get(position);
         String profile_path = cast.getPersonProfile_path();
         holder.realName.setText(cast.getOriginalRealName());
-        holder.rollName.setText(cast.getOriginalRealName());
+        holder.rollName.setText(cast.getRollName());
 
         if (profile_path == null) {
             holder.castImage.setImageResource(R.drawable.no_poster);

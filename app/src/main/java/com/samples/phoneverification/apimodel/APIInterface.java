@@ -7,7 +7,7 @@ import com.samples.phoneverification.model.MediaGroup;
 import com.samples.phoneverification.model.MovieModel;
 import com.samples.phoneverification.model.SearchApiModel;
 import com.samples.phoneverification.model.SeriesItemResults;
-import com.samples.phoneverification.model.SeriesItemSeasonDetails;
+import com.samples.phoneverification.model.SeasonNumberDetails;
 import com.samples.phoneverification.model.SeriesModel;
 
 import java.util.HashMap;
@@ -120,8 +120,8 @@ public interface APIInterface {
             @Path("series_id") int seriesId,
             @Query("api_key") String apiKey
     );
-    @GET(URLConstants.SERIES_ITEM_SEASON_NO_DETAILS)
-    Call<SeriesItemSeasonDetails> SERIES_ITEM_SEASON_DETAILS_CALL(
+    @GET(URLConstants.SERIES_SEASON_ITEM_DETAILS)
+    Call<SeasonNumberDetails> SERIES_ITEM_SEASON_DETAILS_CALL(
             @Path("series_id") int seriesId,
             @Path("season_number") int season_no,
             @Query("api_key") String apiKey

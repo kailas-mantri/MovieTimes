@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SeriesItemSeasonDetails implements Serializable {
+public class SeasonNumberDetails implements Serializable {
 
     @SerializedName("_id")
     public String series_id;
@@ -16,16 +16,16 @@ public class SeriesItemSeasonDetails implements Serializable {
     public String air_date;
 
     @SerializedName("episodes")
-    public ArrayList<Episodes> episodes;
+    public ArrayList<Episodes> episodeList;
 
     @SerializedName("name")
-    public String series_season_name;
+    public String season_name;
 
     @SerializedName("overview")
-    public String series_season_overview;
+    public String seasons_overview;
 
     @SerializedName("id")
-    public int series_season_id;
+    public int season_id;
 
     @SerializedName("poster_path")
     public String season_poster_path;
@@ -36,14 +36,14 @@ public class SeriesItemSeasonDetails implements Serializable {
     @SerializedName("vte_average")
     public double season_vte_average;
 
-    public SeriesItemSeasonDetails(String series_id, String air_date, ArrayList<Episodes> episodes, String series_season_name, String series_season_overview,
-                                   int series_season_id, String season_poster_path, int season_number, double season_vte_average) {
+    public SeasonNumberDetails(String series_id, String air_date, ArrayList<Episodes> episodeList, String season_name, String seasons_overview,
+                               int season_id, String season_poster_path, int season_number, double season_vte_average) {
         this.series_id = series_id;
         this.air_date = air_date;
-        this.episodes = episodes;
-        this.series_season_name = series_season_name;
-        this.series_season_overview = series_season_overview;
-        this.series_season_id = series_season_id;
+        this.episodeList = episodeList;
+        this.season_name = season_name;
+        this.seasons_overview = seasons_overview;
+        this.season_id = season_id;
         this.season_poster_path = season_poster_path;
         this.season_number = season_number;
         this.season_vte_average = season_vte_average;
@@ -65,36 +65,36 @@ public class SeriesItemSeasonDetails implements Serializable {
         this.air_date = air_date;
     }
 
-    public ArrayList<Episodes> getEpisodes() {
-        return episodes;
+    public ArrayList<Episodes> getEpisodeList() {
+        return episodeList;
     }
 
-    public void setEpisodes(ArrayList<Episodes> episodes) {
-        this.episodes = episodes;
+    public void setEpisodeList(ArrayList<Episodes> episodeList) {
+        this.episodeList = episodeList;
     }
 
-    public String getSeries_season_name() {
-        return series_season_name;
+    public String getSeason_name() {
+        return season_name;
     }
 
-    public void setSeries_season_name(String series_season_name) {
-        this.series_season_name = series_season_name;
+    public void setSeason_name(String season_name) {
+        this.season_name = season_name;
     }
 
-    public String getSeries_season_overview() {
-        return series_season_overview;
+    public String getSeasons_overview() {
+        return seasons_overview;
     }
 
-    public void setSeries_season_overview(String series_season_overview) {
-        this.series_season_overview = series_season_overview;
+    public void setSeasons_overview(String seasons_overview) {
+        this.seasons_overview = seasons_overview;
     }
 
-    public int getSeries_season_id() {
-        return series_season_id;
+    public int getSeason_id() {
+        return season_id;
     }
 
-    public void setSeries_season_id(int series_season_id) {
-        this.series_season_id = series_season_id;
+    public void setSeason_id(int season_id) {
+        this.season_id = season_id;
     }
 
     public String getSeason_poster_path() {
@@ -127,10 +127,10 @@ public class SeriesItemSeasonDetails implements Serializable {
         return "SeriesItemSeasonDetails{" +
                 "series_id='" + series_id + '\'' +
                 ", air_date='" + air_date + '\'' +
-                ", episodes=" + episodes +
-                ", series_season_name='" + series_season_name + '\'' +
-                ", series_season_overview='" + series_season_overview + '\'' +
-                ", series_season_id=" + series_season_id +
+                ", episodes=" + episodeList +
+                ", series_season_name='" + season_name + '\'' +
+                ", series_season_overview='" + seasons_overview + '\'' +
+                ", series_season_id=" + season_id +
                 ", season_poster_path='" + season_poster_path + '\'' +
                 ", season_number=" + season_number +
                 ", season_vte_average=" + season_vte_average +

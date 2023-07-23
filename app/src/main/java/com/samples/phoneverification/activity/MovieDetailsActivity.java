@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +46,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class MovieDetailsActivity extends AppCompatActivity {
 
     private ActivityMovieDetailsBinding binding;
-    SimpleDateFormat inputDate, outputDate;
     private int movieId;
     private boolean isWishListed = false;
     TrailerAdapter trailerAdapter;
@@ -57,6 +57,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ArrayList<MovieResults> recommendedResults = new ArrayList<>();
     ArrayList<CastCrewArray> crewArray = new ArrayList<>();
     private final List<String> langList = new ArrayList<>();
+    SimpleDateFormat inputDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    SimpleDateFormat outputDate = new SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault());
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(URLs.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -74,7 +76,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         // TODO: Get Movie Id from last fragment.
         Intent intent = getIntent();
         
-        movieId = (int) intent.getSerializableExtra("movie_id");
+        movieId = intent.getIntExtra("movie_id",0);
         binding.toolbarBack.setOnClickListener(v -> onBackPressed() );
 
         // TODO: Call API and set UI.
@@ -95,22 +97,22 @@ public class MovieDetailsActivity extends AppCompatActivity {
         });
     }
 
-    @SuppressLint("SimpleDateFormat")
     private void AddDataToUI(MovieItemDetails itemDetails) {
 
         // Todo: 5. Release Date, 6. Spoken Languages, 8. Movie Description
 
         AppBarBlock(itemDetails);
 
-        inputDate = new SimpleDateFormat("yyyy-MM-dd");
-        outputDate = new SimpleDateFormat("dd MMMM, yyyy");
         try {
             Date date = inputDate.parse(itemDetails.getMovie_release_date());
             if (date != null) {
                 binding.releaseOn.append(" " + outputDate.format(date));
+            } else {
+                binding.releaseOnTitle.setVisibility(View.GONE);
+                binding.releaseOn.setVisibility(View.GONE);
             }
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         // TODO: Set Multiple Languages
@@ -120,7 +122,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
         String multiLang = TextUtils.join(", ", langList);
 
         binding.languageVersions.setText(multiLang);
-        binding.movieDescription.setText(itemDetails.getMovieOverview());
+
+        if (itemDetails.getMovieOverview() == null) {
+            binding.description.setVisibility(View.GONE);
+            binding.movieDescription.setVisibility(View.GONE);
+        } else
+            binding.movieDescription.setText(itemDetails.getMovieOverview());
 
         // TODO: Set the Layout Mangers before Setting the adapters for recycler view
         binding.trailerRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
@@ -161,6 +168,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         trailerAdapter.notifyDataSetChanged();
                         Log.d("filteredMedia", "onResponse: " + filteredMedia.size());
                     }
+                } else {
+                    binding.trailerHeading.setVisibility(View.GONE);
+                    binding.trailerRecycler.setVisibility(View.GONE);
                 }
             }
 
@@ -186,8 +196,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     }
                     recommendationAdapter.updateData(recommendedResults);
                     recommendationAdapter.notifyDataSetChanged();
+                } else {
+                    binding.recommendedHeading.setVisibility(View.GONE);
+                    binding.recommendationRecycler.setVisibility(View.GONE);
                 }
-
             }
 
             @Override
@@ -212,6 +224,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     // updateCrew Array.
                     crewArray = response.body().getCrewArrays();
                 } else {
+                    binding.starCastTitle.setVisibility(View.GONE);
+                    binding.castRecycler.setVisibility(View.GONE);
                     Log.w("is Null", "onResponse: " + response.body());
                 }
             }
