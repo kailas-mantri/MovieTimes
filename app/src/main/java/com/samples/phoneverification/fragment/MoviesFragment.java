@@ -19,8 +19,8 @@ import com.samples.phoneverification.activity.MovieDetailsActivity;
 import com.samples.phoneverification.adapters.CarouselMAdapter;
 import com.samples.phoneverification.adapters.GenreMAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
-import com.samples.phoneverification.model.GenreModel;
-import com.samples.phoneverification.model.GenreResults;
+import com.samples.phoneverification.model.GenresModel;
+import com.samples.phoneverification.model.GenresList;
 import com.samples.phoneverification.model.MovieModel;
 import com.samples.phoneverification.model.MovieResults;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
@@ -44,7 +44,7 @@ public class MoviesFragment extends Fragment {
     GenreMAdapter genreMAdapter;
     ArrayList<MovieResults> upComingMovies = new ArrayList<>();
     ArrayList<MovieResults> movieResults = new ArrayList<>();
-    ArrayList<GenreResults> genreResults = new ArrayList<>();
+    ArrayList<GenresList> genreResults = new ArrayList<>();
     private final HashMap<String, String> params = new HashMap<>();
     private APIInterface anInterface;
     private final Handler handler = new Handler();
@@ -98,11 +98,11 @@ public class MoviesFragment extends Fragment {
     }
 
     private void GenresWrTMovieId() {
-        Call<GenreModel> call = anInterface.MOVIE_GENRE_MODEL_CALL(URLs.API_KEY);
-        call.enqueue(new Callback<GenreModel>() {
+        Call<GenresModel> call = anInterface.MOVIE_GENRES_MODEL_CALL(URLs.API_KEY);
+        call.enqueue(new Callback<GenresModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(@NonNull Call<GenreModel> call, @NonNull Response<GenreModel> response) {
+            public void onResponse(@NonNull Call<GenresModel> call, @NonNull Response<GenresModel> response) {
                 if (response.body() != null) {
                     genreResults = response.body().getGenresArray();
                     genreMAdapter.updateData(genreResults);
@@ -135,7 +135,7 @@ public class MoviesFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<GenreModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<GenresModel> call, @NonNull Throwable t) {
                 Log.w(getTag(), "onFailure: " + t.getMessage());
             }
         });

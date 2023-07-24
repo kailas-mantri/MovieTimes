@@ -19,8 +19,8 @@ import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.adapters.RecentSearchAdapter;
 import com.samples.phoneverification.adapters.RecyclerSearchAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
-import com.samples.phoneverification.model.SearchApiModel;
-import com.samples.phoneverification.model.SearchApiResults;
+import com.samples.phoneverification.model.SearchModel;
+import com.samples.phoneverification.model.SearchResults;
 import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.FragmentSearchBinding;
 import com.samples.phoneverification.dbmodel.SearchDBHelper;
@@ -40,9 +40,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class SearchFragment extends Fragment {
 
     FragmentSearchBinding binding;
-    private ArrayList<SearchApiResults> searchResults = new ArrayList<>();
-    private ArrayList<SearchApiResults> filteredMovieList = new ArrayList<>();
-    private ArrayList<SearchApiResults> FilteredSeriesList = new ArrayList<>();
+    private ArrayList<SearchResults> searchResults = new ArrayList<>();
+    private ArrayList<SearchResults> filteredMovieList = new ArrayList<>();
+    private ArrayList<SearchResults> FilteredSeriesList = new ArrayList<>();
     private final LinkedList<String> recentSearch = new LinkedList<>();
     private final LinkedList<String> sHistoryRecordBook = new LinkedList<>();
     private RecentSearchAdapter recentSearchAdapter;
@@ -203,11 +203,11 @@ public class SearchFragment extends Fragment {
         params.put("api_key", URLs.API_KEY);
         params.put("query", query);
 
-        Call<SearchApiModel> modelCall = anInterface.SEARCH_MODEL_CALL(params);
-        modelCall.enqueue(new Callback<SearchApiModel>() {
+        Call<SearchModel> modelCall = anInterface.SEARCH_MODEL_CALL(params);
+        modelCall.enqueue(new Callback<SearchModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(@NonNull Call<SearchApiModel> call, @NonNull Response<SearchApiModel> response) {
+            public void onResponse(@NonNull Call<SearchModel> call, @NonNull Response<SearchModel> response) {
                 if ((response.isSuccessful()) && (response.body() != null)) {
                     searchResults.clear();
                     searchResults = response.body().getSearchResults();
@@ -218,7 +218,7 @@ public class SearchFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<SearchApiModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<SearchModel> call, @NonNull Throwable t) {
                 Log.w(getTag(), "onFailure: " + t.getMessage());
             }
         });

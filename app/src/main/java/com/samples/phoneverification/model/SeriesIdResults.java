@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SeriesItemResults implements Serializable {
+public class SeriesIdResults implements Serializable {
 
     @SerializedName("adult")
     public boolean isAdult;
@@ -26,7 +26,7 @@ public class SeriesItemResults implements Serializable {
     public String firstAirDate;
 
     @SerializedName("genres")
-    public ArrayList<GenreResults> genreResults;
+    public ArrayList<GenresList> genreResults;
 
     @SerializedName("homepage")
     public String webHomepage;
@@ -44,13 +44,13 @@ public class SeriesItemResults implements Serializable {
     public String lastAirDate;
 
     @SerializedName("last_episode_to_air")
-    public LastEpisodeToAir lastEpisodeToAir;
+    public SeriesLastEpisodeList seriesLastEpisodeList;
 
     @SerializedName("name")
     public String seriesName;
 
     @SerializedName("next_episode_to_air")
-    public NextEpisodeToAir nextEpisodeToAir;
+    public SeriesNextEpisodeList seriesNextEpisodeList;
 
     @SerializedName("networks")
     public ArrayList<SeriesNetworks> networks;
@@ -80,10 +80,10 @@ public class SeriesItemResults implements Serializable {
     public String posterPath;
 
     @SerializedName("production_companies")
-    public ArrayList<ProductionCompanies> productionCompanies;
+    public ArrayList<ProdCompanies> prodCompanies;
 
     @SerializedName("production_countries")
-    public ArrayList<ProductionCountries> productionCountries;
+    public ArrayList<ProdCountries> prodCountries;
 
     @SerializedName("seasons")
     public ArrayList<Seasons> seasons;
@@ -106,14 +106,14 @@ public class SeriesItemResults implements Serializable {
     @SerializedName("vote_count")
     private int voteCount;
 
-    public SeriesItemResults(boolean isAdult, String backdropPath, ArrayList<SeriesCreatedBy> seriesCreatedBy, int[] episodeRunTime,
-                             String firstAirDate, ArrayList<GenreResults> genreResults, String webHomepage, int seriesId, boolean inProduction,
-                             String[] languageUsed, String lastAirDate, LastEpisodeToAir lastEpisodeToAir, String seriesName,
-                             NextEpisodeToAir nextEpisodeToAir, ArrayList<SeriesNetworks> networks, int numberOfEpisodes, int numberOfSeasons,
-                             String[] originCountry, String originalLanguage, String originalName, String series_Overview,
-                             double popularity, String posterPath, ArrayList<ProductionCompanies> productionCompanies,
-                             ArrayList<ProductionCountries> productionCountries, ArrayList<Seasons> seasons, ArrayList<SpokenLanguages> spokenLanguages,
-                             String status, String tagline, String type, double voteAverage, int voteCount) {
+    public SeriesIdResults(boolean isAdult, String backdropPath, ArrayList<SeriesCreatedBy> seriesCreatedBy, int[] episodeRunTime,
+                           String firstAirDate, ArrayList<GenresList> genreResults, String webHomepage, int seriesId, boolean inProduction,
+                           String[] languageUsed, String lastAirDate, SeriesLastEpisodeList seriesLastEpisodeList, String seriesName,
+                           SeriesNextEpisodeList seriesNextEpisodeList, ArrayList<SeriesNetworks> networks, int numberOfEpisodes, int numberOfSeasons,
+                           String[] originCountry, String originalLanguage, String originalName, String series_Overview,
+                           double popularity, String posterPath, ArrayList<ProdCompanies> prodCompanies,
+                           ArrayList<ProdCountries> prodCountries, ArrayList<Seasons> seasons, ArrayList<SpokenLanguages> spokenLanguages,
+                           String status, String tagline, String type, double voteAverage, int voteCount) {
         this.isAdult = isAdult;
         this.backdropPath = backdropPath;
         this.seriesCreatedBy = seriesCreatedBy;
@@ -125,9 +125,9 @@ public class SeriesItemResults implements Serializable {
         this.inProduction = inProduction;
         this.languageUsed = languageUsed;
         this.lastAirDate = lastAirDate;
-        this.lastEpisodeToAir = lastEpisodeToAir;
+        this.seriesLastEpisodeList = seriesLastEpisodeList;
         this.seriesName = seriesName;
-        this.nextEpisodeToAir = nextEpisodeToAir;
+        this.seriesNextEpisodeList = seriesNextEpisodeList;
         this.networks = networks;
         this.numberOfEpisodes = numberOfEpisodes;
         this.numberOfSeasons = numberOfSeasons;
@@ -137,8 +137,8 @@ public class SeriesItemResults implements Serializable {
         this.series_Overview = series_Overview;
         this.popularity = popularity;
         this.posterPath = posterPath;
-        this.productionCompanies = productionCompanies;
-        this.productionCountries = productionCountries;
+        this.prodCompanies = prodCompanies;
+        this.prodCountries = prodCountries;
         this.seasons = seasons;
         this.spokenLanguages = spokenLanguages;
         this.status = status;
@@ -188,11 +188,11 @@ public class SeriesItemResults implements Serializable {
         this.firstAirDate = firstAirDate;
     }
 
-    public ArrayList<GenreResults> getGenreResults() {
+    public ArrayList<GenresList> getGenreResults() {
         return genreResults;
     }
 
-    public void setGenreResults(ArrayList<GenreResults> genreResults) {
+    public void setGenreResults(ArrayList<GenresList> genreResults) {
         this.genreResults = genreResults;
     }
 
@@ -236,12 +236,12 @@ public class SeriesItemResults implements Serializable {
         this.lastAirDate = lastAirDate;
     }
 
-    public LastEpisodeToAir getLastEpisodeToAir() {
-        return lastEpisodeToAir;
+    public SeriesLastEpisodeList getLastEpisodeToAir() {
+        return seriesLastEpisodeList;
     }
 
-    public void setLastEpisodeToAir(LastEpisodeToAir lastEpisodeToAir) {
-        this.lastEpisodeToAir = lastEpisodeToAir;
+    public void setLastEpisodeToAir(SeriesLastEpisodeList seriesLastEpisodeList) {
+        this.seriesLastEpisodeList = seriesLastEpisodeList;
     }
 
     public String getSeriesName() {
@@ -252,12 +252,12 @@ public class SeriesItemResults implements Serializable {
         this.seriesName = seriesName;
     }
 
-    public NextEpisodeToAir getNextEpisodeToAir() {
-        return nextEpisodeToAir;
+    public SeriesNextEpisodeList getNextEpisodeToAir() {
+        return seriesNextEpisodeList;
     }
 
-    public void setNextEpisodeToAir(NextEpisodeToAir nextEpisodeToAir) {
-        this.nextEpisodeToAir = nextEpisodeToAir;
+    public void setNextEpisodeToAir(SeriesNextEpisodeList seriesNextEpisodeList) {
+        this.seriesNextEpisodeList = seriesNextEpisodeList;
     }
 
     public ArrayList<SeriesNetworks> getNetworks() {
@@ -332,20 +332,20 @@ public class SeriesItemResults implements Serializable {
         this.posterPath = posterPath;
     }
 
-    public ArrayList<ProductionCompanies> getProductionCompanies() {
-        return productionCompanies;
+    public ArrayList<ProdCompanies> getProductionCompanies() {
+        return prodCompanies;
     }
 
-    public void setProductionCompanies(ArrayList<ProductionCompanies> productionCompanies) {
-        this.productionCompanies = productionCompanies;
+    public void setProductionCompanies(ArrayList<ProdCompanies> prodCompanies) {
+        this.prodCompanies = prodCompanies;
     }
 
-    public ArrayList<ProductionCountries> getProductionCountries() {
-        return productionCountries;
+    public ArrayList<ProdCountries> getProductionCountries() {
+        return prodCountries;
     }
 
-    public void setProductionCountries(ArrayList<ProductionCountries> productionCountries) {
-        this.productionCountries = productionCountries;
+    public void setProductionCountries(ArrayList<ProdCountries> prodCountries) {
+        this.prodCountries = prodCountries;
     }
 
     public ArrayList<Seasons> getSeasons() {
@@ -419,9 +419,9 @@ public class SeriesItemResults implements Serializable {
                 ", inProduction=" + inProduction +
                 ", languageUsed=" + Arrays.toString(languageUsed) +
                 ", lastAirDate='" + lastAirDate + '\'' +
-                ", lastEpisodeToAir=" + lastEpisodeToAir +
+                ", lastEpisodeToAir=" + seriesLastEpisodeList +
                 ", seriesName='" + seriesName + '\'' +
-                ", nextEpisodeToAir=" + nextEpisodeToAir +
+                ", nextEpisodeToAir=" + seriesNextEpisodeList +
                 ", networks=" + networks +
                 ", numberOfEpisodes=" + numberOfEpisodes +
                 ", numberOfSeasons=" + numberOfSeasons +
@@ -431,8 +431,8 @@ public class SeriesItemResults implements Serializable {
                 ", seriesOverview='" + series_Overview + '\'' +
                 ", popularity=" + popularity +
                 ", posterPath='" + posterPath + '\'' +
-                ", productionCompanies=" + productionCompanies +
-                ", productionCountries=" + productionCountries +
+                ", productionCompanies=" + prodCompanies +
+                ", productionCountries=" + prodCountries +
                 ", seasons=" + seasons +
                 ", spokenLanguages=" + spokenLanguages +
                 ", status='" + status + '\'' +

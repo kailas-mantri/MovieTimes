@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class ProductionCompanies implements Serializable {
+public class ProdCompanies implements Serializable {
 
     @SerializedName("id")
     public int company_id;
@@ -20,7 +20,7 @@ public class ProductionCompanies implements Serializable {
     @SerializedName("origin_country")
     public String company_country;
 
-    public ProductionCompanies(int company_id, String company_name, String company_logo, String company_country) {
+    public ProdCompanies(int company_id, String company_name, String company_logo, String company_country) {
         this.company_id = company_id;
         this.company_name = company_name;
         this.company_logo = company_logo;

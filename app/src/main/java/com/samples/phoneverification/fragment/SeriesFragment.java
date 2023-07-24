@@ -19,8 +19,8 @@ import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.adapters.CarouselSAdapter;
 import com.samples.phoneverification.adapters.GenreSAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
-import com.samples.phoneverification.model.GenreModel;
-import com.samples.phoneverification.model.GenreResults;
+import com.samples.phoneverification.model.GenresModel;
+import com.samples.phoneverification.model.GenresList;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.model.SeriesModel;
 import com.samples.phoneverification.model.SeriesResults;
@@ -43,7 +43,7 @@ public class SeriesFragment extends Fragment {
     CarouselSAdapter carouselSAdapter;
     GenreSAdapter genreAdapter;
     ArrayList<SeriesResults> seriesResults = new ArrayList<>();
-    ArrayList<GenreResults> genreResults = new ArrayList<>();
+    ArrayList<GenresList> genreResults = new ArrayList<>();
     private APIInterface anInterface;
     private final Handler handler = new Handler();
 
@@ -90,10 +90,10 @@ public class SeriesFragment extends Fragment {
     }
 
     private void DynamicSeriesRecyclerCall() {
-        Call<GenreModel> call = anInterface.SERIES_GENRE_MODEL_CALL(URLs.API_KEY);
-        call.enqueue(new Callback<GenreModel>() {
+        Call<GenresModel> call = anInterface.SERIES_GENRE_MODEL_CALL(URLs.API_KEY);
+        call.enqueue(new Callback<GenresModel>() {
             @Override
-            public void onResponse(@NonNull Call<GenreModel> call, @NonNull Response<GenreModel> response) {
+            public void onResponse(@NonNull Call<GenresModel> call, @NonNull Response<GenresModel> response) {
                 if (response.body() != null) {
                     genreResults = response.body().getGenresArray();
                     genreAdapter.updateData(genreResults);
@@ -129,7 +129,7 @@ public class SeriesFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<GenreModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<GenresModel> call, @NonNull Throwable t) {
                 Log.e(getTag(), "onFailure: "+t.getMessage());
             }
         });

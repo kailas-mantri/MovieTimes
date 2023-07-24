@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.model.MediaTypeArray;
+import com.samples.phoneverification.model.MediaList;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.apimodel.URLs;
 
@@ -23,10 +23,10 @@ import java.util.ArrayList;
 public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<MediaTypeArray> mediaList;
-    OnRecyclerItemClickListener<MediaTypeArray> anInterface;
+    ArrayList<MediaList> mediaList;
+    OnRecyclerItemClickListener<MediaList> anInterface;
 
-    public TrailerAdapter(Context context, ArrayList<MediaTypeArray> mediaList, OnRecyclerItemClickListener<MediaTypeArray> anInterface) {
+    public TrailerAdapter(Context context, ArrayList<MediaList> mediaList, OnRecyclerItemClickListener<MediaList> anInterface) {
         this.context = context;
         this.mediaList = mediaList;
         this.anInterface = anInterface;
@@ -60,7 +60,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHold
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateData(ArrayList<MediaTypeArray> trailerList) {
+    public void updateData(ArrayList<MediaList> trailerList) {
         this.mediaList = trailerList;
         notifyDataSetChanged();
     }

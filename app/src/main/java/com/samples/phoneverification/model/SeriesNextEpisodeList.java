@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class NextEpisodeToAir implements Serializable {
+public class SeriesNextEpisodeList implements Serializable {
 
     @SerializedName("id")
     private int next_episode_id;
@@ -44,7 +44,7 @@ public class NextEpisodeToAir implements Serializable {
     @SerializedName("still_path")
     private String next_episode_still_path;
 
-    public NextEpisodeToAir(int next_episode_id, String next_episode_name, String next_episode_overview, double vote_average, int vote_count, String next_air_date, int next_episode_number, String next_episode_production_code, int runtime, int season_number, int show_id, String next_episode_still_path) {
+    public SeriesNextEpisodeList(int next_episode_id, String next_episode_name, String next_episode_overview, double vote_average, int vote_count, String next_air_date, int next_episode_number, String next_episode_production_code, int runtime, int season_number, int show_id, String next_episode_still_path) {
         this.next_episode_id = next_episode_id;
         this.next_episode_name = next_episode_name;
         this.next_episode_overview = next_episode_overview;

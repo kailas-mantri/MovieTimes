@@ -7,21 +7,21 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CastPOJOModel implements Serializable {
+public class CastModel implements Serializable {
 
     @SerializedName("id")
     public int movieId;
 
     @SerializedName("cast")
-    public ArrayList<CastCrewArray> castList;
+    public ArrayList<CastCrewList> castList;
 
     @SerializedName("crew")
-    public ArrayList<CastCrewArray> crewArrays;
+    public ArrayList<CastCrewList> crewArrays;
 
-    public CastPOJOModel() {
+    public CastModel() {
     }
 
-    public CastPOJOModel(int movieId, ArrayList<CastCrewArray> castList, ArrayList<CastCrewArray> crewArrays) {
+    public CastModel(int movieId, ArrayList<CastCrewList> castList, ArrayList<CastCrewList> crewArrays) {
         this.movieId = movieId;
         this.castList = castList;
         this.crewArrays = crewArrays;
@@ -35,19 +35,19 @@ public class CastPOJOModel implements Serializable {
         this.movieId = movieId;
     }
 
-    public ArrayList<CastCrewArray> getCastList() {
+    public ArrayList<CastCrewList> getCastList() {
         return castList;
     }
 
-    public void setCastList(ArrayList<CastCrewArray> castList) {
+    public void setCastList(ArrayList<CastCrewList> castList) {
         this.castList = castList;
     }
 
-    public ArrayList<CastCrewArray> getCrewArrays() {
+    public ArrayList<CastCrewList> getCrewArrays() {
         return crewArrays;
     }
 
-    public void setCrewArrays(ArrayList<CastCrewArray> crewArrays) {
+    public void setCrewArrays(ArrayList<CastCrewList> crewArrays) {
         this.crewArrays = crewArrays;
     }
 

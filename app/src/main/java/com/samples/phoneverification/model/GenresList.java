@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GenreResults implements Serializable {
+public class GenresList implements Serializable {
 
     @SerializedName("id")
     public int id;
@@ -18,21 +18,21 @@ public class GenreResults implements Serializable {
     private ArrayList<SeriesResults> seriesList = new ArrayList<>();
     private ArrayList<MovieResults> movieResults = new ArrayList<>();
 
-    public GenreResults() {
+    public GenresList() {
     }
 
-    public GenreResults(int id, String name) {
+    public GenresList(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public GenreResults(int id, String name, ArrayList<MovieResults> movieResults) {
+    public GenresList(int id, String name, ArrayList<MovieResults> movieResults) {
         this.id = id;
         this.name = name;
         this.movieResults = movieResults;
     }
 
-    public GenreResults(int id, String name, ArrayList<SeriesResults> seriesList, ArrayList<MovieResults> movieResults) {
+    public GenresList(int id, String name, ArrayList<SeriesResults> seriesList, ArrayList<MovieResults> movieResults) {
         this.id = id;
         this.name = name;
         this.seriesList = seriesList;

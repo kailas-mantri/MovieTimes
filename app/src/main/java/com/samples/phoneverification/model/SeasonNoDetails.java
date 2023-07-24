@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SeasonNumberDetails implements Serializable {
+public class SeasonNoDetails implements Serializable {
 
     @SerializedName("_id")
     public String series_id;
@@ -36,8 +36,8 @@ public class SeasonNumberDetails implements Serializable {
     @SerializedName("vte_average")
     public double season_vte_average;
 
-    public SeasonNumberDetails(String series_id, String air_date, ArrayList<Episodes> episodeList, String season_name, String seasons_overview,
-                               int season_id, String season_poster_path, int season_number, double season_vte_average) {
+    public SeasonNoDetails(String series_id, String air_date, ArrayList<Episodes> episodeList, String season_name, String seasons_overview,
+                           int season_id, String season_poster_path, int season_number, double season_vte_average) {
         this.series_id = series_id;
         this.air_date = air_date;
         this.episodeList = episodeList;

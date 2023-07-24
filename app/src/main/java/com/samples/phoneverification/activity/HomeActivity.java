@@ -1,11 +1,10 @@
 package com.samples.phoneverification.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.databinding.ActivityHomeBinding;
@@ -17,11 +16,10 @@ import com.samples.phoneverification.fragment.SeriesFragment;
 public class HomeActivity extends BaseActivity {
 
     Fragment fragment;
+    private ActivityHomeBinding binding;
     private final Fragment homeFragment = new HomeFragment();
     private final Fragment moviesFragment = new MoviesFragment();
     private final Fragment seriesFragment = new SeriesFragment();
-    private final Fragment searchFragment = new SearchFragment();
-    ActivityHomeBinding binding;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -43,12 +41,11 @@ public class HomeActivity extends BaseActivity {
                     fragment = seriesFragment;
                     break;
                 case R.id.menu_Search:
-                    fragment = searchFragment;
+                    fragment = new SearchFragment();
                     break;
                 default:
                     Toast.makeText(this, "Please check your INTERNET connection", Toast.LENGTH_SHORT).show();
             }
-
             return loadFragment(fragment);
         });
 
@@ -57,16 +54,14 @@ public class HomeActivity extends BaseActivity {
 
     private boolean loadFragment(Fragment fragment) {
 
-/*        FragmentManager manager = this.getSupportFragmentManager();
-*         FragmentTransaction transaction = manager.beginTransaction();
-*         transaction.replace(binding.bottomNavFrame.getId(), fragment);
-*         transaction.add(binding.bottomNavFrame.getId(), fragment);
-*         transaction.commit();
- */
+        /* FragmentManager manager = this.getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(binding.bottomNavFrame.getId(), fragment);
+        transaction.add(binding.bottomNavFrame.getId(), fragment);
+        transaction.commit();*/
 
         if (fragment != null) {
-            this.getSupportFragmentManager()
-                    .beginTransaction()
+            this.getSupportFragmentManager().beginTransaction()
                     .replace(binding.bottomNavFrame.getId(), fragment)
                     .commit();
             return true;

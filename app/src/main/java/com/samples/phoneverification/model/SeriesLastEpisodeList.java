@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class LastEpisodeToAir implements Serializable {
+public class SeriesLastEpisodeList implements Serializable {
 
     @SerializedName("id")
     private int id;
@@ -44,8 +44,8 @@ public class LastEpisodeToAir implements Serializable {
     @SerializedName("still_path")
     private String stillPath;
 
-    public LastEpisodeToAir(int id, String name, String overview, double voteAverage, int voteCount, String airDate,
-                            int episodeNumber, String productionCode, int runtime, int seasonNumber, int showId, String stillPath) {
+    public SeriesLastEpisodeList(int id, String name, String overview, double voteAverage, int voteCount, String airDate,
+                                 int episodeNumber, String productionCode, int runtime, int seasonNumber, int showId, String stillPath) {
         this.id = id;
         this.name = name;
         this.overview = overview;

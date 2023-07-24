@@ -26,7 +26,6 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this, "This is Base activity", Toast.LENGTH_SHORT).show();
         Log.e("BAse","Base Activity");
     }
 

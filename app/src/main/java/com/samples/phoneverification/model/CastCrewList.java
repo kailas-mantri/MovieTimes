@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class CastCrewArray implements Serializable {
+public class CastCrewList implements Serializable {
 
     @SerializedName("adult")
     public boolean isAdult;
@@ -52,11 +52,11 @@ public class CastCrewArray implements Serializable {
     @SerializedName("job")
     public String crewJob;
 
-    public CastCrewArray() {
+    public CastCrewList() {
     }
 
-    public CastCrewArray(boolean isAdult, int genderValue, String personId, String departmentName, String realName, String originalRealName, float personPopularity,
-                         String personProfile_path, String cast_credit_id, int cast_id, String rollName, int cast_order, String crewDepartment, String crewJob) {
+    public CastCrewList(boolean isAdult, int genderValue, String personId, String departmentName, String realName, String originalRealName, float personPopularity,
+                        String personProfile_path, String cast_credit_id, int cast_id, String rollName, int cast_order, String crewDepartment, String crewJob) {
         this.isAdult = isAdult;
         this.genderValue = genderValue;
         this.personId = personId;
