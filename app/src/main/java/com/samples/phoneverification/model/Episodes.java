@@ -46,14 +46,14 @@ public class Episodes implements Serializable {
     public int season_vote_count;
 
     @SerializedName("crew")
-    public ArrayList<CastCrewArray> crewArrays;
+    public ArrayList<CastCrewList> crewArrays;
 
     @SerializedName("guest_stars")
     public ArrayList<GuestStars> guestStars;
 
     public Episodes(String episode_air_date, int episode_number, int episode_id, String episode_name, String episode_overview, String episode_production_code,
                     int episode_runtime, int season_number, int episode_show_id, String episode_still_path, Float episode_vote_average,
-                    int season_vote_count, ArrayList<CastCrewArray> crewArrays, ArrayList<GuestStars> guestStars) {
+                    int season_vote_count, ArrayList<CastCrewList> crewArrays, ArrayList<GuestStars> guestStars) {
         this.episode_air_date = episode_air_date;
         this.episode_number = episode_number;
         this.episode_id = episode_id;
@@ -166,11 +166,11 @@ public class Episodes implements Serializable {
         this.season_vote_count = season_vote_count;
     }
 
-    public ArrayList<CastCrewArray> getCrewArrays() {
+    public ArrayList<CastCrewList> getCrewArrays() {
         return crewArrays;
     }
 
-    public void setCrewArrays(ArrayList<CastCrewArray> crewArrays) {
+    public void setCrewArrays(ArrayList<CastCrewList> crewArrays) {
         this.crewArrays = crewArrays;
     }
 

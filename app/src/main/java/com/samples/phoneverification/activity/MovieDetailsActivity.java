@@ -17,24 +17,29 @@ import com.samples.phoneverification.R;
 import com.samples.phoneverification.adapters.CastCrewAdapter;
 import com.samples.phoneverification.adapters.MovieAdapter;
 import com.samples.phoneverification.adapters.TrailerAdapter;
+import com.samples.phoneverification.adapters.WatchPAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
-import com.samples.phoneverification.model.CastCrewArray;
-import com.samples.phoneverification.model.CastPOJOModel;
-import com.samples.phoneverification.model.MediaTypeArray;
-import com.samples.phoneverification.model.MovieItemDetails;
-import com.samples.phoneverification.model.MediaGroup;
-import com.samples.phoneverification.model.MovieModel;
-import com.samples.phoneverification.model.MovieResults;
-import com.samples.phoneverification.model.SpokenLanguages;
 import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.ActivityMovieDetailsBinding;
+import com.samples.phoneverification.model.CastCrewList;
+import com.samples.phoneverification.model.CastModel;
+import com.samples.phoneverification.model.MediaGroup;
+import com.samples.phoneverification.model.MediaList;
+import com.samples.phoneverification.model.MovieIdDetails;
+import com.samples.phoneverification.model.MovieModel;
+import com.samples.phoneverification.model.MovieResults;
+import com.samples.phoneverification.model.ProvidersRegionList;
+import com.samples.phoneverification.model.SpokenLanguages;
+import com.samples.phoneverification.model.WatchProvider;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,27 +50,28 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
-    private ActivityMovieDetailsBinding binding;
     private int movieId;
+    private ActivityMovieDetailsBinding binding;
+    WatchPAdapter watchProviderAdapter;
     private boolean isWishListed = false;
-    TrailerAdapter trailerAdapter;
+    private TrailerAdapter trailerAdapter;
     private CastCrewAdapter castsCrewAdapter;
     private MovieAdapter recommendationAdapter;
-    private ArrayList<MediaTypeArray> mediaTypeArrayList = new ArrayList<>();
-    private final ArrayList<MediaTypeArray> filteredMedia = new ArrayList<>();
-    private ArrayList<CastCrewArray> castArray = new ArrayList<>();
-    private ArrayList<MovieResults> recommendedResults = new ArrayList<>();
-    ArrayList<CastCrewArray> crewArray = new ArrayList<>();
+    String country = Locale.getDefault().getCountry();
+    ArrayList<CastCrewList> crewArray = new ArrayList<>();
     private final List<String> langList = new ArrayList<>();
-    SimpleDateFormat inputDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-    SimpleDateFormat outputDate = new SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault());
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(URLs.BASE_URL)
+    private ArrayList<CastCrewList> castArray = new ArrayList<>();
+    private ArrayList<MediaList> mediaListList = new ArrayList<>();
+    Retrofit retrofit = new Retrofit.Builder().baseUrl(URLs.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
+            .addConverterFactory(GsonConverterFactory.create()).build();
 
-    APIInterface anInterface = retrofit.create(APIInterface.class);
+    private final ArrayList<MediaList> filteredMedia = new ArrayList<>();
+    private ArrayList<MovieResults> recommendedResults = new ArrayList<>();
+    private final APIInterface anInterface = retrofit.create(APIInterface.class);
+    private final HashMap<String, ProvidersRegionList> regionList = new HashMap<>();
+    private final SimpleDateFormat inputDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    private final SimpleDateFormat outputDate = new SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,34 +81,32 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         // TODO: Get Movie Id from last fragment.
         Intent intent = getIntent();
-        
-        movieId = intent.getIntExtra("movie_id",0);
-        binding.toolbarBack.setOnClickListener(v -> onBackPressed() );
+
+        movieId = intent.getIntExtra("movie_id", 0);
+        binding.toolbarBack.setOnClickListener(v -> onBackPressed());
 
         // TODO: Call API and set UI.
-        Call<MovieItemDetails> details_call = anInterface.MOVIE_ITEM_DETAILS_CALL(movieId, URLs.API_KEY);
-        details_call.enqueue(new Callback<MovieItemDetails>() {
+        Call<MovieIdDetails> details_call = anInterface.MOVIE_ID_DETAILS_CALL(movieId, URLs.API_KEY);
+        details_call.enqueue(new Callback<MovieIdDetails>() {
             @Override
-            public void onResponse(@NonNull Call<MovieItemDetails> call, @NonNull Response<MovieItemDetails> response) {
+            public void onResponse(@NonNull Call<MovieIdDetails> call, @NonNull Response<MovieIdDetails> response) {
                 if (response.isSuccessful() && (response.body() != null)) {
-                    MovieItemDetails itemDetails = response.body();
-                    AddDataToUI(itemDetails);
+                    MovieIdDetails itemDetails = response.body();
+                    addDataToUI(itemDetails);
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<MovieItemDetails> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<MovieIdDetails> call, @NonNull Throwable t) {
                 Log.w("API Failing", "onFailure: " + call, t.fillInStackTrace());
             }
         });
     }
 
-    private void AddDataToUI(MovieItemDetails itemDetails) {
+    private void addDataToUI(MovieIdDetails itemDetails) {
+        appBarLayer(itemDetails);
 
         // Todo: 5. Release Date, 6. Spoken Languages, 8. Movie Description
-
-        AppBarBlock(itemDetails);
-
         try {
             Date date = inputDate.parse(itemDetails.getMovie_release_date());
             if (date != null) {
@@ -131,34 +135,63 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         // TODO: Set the Layout Mangers before Setting the adapters for recycler view
         binding.trailerRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
+        binding.watchProviderRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
         binding.castRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
         binding.recommendationRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
 
-        // TODO: 7. Adapter for Trailer/Teaser 9. Casts Adapter (Actor/Actress details), 10. Recommended Movies Adapter, API call
+        // TODO: 7. All Adapters
         initAdapters();
-
-        // TODO: API Calls
         initApiCalls();
     }
 
+    // TODO: 8. API Calls
     private void initApiCalls() {
-        MediaTrailers();
-        StarCast();
+        watchProviderCall();
+        mediaTrailers();
+        starCast();
         recommendedMovies();
     }
 
-    private void MediaTrailers() {
+    private void watchProviderCall() {
+        Call<WatchProvider> call = anInterface.MOVIE_WATCH_PROVIDER_CALL(movieId, URLs.API_KEY);
+        call.enqueue(new Callback<WatchProvider>() {
+            @Override
+            public void onResponse(@NonNull Call<WatchProvider> call, @NonNull Response<WatchProvider> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    WatchProvider watchPList = response.body();
+                    Map<String, ProvidersRegionList> region = watchPList.getRegionList();
+                    if (region.containsKey(country)) {
+                        Map<String, ProvidersRegionList> provider = new HashMap<>(region);
+                        watchProviderAdapter.updateData(provider);
+                    } else {
+                        binding.availableOn.setVisibility(View.GONE);
+                        binding.watchProviderRecycler.setVisibility(View.GONE);
+                    }
+                } else {
+                    binding.availableOn.setVisibility(View.GONE);
+                    binding.watchProviderRecycler.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<WatchProvider> call, @NonNull Throwable t) {
+                Log.d("TAG", "onFailure: Watch Provider" + call);
+            }
+        });
+    }
+
+    private void mediaTrailers() {
         Call<MediaGroup> mediaGroupCall = anInterface.MOVIE_MEDIA_GROUP_CALL(movieId, URLs.API_KEY);
         mediaGroupCall.enqueue(new Callback<MediaGroup>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(@NonNull Call<MediaGroup> call, @NonNull Response<MediaGroup> response) {
                 if (response.body() != null && response.isSuccessful()) {
-                    //TODO: Whole Response of API.
-                    mediaTypeArrayList = response.body().getMediaList();
+                    //TODO: Response of API.
+                    mediaListList = response.body().getMediaList();
 
                     //TODO: Filtered Response for Trailer and Teaser.
-                    for (MediaTypeArray array : mediaTypeArrayList) {
+                    for (MediaList array : mediaListList) {
                         if (array.getMedia_type().equals("Trailer") || array.getMedia_type().equals("Teaser")) {
                             filteredMedia.add(array);
                         }
@@ -177,6 +210,34 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<MediaGroup> call, @NonNull Throwable t) {
                 Log.w("TrailerResponse", "onFailure: " + call, t.fillInStackTrace());
+            }
+        });
+    }
+
+    private void starCast() {
+        Call<CastModel> castPOJOCall = anInterface.MOVIE_CAST_MODEL_CALL(movieId, URLs.API_KEY);
+        castPOJOCall.enqueue(new Callback<CastModel>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(@NonNull Call<CastModel> call, @NonNull Response<CastModel> response) {
+                if (response.isSuccessful() && (response.body() != null)) {
+                    // updateCast Array.
+                    castArray = response.body().getCastList();
+                    castsCrewAdapter.updateData(castArray);
+                    castsCrewAdapter.notifyDataSetChanged();
+
+                    // updateCrew Array.
+                    crewArray = response.body().getCrewArrays();
+                } else {
+                    binding.starCastTitle.setVisibility(View.GONE);
+                    binding.castRecycler.setVisibility(View.GONE);
+                    Log.w("is Null", "onResponse: " + response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CastModel> call, @NonNull Throwable t) {
+                Log.w("CastCall", "onFailure: " + call, t.fillInStackTrace());
             }
         });
     }
@@ -209,46 +270,21 @@ public class MovieDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void StarCast() {
-        Call<CastPOJOModel> castPOJOCall = anInterface.MOVIE_CAST_POJO_MODEL_CALL(movieId, URLs.API_KEY);
-        castPOJOCall.enqueue(new Callback<CastPOJOModel>() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onResponse(@NonNull Call<CastPOJOModel> call, @NonNull Response<CastPOJOModel> response) {
-                if (response.isSuccessful() && (response.body() != null)) {
-                    // updateCast Array.
-                    castArray = response.body().getCastList();
-                    castsCrewAdapter.updateData(castArray);
-                    castsCrewAdapter.notifyDataSetChanged();
-
-                    // updateCrew Array.
-                    crewArray = response.body().getCrewArrays();
-                } else {
-                    binding.starCastTitle.setVisibility(View.GONE);
-                    binding.castRecycler.setVisibility(View.GONE);
-                    Log.w("is Null", "onResponse: " + response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<CastPOJOModel> call, @NonNull Throwable t) {
-                Log.w("CastCall", "onFailure: " + call, t.fillInStackTrace());
-            }
-        });
-    }
-
     private void initAdapters() {
-        /* 1. Trailer, Teaser Adapter*/
+        // TODO: 1. (Trailer, Teaser), 2. initCasts, 3. initRecommendedMovies.
         initTrailers();
-
-        /* 2. castAdapter*/
-        CastAdapter();
-
-        /* 3. RecommendedMoviesAdapters*/
-        RecommendedMoviesAdapters();
+        initWatchProvider();
+        initCasts();
+        initRecommendedMovies();
     }
 
-    private void RecommendedMoviesAdapters() {
+    private void initWatchProvider() {
+        watchProviderAdapter = new WatchPAdapter(getApplicationContext(), regionList, (item, position, action) ->
+                Log.d("TAG", "WatchProvider: " + regionList.keySet().toArray()[position].toString()));
+        binding.watchProviderRecycler.setAdapter(watchProviderAdapter);
+    }
+
+    private void initRecommendedMovies() {
         recommendationAdapter = new MovieAdapter(getApplicationContext(), recommendedResults, (item, position, action) -> {
             Intent intent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
             intent.putExtra("movie_id", item.getMovieId());
@@ -257,27 +293,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
         binding.recommendationRecycler.setAdapter(recommendationAdapter);
     }
 
-    private void CastAdapter() {
+    private void initCasts() {
         castsCrewAdapter = new CastCrewAdapter(getApplicationContext(), castArray, (item, position, action) ->
-            Log.d("TrailerAdapterTag", "initTrailers: " + castArray.size()) );
+                Log.d("TrailerAdapterTag", "initTrailers: " + castArray.size()));
         binding.castRecycler.setAdapter(castsCrewAdapter);
     }
 
     private void initTrailers() {
-        trailerAdapter = new TrailerAdapter(getApplicationContext(), mediaTypeArrayList, (item, position, action) ->
-            Log.d("TrailerAdapterTag", "initTrailers: " + mediaTypeArrayList.size()) );
+        trailerAdapter = new TrailerAdapter(getApplicationContext(), mediaListList, (item, position, action) ->
+                Log.d("TrailerAdapterTag", "initTrailers: " + mediaListList.size()));
         binding.trailerRecycler.setAdapter(trailerAdapter);
     }
 
     @SuppressLint("SetTextI18n")
-    private void AppBarBlock(MovieItemDetails itemDetails) {
+    private void appBarLayer(MovieIdDetails itemDetails) {
 
         binding.collapsingToolbar.setTitle(itemDetails.getStandardMovieTitle());
 
-        /* 1. BackPath setup,
-         * 2. Movie Title,
-         * 3. Ratings,
-         * 4. setEvent(onClick) on Add_to_wishlist */
+        // TODO: 1. BackPath setup, 2. Movie Title, 3. Ratings,  4. setEvent(onClick) on Add_to_wishlist
         Glide.with(binding.backdropPath).load(URLs.IMAGE_BASE_URL + itemDetails.getBackdrop_path())
                 .into(binding.backdropPath);
         binding.movieTitle.setText(itemDetails.getStandardMovieTitle());

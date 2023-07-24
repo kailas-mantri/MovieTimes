@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
-import com.samples.phoneverification.model.SearchApiResults;
+import com.samples.phoneverification.model.SearchResults;
 import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
@@ -20,10 +20,10 @@ import java.util.ArrayList;
 public class RecyclerSearchAdapter extends RecyclerView.Adapter<RecyclerSearchAdapter.ViewHolder> {
 
     private final Context context;
-    private ArrayList<SearchApiResults> apiResults;
-    private final OnRecyclerItemClickListener<SearchApiResults> anInterface;
+    private ArrayList<SearchResults> apiResults;
+    private final OnRecyclerItemClickListener<SearchResults> anInterface;
 
-    public RecyclerSearchAdapter(Context context, ArrayList<SearchApiResults> apiResults, OnRecyclerItemClickListener<SearchApiResults> anInterface) {
+    public RecyclerSearchAdapter(Context context, ArrayList<SearchResults> apiResults, OnRecyclerItemClickListener<SearchResults> anInterface) {
         this.context = context;
         this.apiResults = apiResults;
         this.anInterface = anInterface;
@@ -60,7 +60,7 @@ public class RecyclerSearchAdapter extends RecyclerView.Adapter<RecyclerSearchAd
         return apiResults.size();
     }
 
-    public void updateData(ArrayList<SearchApiResults> searchResults) {
+    public void updateData(ArrayList<SearchResults> searchResults) {
         this.apiResults = searchResults;
     }
 

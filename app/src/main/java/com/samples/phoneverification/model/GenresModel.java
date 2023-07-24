@@ -7,23 +7,23 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GenreModel implements Serializable {
+public class GenresModel implements Serializable {
 
     @SerializedName("genres")
-    public ArrayList<GenreResults> genresArray;
+    public ArrayList<GenresList> genresArray;
 
-    public GenreModel() {
+    public GenresModel() {
     }
 
-    public GenreModel(ArrayList<GenreResults> genresArray) {
+    public GenresModel(ArrayList<GenresList> genresArray) {
         this.genresArray = genresArray;
     }
 
-    public ArrayList<GenreResults> getGenresArray() {
+    public ArrayList<GenresList> getGenresArray() {
         return genresArray;
     }
 
-    public void setGenresArray(ArrayList<GenreResults> genresArray) {
+    public void setGenresArray(ArrayList<GenresList> genresArray) {
         this.genresArray = genresArray;
     }
 

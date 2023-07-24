@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.model.GenreResults;
+import com.samples.phoneverification.model.GenresList;
 import com.samples.phoneverification.model.MovieResults;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 
@@ -21,10 +21,10 @@ import java.util.ArrayList;
 public class GenreMAdapter extends RecyclerView.Adapter<GenreMAdapter.GenreViewHolder> {
 
     private final Context context;
-    private ArrayList<GenreResults> genreResults;
+    private ArrayList<GenresList> genreResults;
     private final OnRecyclerItemClickListener<MovieResults> anInterface;
 
-    public GenreMAdapter(Context context, ArrayList<GenreResults> genreResults, OnRecyclerItemClickListener<MovieResults> anInterface) {
+    public GenreMAdapter(Context context, ArrayList<GenresList> genreResults, OnRecyclerItemClickListener<MovieResults> anInterface) {
         this.context = context;
         this.genreResults = genreResults;
         this.anInterface = anInterface;
@@ -58,7 +58,7 @@ public class GenreMAdapter extends RecyclerView.Adapter<GenreMAdapter.GenreViewH
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateData(ArrayList<GenreResults> genreResults) {
+    public void updateData(ArrayList<GenresList> genreResults) {
         this.genreResults = genreResults;
         notifyDataSetChanged();
     }

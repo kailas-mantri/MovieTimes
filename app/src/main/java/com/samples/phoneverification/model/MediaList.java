@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class MediaTypeArray implements Serializable {
+public class MediaList implements Serializable {
 
     @SerializedName("iso_639_1")
     public String trailerLangType;
@@ -38,7 +38,7 @@ public class MediaTypeArray implements Serializable {
     @SerializedName("id")
     public String mediaTrailerId;
 
-    public MediaTypeArray() {
+    public MediaList() {
     }
 
     public String getTrailerLangType() {

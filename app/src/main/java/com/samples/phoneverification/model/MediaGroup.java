@@ -13,12 +13,12 @@ public class MediaGroup implements Serializable {
     public int movieId;
 
     @SerializedName("results")
-    public ArrayList<MediaTypeArray> mediaList;
+    public ArrayList<MediaList> mediaList;
 
     public MediaGroup() {
     }
 
-    public MediaGroup(int movieId, ArrayList<MediaTypeArray> mediaList) {
+    public MediaGroup(int movieId, ArrayList<MediaList> mediaList) {
         this.movieId = movieId;
         this.mediaList = mediaList;
     }
@@ -31,11 +31,11 @@ public class MediaGroup implements Serializable {
         this.movieId = movieId;
     }
 
-    public ArrayList<MediaTypeArray> getMediaList() {
+    public ArrayList<MediaList> getMediaList() {
         return mediaList;
     }
 
-    public void setMediaList(ArrayList<MediaTypeArray> mediaList) {
+    public void setMediaList(ArrayList<MediaList> mediaList) {
         this.mediaList = mediaList;
     }
 

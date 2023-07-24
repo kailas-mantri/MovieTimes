@@ -7,13 +7,13 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SearchApiModel implements Serializable {
+public class SearchModel implements Serializable {
 
     @SerializedName("page")
     public int page;
 
     @SerializedName("results")
-    public ArrayList<SearchApiResults> searchResults;
+    public ArrayList<SearchResults> searchResults;
 
     @SerializedName("total_pages")
     public int totalPages;
@@ -21,10 +21,10 @@ public class SearchApiModel implements Serializable {
     @SerializedName("total_results")
     public int totalResults;
 
-    public SearchApiModel() {
+    public SearchModel() {
     }
 
-    public SearchApiModel(int page, ArrayList<SearchApiResults> searchResults, int totalPages, int totalResults) {
+    public SearchModel(int page, ArrayList<SearchResults> searchResults, int totalPages, int totalResults) {
         this.page = page;
         this.searchResults = searchResults;
         this.totalPages = totalPages;
@@ -39,11 +39,11 @@ public class SearchApiModel implements Serializable {
         this.page = page;
     }
 
-    public ArrayList<SearchApiResults> getSearchResults() {
+    public ArrayList<SearchResults> getSearchResults() {
         return searchResults;
     }
 
-    public void setSearchResults(ArrayList<SearchApiResults> searchResults) {
+    public void setSearchResults(ArrayList<SearchResults> searchResults) {
         this.searchResults = searchResults;
     }
 

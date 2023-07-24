@@ -138,7 +138,7 @@
             </RelativeLayout>
 
             <include
-                android:id="@+id/season_short_note"
+                android:id="@+id/season_intro"
                 layout="@layout/card_series_details_layout"
                 android:layout_width="match_parent"
                 android:layout_marginVertical="8sp"
@@ -149,7 +149,7 @@
                 android:id="@+id/episodes_block"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/season_short_note"
+                android:layout_below="@+id/season_intro"
                 android:paddingStart="16sp"
                 android:paddingBottom="8sp"
                 android:paddingEnd="8sp">
@@ -211,12 +211,19 @@
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/availableOn"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="8sp"
+                    android:id="@+id/watchProviderRecycler" />
 
                 <RelativeLayout
                     android:id="@+id/block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/availableOn"
+                    android:layout_below="@id/watchProviderRecycler"
                     android:paddingTop="8sp"
                     android:paddingBottom="16sp">
 

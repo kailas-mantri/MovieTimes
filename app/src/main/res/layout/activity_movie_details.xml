@@ -157,18 +157,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/releaseOn"
-                    android:paddingTop="8sp"
+                    android:paddingTop="16sp"
                     android:text="@string/availableOn"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/availableOn"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="8sp"
+                    android:id="@+id/watchProviderRecycler" />
 
                 <RelativeLayout
                     android:id="@+id/block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/availableOn"
+                    android:layout_below="@id/watchProviderRecycler"
                     android:paddingTop="8sp"
                     android:paddingBottom="16sp">
 
@@ -187,7 +194,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/languageHeading"
-                        android:paddingBottom="8sp"
+                        android:paddingBottom="16sp"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                         android:textColor="@color/white" />
 
@@ -207,7 +214,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/trailerHeading"
-                        android:paddingBottom="8sp" />
+                        android:paddingBottom="16sp" />
 
                     <TextView
                         android:id="@+id/description"
@@ -235,7 +242,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/block"
-                    android:paddingBottom="4sp"
+                    android:paddingBottom="6sp"
                     android:text="@string/cast"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textColor="@color/white"

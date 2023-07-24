@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.R;
-import com.samples.phoneverification.model.CastCrewArray;
+import com.samples.phoneverification.model.CastCrewList;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.apimodel.URLs;
 
@@ -23,10 +23,10 @@ import java.util.ArrayList;
 public class CastCrewAdapter extends RecyclerView.Adapter<CastCrewAdapter.ViewHolder> {
 
     private final Context context;
-    private ArrayList<CastCrewArray> castArrays;
-    final OnRecyclerItemClickListener<CastCrewArray> anInterface;
+    private ArrayList<CastCrewList> castArrays;
+    final OnRecyclerItemClickListener<CastCrewList> anInterface;
 
-    public CastCrewAdapter(Context context, ArrayList<CastCrewArray> castArrays, OnRecyclerItemClickListener<CastCrewArray> anInterface) {
+    public CastCrewAdapter(Context context, ArrayList<CastCrewList> castArrays, OnRecyclerItemClickListener<CastCrewList> anInterface) {
         this.context = context;
         this.castArrays = castArrays;
         this.anInterface = anInterface;
@@ -44,7 +44,7 @@ public class CastCrewAdapter extends RecyclerView.Adapter<CastCrewAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CastCrewArray cast = castArrays.get(position);
+        CastCrewList cast = castArrays.get(position);
         String profile_path = cast.getPersonProfile_path();
         holder.realName.setText(cast.getOriginalRealName());
         holder.rollName.setText(cast.getRollName());
@@ -67,7 +67,7 @@ public class CastCrewAdapter extends RecyclerView.Adapter<CastCrewAdapter.ViewHo
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateData(ArrayList<CastCrewArray> castArray) {
+    public void updateData(ArrayList<CastCrewList> castArray) {
         this.castArrays = castArray;
         notifyDataSetChanged();
     }

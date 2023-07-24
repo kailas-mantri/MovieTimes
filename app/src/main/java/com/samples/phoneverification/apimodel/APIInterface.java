@@ -1,14 +1,15 @@
 package com.samples.phoneverification.apimodel;
 
-import com.samples.phoneverification.model.CastPOJOModel;
-import com.samples.phoneverification.model.GenreModel;
-import com.samples.phoneverification.model.MovieItemDetails;
+import com.samples.phoneverification.model.CastModel;
+import com.samples.phoneverification.model.GenresModel;
+import com.samples.phoneverification.model.MovieIdDetails;
 import com.samples.phoneverification.model.MediaGroup;
 import com.samples.phoneverification.model.MovieModel;
-import com.samples.phoneverification.model.SearchApiModel;
-import com.samples.phoneverification.model.SeriesItemResults;
-import com.samples.phoneverification.model.SeasonNumberDetails;
+import com.samples.phoneverification.model.SearchModel;
+import com.samples.phoneverification.model.SeriesIdResults;
+import com.samples.phoneverification.model.SeasonNoDetails;
 import com.samples.phoneverification.model.SeriesModel;
+import com.samples.phoneverification.model.WatchProvider;
 
 import java.util.HashMap;
 
@@ -60,8 +61,8 @@ public interface APIInterface {
             @Query("api_key") String apiKey
     );
 
-    @GET(URLConstants.MOVIES_GENRES_LIST)
-    Call<GenreModel> MOVIE_GENRE_MODEL_CALL(
+    @GET(URLConstants.MOVIE_GENRES_LIST)
+    Call<GenresModel> MOVIE_GENRES_MODEL_CALL(
             @Query("api_key") String apiKey
     );
 
@@ -71,7 +72,7 @@ public interface APIInterface {
     );
 
     @GET(URLConstants.SERIES_GENRES_LIST)
-    Call<GenreModel> SERIES_GENRE_MODEL_CALL(
+    Call<GenresModel> SERIES_GENRE_MODEL_CALL(
             @Query("api_key") String apiKey
     );
 
@@ -81,12 +82,12 @@ public interface APIInterface {
     );
 
     @GET(URLConstants.SEARCH_VIEW)
-    Call<SearchApiModel> SEARCH_MODEL_CALL(
+    Call<SearchModel> SEARCH_MODEL_CALL(
             @QueryMap HashMap<String, String> params
     );
 
     @GET(URLConstants.MOVIE_ITEM_DETAILS)
-    Call<MovieItemDetails> MOVIE_ITEM_DETAILS_CALL(
+    Call<MovieIdDetails> MOVIE_ID_DETAILS_CALL(
             @Path("movie_id") int movieId,
             @Query("api_key") String apiKey
     );
@@ -98,7 +99,7 @@ public interface APIInterface {
     );
 
     @GET(URLConstants.MOVIE_CAST_CREDITS)
-    Call<CastPOJOModel> MOVIE_CAST_POJO_MODEL_CALL(
+    Call<CastModel> MOVIE_CAST_MODEL_CALL(
             @Path("movie_id") int movieId,
             @Query("api_key") String apiKey
     );
@@ -110,7 +111,7 @@ public interface APIInterface {
     );
 
     @GET(URLConstants.SERIES_ITEM_DETAILS)
-    Call<SeriesItemResults> SERIES_ITEM_ID_RESULTS_CALL(
+    Call<SeriesIdResults> SERIES_ITEM_ID_RESULTS_CALL(
             @Path("series_id") int seriesId,
             @Query("api_key") String apiKey
     );
@@ -121,14 +122,14 @@ public interface APIInterface {
             @Query("api_key") String apiKey
     );
     @GET(URLConstants.SERIES_SEASON_ITEM_DETAILS)
-    Call<SeasonNumberDetails> SERIES_ITEM_SEASON_DETAILS_CALL(
+    Call<SeasonNoDetails> SERIES_ITEM_SEASON_DETAILS_CALL(
             @Path("series_id") int seriesId,
             @Path("season_number") int season_no,
             @Query("api_key") String apiKey
     );
 
     @GET(URLConstants.SERIES_CAST_CREDITS)
-    Call<CastPOJOModel> SERIES_CAST_POJO_MODEL_CALL(
+    Call<CastModel> SERIES_CAST_MODEL_CALL(
             @Path("series_id") int seriesId,
             @Path("season_number") int season_no,
             @Query("api_key") String apiKey
@@ -136,6 +137,18 @@ public interface APIInterface {
 
     @GET(URLConstants.RECOMMENDED_SERIES_BY_SERIES_ID)
     Call<SeriesModel> RECOMMENDED_SERIES_ITEM_RESULTS_CALL(
+            @Path("series_id") int seriesId,
+            @Query("api_key") String apiKey
+    );
+
+    @GET(URLConstants.MOVIE_WATCH_PROVIDER)
+    Call<WatchProvider> MOVIE_WATCH_PROVIDER_CALL(
+            @Path("movie_id") int movieId,
+            @Query("api_key") String apiKey
+    );
+
+    @GET(URLConstants.SERIES_WATCH_PROVIDER)
+    Call<WatchProvider> SERIES_WATCH_PROVIDER_CALL(
             @Path("series_id") int seriesId,
             @Query("api_key") String apiKey
     );

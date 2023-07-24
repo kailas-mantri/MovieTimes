@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class SearchApiResults implements Serializable {
+public class SearchResults implements Serializable {
 
     @SerializedName("adult")
     public boolean isAdult;
@@ -66,10 +66,10 @@ public class SearchApiResults implements Serializable {
     @SerializedName("release_date")
     public String movieReleaseDate;
 
-    public SearchApiResults(boolean isAdult, String backdropPath, int itemId, String standardSeriesTitle, String standardMovieTitle,
-                            String originalLanguage, String originalSeriesTitle, String originalMovieTitle, String itemOverview,
-                            String posterPath, String mediaType, int[] genreIds, float popularity, float voteAverage, int voteCount,
-                            String[] origin_country, boolean trailerVideo, String seriesFirstAirDate, String movieReleaseDate) {
+    public SearchResults(boolean isAdult, String backdropPath, int itemId, String standardSeriesTitle, String standardMovieTitle,
+                         String originalLanguage, String originalSeriesTitle, String originalMovieTitle, String itemOverview,
+                         String posterPath, String mediaType, int[] genreIds, float popularity, float voteAverage, int voteCount,
+                         String[] origin_country, boolean trailerVideo, String seriesFirstAirDate, String movieReleaseDate) {
         this.isAdult = isAdult;
         this.backdropPath = backdropPath;
         this.itemId = itemId;

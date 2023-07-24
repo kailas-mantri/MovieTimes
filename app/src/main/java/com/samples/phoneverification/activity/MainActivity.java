@@ -29,13 +29,13 @@ import com.samples.phoneverification.dbmodel.StoreFirebaseUser;
 import com.samples.phoneverification.fragment.BottomSheetDialog;
 
 public class MainActivity extends BaseActivity {
-    private ActivityMainBinding binding;
-    BottomSheetDialog dialogFragment;
     private FirebaseAuth mAuth;
     DatabaseReference reference;
+    BottomSheetDialog dialogFragment;
+    private String phoneNumber = null;
+    private ActivityMainBinding binding;
     private static final int RC_SIGN_IN = 1;
     private static final String TAG = "GoogleSignIn :";
-    private String phoneNumber = null;
 
     /*Update Feature required - How to use it. for deprecated API?
     private ActivityResultLauncher<Intent> signInLauncher;*/
