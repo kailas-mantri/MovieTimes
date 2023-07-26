@@ -2,17 +2,19 @@
 
 MovieTimes is a mobile application that allows users to discover and explore movies and TV shows easily. It provides a user-friendly interface to browse through various genres, view movie details, watch trailers, and add movies to the wishlist.
 
-## Features
-- Browse Trending Movies and TV Shows
-- Filter Movies and TV Shows by Genres
-- View Movie Details and Synopsis
-- Watch Trailers of Movies
-- Add Movies to Wishlist
-- Architecture MVC model.
+- Features
+  -
+  - Browse Trending Movies and TV Shows
+  - Filter Movies and TV Shows by Genres
+  - View Movie Details and Synopsis
+  - Watch Trailers of Movies
+  - Add Movies to Wishlist
+  - Architecture MVC model.
 
-## Screenshots
-    - In Upcoming Updates.
-    ![Login Page](URL_of_the_screenshot_image)
+- Screenshots
+  - 
+  - In Upcoming Updates.
+  ![Login Page](URL_of_the_screenshot_image)
 
 ## Tech Stack
 - Java with Android SDK for development.
@@ -58,11 +60,12 @@ Phase 5: _*Layout Design and Data Handling*_
     
 - API Implementation, Adapter, Implicit & Explicit Intent, Collapsing Toolbar, Fetching Season and episode details.
 
+
 Phase 6: *Local Database  log_out feature.*
 
 - WishList management - SearchQuery recent and result management using SQLite database handling's with UI.
-  -
-  - Log_out feature in update with Navigation Drawer.
+- Log_out feature in update with Navigation Drawer.
+
 
 Phase 7: *Updates*
 
