@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_dialog_otp_border"
     android:padding="17dp"
+    android:background="@drawable/bg_dialog_otp_border"
     tools:context=".fragment.BottomSheetDialog">
 
     <RelativeLayout

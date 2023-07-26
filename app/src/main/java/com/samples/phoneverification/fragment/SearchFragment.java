@@ -19,13 +19,14 @@ import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.adapters.RecentSearchAdapter;
 import com.samples.phoneverification.adapters.RecyclerSearchAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
-import com.samples.phoneverification.model.SearchModel;
-import com.samples.phoneverification.model.SearchResults;
 import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.FragmentSearchBinding;
 import com.samples.phoneverification.dbmodel.SearchDBHelper;
+import com.samples.phoneverification.model.SearchModel;
+import com.samples.phoneverification.model.SearchResults;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,17 +40,20 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SearchFragment extends Fragment {
 
-    FragmentSearchBinding binding;
-    private ArrayList<SearchResults> searchResults = new ArrayList<>();
-    private ArrayList<SearchResults> filteredMovieList = new ArrayList<>();
-    private ArrayList<SearchResults> FilteredSeriesList = new ArrayList<>();
-    private final LinkedList<String> recentSearch = new LinkedList<>();
-    private final LinkedList<String> sHistoryRecordBook = new LinkedList<>();
-    private RecentSearchAdapter recentSearchAdapter;
-    private RecyclerSearchAdapter searchOutputAdapter;
-    private SearchDBHelper searchDBHelper;
     private Retrofit retrofit;
     private APIInterface anInterface;
+    private FragmentSearchBinding binding;
+    private SearchDBHelper searchDBHelper;
+    private boolean isQuerySubmitted = false;
+    private RecentSearchAdapter recentSearchAdapter;
+    private RecyclerSearchAdapter searchOutputAdapter;
+    private ArrayList<SearchResults> searchResults = new ArrayList<>();
+
+    /*ArrayList<SearchResults> filteredMovieList = new ArrayList<>();
+    ArrayList<SearchResults> FilteredSeriesList = new ArrayList<>();*/
+    private final LinkedList<String> recentSearch = new LinkedList<>();
+    private final LinkedList<String> sHistoryRecordBook = new LinkedList<>();
+
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -57,6 +61,10 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initRetrofit();
+    }
+
+    private void initRetrofit() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(URLs.BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -69,12 +77,18 @@ public class SearchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(getLayoutInflater());
-
         searchDBHelper = new SearchDBHelper(getContext());
 
         //TODO: set Visibility for recyclerView.
         binding.recentSearchLayout.beforeSearchRecyclerView.setVisibility(View.VISIBLE);
         binding.afterSearchRecyclerView.setVisibility(View.GONE);
+
+
+        // TODO: Set LayoutManger, Adapter
+        binding.recentSearchLayout.beforeSearchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recentSearchAdapter = new RecentSearchAdapter(getContext(), recentSearch);
+        binding.recentSearchLayout.beforeSearchRecyclerView.setAdapter(recentSearchAdapter);
+
 
         //TODO: searchView editor on query.
         binding.searchEditText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -83,51 +97,76 @@ public class SearchFragment extends Fragment {
                 if (!sHistoryRecordBook.contains(query)) {
                     saveRecentSearch(query);
                 }
-                performSearch(query);
+                loadSearchResults(query);
+                isQuerySubmitted = true;
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-//                updateSuggestions(newText);
+                if (!isQuerySubmitted && newText.isEmpty())
+                    hideRecentSearchRecords();
+                else
+                    showRecentSearchRecords();
                 return true;
+            }
+        });
+
+        binding.searchEditText.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                loadRecentSearchRecords();
+                return false;
             }
         });
 
         binding.recentSearchLayout.clearAll.setOnClickListener(v -> clearRecentSearch());
 
-        // loadRecent search records from database
         loadRecentSearchRecords();
-
-        System.out.println(recentSearch);
+        System.out.println(recentSearch+ " ---- " + sHistoryRecordBook);
         return binding.getRoot();
+    }
+
+    private void hideRecentSearchRecords() {
+        binding.recentSearchLayout.beforeSearchRecyclerView.setVisibility(View.GONE);
+        binding.recentSearchLayout.recentSearchText.setVisibility(View.GONE);
+        binding.recentSearchLayout.clearAll.setVisibility(View.GONE);
+        binding.afterSearchRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void showRecentSearchRecords() {
+        binding.recentSearchLayout.beforeSearchRecyclerView.setVisibility(View.VISIBLE);
+        binding.recentSearchLayout.recentSearchText.setVisibility(View.VISIBLE);
+        binding.recentSearchLayout.clearAll.setVisibility(View.VISIBLE);
+        binding.afterSearchRecyclerView.setVisibility(View.GONE);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void loadRecentSearchRecords() {
         // TODO: Hide the search movies/series recyclerview.
-        binding.recentSearchLayout.beforeSearchRecyclerView.setVisibility(View.VISIBLE);
         binding.afterSearchRecyclerView.setVisibility(View.GONE);
-
-        // TODO: Set LayoutManger, Adapter
-        binding.recentSearchLayout.beforeSearchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recentSearchAdapter = new RecentSearchAdapter(getContext(), recentSearch);
-        binding.recentSearchLayout.beforeSearchRecyclerView.setAdapter(recentSearchAdapter);
+        binding.recentSearchLayout.beforeSearchRecyclerView.setVisibility(View.VISIBLE);
+        binding.recentSearchLayout.recentSearchText.setVisibility(View.VISIBLE);
+        binding.recentSearchLayout.clearAll.setVisibility(View.VISIBLE);
 
         List<String> searchedQueries = searchDBHelper.getAllSearchQueries();
+        Collections.reverse(searchedQueries);
+
         recentSearch.clear();
-        recentSearch.addAll(searchedQueries);
         sHistoryRecordBook.clear();
-        sHistoryRecordBook.addAll(recentSearch);
+        recentSearch.addAll(searchedQueries);
         recentSearchAdapter.notifyDataSetChanged();
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void clearRecentSearch() {
         // Clear Search record.
-        recentSearch.clear();
-        recentSearchAdapter.notifyDataSetChanged();
         searchDBHelper.clearSearchHistory();
+        recentSearch.clear();
+        sHistoryRecordBook.clear();
+        if (recentSearchAdapter != null) {
+            recentSearchAdapter.setRecentSearchData(new ArrayList<>());
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -144,29 +183,29 @@ public class SearchFragment extends Fragment {
         if (containsMatch) {
             saveRecentSearch(newText);
         }
-
-//        List<String> suggestions = fetchSuggestionsFromDatabase(newText);
-//        recentSearchAdapter.setData(suggestions);
-//        recentSearchAdapter.notifyDataSetChanged();
     }
 
-//    private List<String> fetchSuggestionsFromDatabase(String newText) {
-//        List<String> suggestions = new ArrayList<>();
-//        String query = "SELECT DISTINCT "+ searchDBHelper.COLUMN_QUERY +" FROM "+ SearchDBHelper.TABLE_NAME +" WHERE " +
-//                searchDBHelper.COLUMN_QUERY +" LIKE '%" + newText + "%'";
-//        SQLiteDatabase database = searchDBHelper.getReadableDatabase();
-//        Cursor cursor = database.rawQuery(query, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                String suggestion = cursor.getString(cursor.getColumnIndex("COLUMN_QUERY"));
-//                suggestions.add(suggestion);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return suggestions;
-//    }
+  /*      List<String> suggestions = fetchSuggestionsFromDatabase(newText);
+        recentSearchAdapter.setData(suggestions);
+        recentSearchAdapter.notifyDataSetChanged();
 
-    private void performSearch(String query) {
+    private List<String> fetchSuggestionsFromDatabase(String newText) {
+        List<String> suggestions = new ArrayList<>();
+        String query = "SELECT DISTINCT "+ searchDBHelper.COLUMN_QUERY +" FROM "+ SearchDBHelper.TABLE_NAME +" WHERE " +
+                searchDBHelper.COLUMN_QUERY +" LIKE '%" + newText + "%'";
+        SQLiteDatabase database = searchDBHelper.getReadableDatabase();
+        Cursor cursor = database.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String suggestion = cursor.getString(cursor.getColumnIndex("COLUMN_QUERY"));
+                suggestions.add(suggestion);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return suggestions;
+    }*/
+
+    private void loadSearchResults(String query) {
         // Perform search operation.
         searchDBHelper.addSearchQuery(query);
         binding.recentSearchLayout.beforeSearchRecyclerView.setVisibility(View.GONE);
@@ -174,9 +213,8 @@ public class SearchFragment extends Fragment {
         binding.recentSearchLayout.clearAll.setVisibility(View.GONE);
         binding.afterSearchRecyclerView.setVisibility(View.VISIBLE);
 
-        // TODO: Set layout for recycler search view
+        // TODO: set layoutManager, setAdapter - RecyclerSearchView.
         binding.afterSearchRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        //TODO: set adapter for recycler output view
         searchResultAdapter();
 
         //TODO: search result API Call
@@ -210,10 +248,9 @@ public class SearchFragment extends Fragment {
             public void onResponse(@NonNull Call<SearchModel> call, @NonNull Response<SearchModel> response) {
                 if ((response.isSuccessful()) && (response.body() != null)) {
                     searchResults.clear();
-                    searchResults = response.body().getSearchResults();
-                    searchOutputAdapter.updateData(searchResults);
+                    searchResults.addAll(response.body().getSearchResults());
                     searchOutputAdapter.notifyDataSetChanged();
-                    Log.d(getTag(), "onResponse: "+searchResults);
+                    Log.d(getTag(), "onResponse: " + searchResults);
                 }
             }
 
@@ -227,12 +264,14 @@ public class SearchFragment extends Fragment {
     @SuppressLint("NotifyDataSetChanged")
     private void saveRecentSearch(String query) {
         // check list has query, if it is update
-        if (!recentSearch.contains(query)) {
-            recentSearch.addLast(query);
-            sHistoryRecordBook.addLast(recentSearch.pollLast());
-        } else {
+        if (recentSearch.contains(query) && sHistoryRecordBook.contains(query)) {
             recentSearch.remove(query);
+            sHistoryRecordBook.remove(query);
         }
+        recentSearch.addFirst(query);
+        sHistoryRecordBook.addFirst(query);
+        Log.d("TAG", "saveRecentSearch - recentSearch: "+ recentSearch);
+        Log.w("TAG", "saveRecentSearch - sHistoryRecordBook: "+ sHistoryRecordBook);
         recentSearchAdapter.notifyDataSetChanged();
     }
 }

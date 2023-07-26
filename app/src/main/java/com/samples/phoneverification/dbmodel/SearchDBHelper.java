@@ -13,30 +13,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchDBHelper extends SQLiteOpenHelper {
-
     private final Context context;
     private static final String DB_NAME="search_history.db";
-    private static final int DB_version= 1;
-    public static final String TABLE_NAME="search_query";
-    private static final String COLUMN_ID="id";
-    public static final String COLUMN_QUERY="query";
-
+    private static final int DB_VERSION = 2;
+    public static final String TABLE_NAME = "search_query";
+    private static final String COLUMN_ID = "id";
+    public static final String COLUMN_QUERY = "search_query";
+    private static final String CREATE_TABLE_QUERY = "CREATE TABLE " + TABLE_NAME + "(" +
+            COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_QUERY + " TEXT" + ")";
+    private static final String DROP_TABLE_QUERY = "DROP TABLE IF EXISTS " + TABLE_NAME;
     public SearchDBHelper(@Nullable Context context) {
-        super(context, DB_NAME, null, DB_version);
+        super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableQuery = "CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_QUERY + "TEXT" + ")";
-        db.execSQL(createTableQuery);
+        db.execSQL(CREATE_TABLE_QUERY);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String dropTableQuery = "DROP TABLE IF EXISTS " + TABLE_NAME;
-        db.execSQL(dropTableQuery);
+        if (oldVersion < newVersion)
+            db.execSQL(DROP_TABLE_QUERY);
+
         onCreate(db);
     }
 
