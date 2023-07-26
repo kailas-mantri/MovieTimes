@@ -12,13 +12,7 @@ MovieTimes is a mobile application that allows users to discover and explore mov
   - Architecture MVC model.
 
 - Screenshots
-  - 
-  - In Upcoming Updates.
-  
-    - 
-      ![Login Page](img.png),  ![OTP_Validation Page](img_1.png),  ![Home Page](img_2.png),  ![Search Page](img_3.png)
-
-      ![Searched Page](img_4.png),  ![MovieDetails Page](img_5.png), ![SeriesDetails Page](img_6.png)
+![Login Page](img.png),  ![OTP_Validation Page](img_1.png),  ![Home Page](img_2.png),  ![Search Page](img_3.png), ![Searched Page](img_4.png),  ![MovieDetails Page](img_5.png), ![SeriesDetails Page](img_6.png)
     
 
 ## Tech Stack
