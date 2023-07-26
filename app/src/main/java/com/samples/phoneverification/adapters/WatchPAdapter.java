@@ -2,6 +2,8 @@ package com.samples.phoneverification.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import java.util.Objects;
 
 public class WatchPAdapter extends RecyclerView.Adapter<WatchPAdapter.ViewHolder> {
 
+    private ArrayList<Providers> buy = new ArrayList<>();
     Context context;
     private Map<String, ProvidersRegionList> regionLists;
     private final OnRecyclerItemClickListener<WatchProvider> anInterface;
@@ -51,7 +54,7 @@ public class WatchPAdapter extends RecyclerView.Adapter<WatchPAdapter.ViewHolder
             System.out.println(regionCode);
             ProvidersRegionList regionArray = regionLists.get(regionCode);
             if (regionArray != null) {
-                ArrayList<Providers> buy = regionArray.getBuyList();
+                buy = regionArray.getBuyList();
                 if (buy != null && position < buy.size()) {
                     Glide.with(holder.provideLogo).load(URLs.IMAGE_BASE_URL + buy.get(position).getProvidersLogoPath()).into(holder.provideLogo);
                 } else {
@@ -59,12 +62,16 @@ public class WatchPAdapter extends RecyclerView.Adapter<WatchPAdapter.ViewHolder
                 }
             }
 
+            if (regionArray != null) {
+                WatchProvider watchProvider = new WatchProvider();
+                watchProvider.setRegionList(regionLists);
+                anInterface.onItemClicked(watchProvider, position, 0);
+            }
+
             holder.provideLogo.setOnClickListener(v -> {
-                if (regionArray != null) {
-                    WatchProvider watchProvider = new WatchProvider();
-                    watchProvider.setRegionList(regionLists);
-                    anInterface.onItemClicked(watchProvider, position, 0);
-                }
+                String link = Objects.requireNonNull(regionLists.get(position)).getRegion_link();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                v.getContext().startActivity(intent);
             });
         }
     }

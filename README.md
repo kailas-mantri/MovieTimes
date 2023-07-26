@@ -12,62 +12,51 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 
 ## Screenshots
     - In Upcoming Updates.
+    ![Login Page](URL_of_the_screenshot_image)
 
 ## Tech Stack
-- Java
-- SQLite Database
-- Retrofit for API calls
+- Java with Android SDK for development.
+- Retrofit, Glide library implementation.
 - Glide for Image Loading
-- Material Design Components
-- RecyclerView for List Display
+- TMDB API for fetching movie data.
+- YouTube API for trailer integration.
+- SQLite database for local storage of watchLists and searchQuery.
+- Firebase Authentication for secure user login.
+- Material Design components for an intuitive user interface.
 
 
     - Upcoming Updates: *Kotlin, LiveData, ViewModel*
 
 
 ## Development Phases.
-Phase 1: *Splash Screen, Login Page*
-    
-    1.1. Splash Screen:
-         The launch screen of application.
-            
-    1.2. Login Page : 
-         followed by 'Phone & GoogleSignIn' Authentication using Firebase Database.
-         
-         1.2.1. Phone Authentication:
-             Authorization with mobile Number with OTP verification.
+Phase 1: *SplashScreen, LoginActivity, BottomSheetDialog*
+    ~ 'Phone & GoogleSignIn' Authentication using Firebase Database.
+
+    1.0. Phone Authentication:
+        Authorization with mobile Number with OTP verification.
            
-    1.4. GoogleSign In:
+    1.1. GoogleSign In:
          Google Account Sign In.
 
 Phase 2: Customise **BottomNavigation** using menu items with supportive fragments.
 
     Upcoming Feature: *Navigation Drawer* for Navigation using fragment instead of menu items for navigation.
 
-    2.1. Bottom Navigation:
+    2.0. Bottom Navigation:
          The BottomNavigation View using menu items and frameLayout Manager to switch fragments with respect to menu Id.
 
-    2.2. Navigation Drawer:
-         **In Progress**
+Phase 3: _(HomeFragment, MovieFragment, SeriesFragment, SearchFragment)_ *API Implementation*
+    ~ creation of POJO class, Adapter and custom layout. 
 
-Phase 3: *API Implementation* - (HOME, Movie, Series, Search) Fragment.
-    ~ POJO class creation, Adapter creation. 
+    3.0. SearchFragment:
+         This Page has (MIX - API call) to SearchBar for mix search - movie/series/people/genres and recent search history, and search result implentations.
 
-    3.1. HomeFragment:
-         Home has movie and series types in RecyclerView.
-
-    3.2. MovieFragment:
-         This page has movies Carousel and RecyclerView.
-
-    3.3. SerisFragment:
-         This page has Series Carousel and RecyclerView.
-
-    3.4. SearchFragment:
-         This Page has (MIX - API call) to SearchBar for movie/series search and recent search.
-
-Phase 4: *Handling of SearchFunctionality and MovieDetailsActivity*
-    ~ Activation of OnItemClicked Function with respect to id, API Implementation, Adapter Creation, Implicit Intent, Collapsing Toolbar.
+Phase 4: *SeriesDetailsActivity and MovieDetailsActivity*
+    ~ Using generic interface for OnItemClicked method to fetch data from ITEM_ID
 
 
-Phase 5: _*SeriesDetailsActivity Design and implementations*_
-    ~ In Development.
+Phase 5: _*Layout Design and Data Handling*_
+    ~ API Implementation, Adapter, Implicit Intent, Collapsing Toolbar, Fetching Season and episode details.
+
+Phase 6: *In Progress*
+    ~ WishList SQLite database creation, update, remove, delete, and handling the UI and log_out feature.

@@ -19,7 +19,7 @@ public class MovieIdDetails implements Serializable {
     public BelongToCollections belongToCollections;
 
     @SerializedName("budget")
-    public Integer movie_budget;
+    public int movie_budget;
 
     @SerializedName("genres")
     public ArrayList<GenresList> genresArray;
@@ -28,7 +28,7 @@ public class MovieIdDetails implements Serializable {
     public String movie_homePage;
 
     @SerializedName("id")
-    public Integer movie_id;
+    public int movie_id;
 
     @SerializedName("imdb_id")
     public String imdb_id;
@@ -58,10 +58,10 @@ public class MovieIdDetails implements Serializable {
     public String movie_release_date;
 
     @SerializedName("revenue")
-    public Integer movie_revenue;
+    public int movie_revenue;
 
     @SerializedName("runtime")
-    public Integer movie_play_time;
+    public int movie_play_time;
 
     @SerializedName("spoken_languages")
     public ArrayList<SpokenLanguages> spoken_language;
@@ -82,12 +82,9 @@ public class MovieIdDetails implements Serializable {
     public double voteAverage;
 
     @SerializedName("vote_count")
-    private Integer voteCount;
+    private int voteCount;
 
-    public MovieIdDetails(boolean isAdult, String backdrop_path, BelongToCollections belongToCollections, Integer movie_budget,
-                          ArrayList<GenresList> genresArray, String movie_homePage, Integer movie_id, String imdb_id, String originalLanguage,
-                          String originalMovieTitle, String movieOverview, double popularity, String posterPath, ArrayList<ProdCompanies> prodCompanies,
-                          ArrayList<ProdCountries> prodCountries, String movie_release_date, Integer movie_revenue, Integer movie_play_time, ArrayList<SpokenLanguages> spoken_language, String movie_release_status, String movie_tagline, String standardMovieTitle, boolean trailerVideo, double voteAverage, Integer voteCount) {
+    public MovieIdDetails(boolean isAdult, String backdrop_path, BelongToCollections belongToCollections, int movie_budget, ArrayList<GenresList> genresArray, String movie_homePage, int movie_id, String imdb_id, String originalLanguage, String originalMovieTitle, String movieOverview, double popularity, String posterPath, ArrayList<ProdCompanies> prodCompanies, ArrayList<ProdCountries> prodCountries, String movie_release_date, int movie_revenue, int movie_play_time, ArrayList<SpokenLanguages> spoken_language, String movie_release_status, String movie_tagline, String standardMovieTitle, boolean trailerVideo, double voteAverage, int voteCount) {
         this.isAdult = isAdult;
         this.backdrop_path = backdrop_path;
         this.belongToCollections = belongToCollections;
@@ -139,11 +136,11 @@ public class MovieIdDetails implements Serializable {
         this.belongToCollections = belongToCollections;
     }
 
-    public Integer getMovie_budget() {
+    public int getMovie_budget() {
         return movie_budget;
     }
 
-    public void setMovie_budget(Integer movie_budget) {
+    public void setMovie_budget(int movie_budget) {
         this.movie_budget = movie_budget;
     }
 
@@ -163,11 +160,11 @@ public class MovieIdDetails implements Serializable {
         this.movie_homePage = movie_homePage;
     }
 
-    public Integer getMovie_id() {
+    public int getMovie_id() {
         return movie_id;
     }
 
-    public void setMovie_id(Integer movie_id) {
+    public void setMovie_id(int movie_id) {
         this.movie_id = movie_id;
     }
 
@@ -219,19 +216,19 @@ public class MovieIdDetails implements Serializable {
         this.posterPath = posterPath;
     }
 
-    public ArrayList<ProdCompanies> getProductionCompanies() {
+    public ArrayList<ProdCompanies> getProdCompanies() {
         return prodCompanies;
     }
 
-    public void setProductionCompanies(ArrayList<ProdCompanies> prodCompanies) {
+    public void setProdCompanies(ArrayList<ProdCompanies> prodCompanies) {
         this.prodCompanies = prodCompanies;
     }
 
-    public ArrayList<ProdCountries> getProductionCountries() {
+    public ArrayList<ProdCountries> getProdCountries() {
         return prodCountries;
     }
 
-    public void setProductionCountries(ArrayList<ProdCountries> prodCountries) {
+    public void setProdCountries(ArrayList<ProdCountries> prodCountries) {
         this.prodCountries = prodCountries;
     }
 
@@ -243,19 +240,19 @@ public class MovieIdDetails implements Serializable {
         this.movie_release_date = movie_release_date;
     }
 
-    public Integer getMovie_revenue() {
+    public int getMovie_revenue() {
         return movie_revenue;
     }
 
-    public void setMovie_revenue(Integer movie_revenue) {
+    public void setMovie_revenue(int movie_revenue) {
         this.movie_revenue = movie_revenue;
     }
 
-    public Integer getMovie_play_time() {
+    public int getMovie_play_time() {
         return movie_play_time;
     }
 
-    public void setMovie_play_time(Integer movie_play_time) {
+    public void setMovie_play_time(int movie_play_time) {
         this.movie_play_time = movie_play_time;
     }
 
@@ -307,11 +304,11 @@ public class MovieIdDetails implements Serializable {
         this.voteAverage = voteAverage;
     }
 
-    public Integer getVoteCount() {
+    public int getVoteCount() {
         return voteCount;
     }
 
-    public void setVoteCount(Integer voteCount) {
+    public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
     }
 

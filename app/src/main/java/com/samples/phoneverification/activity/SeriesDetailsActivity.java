@@ -22,6 +22,8 @@ import com.samples.phoneverification.adapters.WatchPAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
 import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.ActivitySeriesDetailsBinding;
+import com.samples.phoneverification.dbmodel.WishListDBHelper;
+import com.samples.phoneverification.dbmodel.WishListItem;
 import com.samples.phoneverification.model.CastCrewList;
 import com.samples.phoneverification.model.CastModel;
 import com.samples.phoneverification.model.MediaGroup;
@@ -53,16 +55,18 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SeriesDetailsActivity extends BaseActivity {
 
-    private ActivitySeriesDetailsBinding binding;
-    private boolean isWishListed = false;
-    private int series_id, seasonNo;
-    SeasonTextAdapter textAdapter;
     EpisodeAdapter episodeAdapter;
+    SeasonTextAdapter textAdapter;
+    private int series_id, seasonNo;
+    private WishListItem currentItem;
     WatchPAdapter watchProviderAdapter;
+    private boolean isWishListed = false;
     private SeasonNoDetails seasonResults;
     private TrailerAdapter trailerAdapter;
     private CastCrewAdapter castsCrewAdapter;
+    private WishListDBHelper wishListDBHelper;
     private SeriesAdapter recommendationAdapter;
+    private ActivitySeriesDetailsBinding binding;
     Retrofit retrofit = new Retrofit.Builder().baseUrl(URLs.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create()).build();
@@ -88,6 +92,11 @@ public class SeriesDetailsActivity extends BaseActivity {
         Intent intent = getIntent();
         series_id = intent.getIntExtra("series_id", 0);
 
+        wishListDBHelper = new WishListDBHelper(getApplicationContext());
+        isWishListed = wishListDBHelper.isItemWishListed(series_id);
+
+        updateWishlist();
+
         // TODO: Series_id - API Call.
         Call<SeriesIdResults> call = anInterface.SERIES_ITEM_ID_RESULTS_CALL(series_id, URLs.API_KEY);
         call.enqueue(new Callback<SeriesIdResults>() {
@@ -96,6 +105,7 @@ public class SeriesDetailsActivity extends BaseActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     SeriesIdResults idResults = response.body();
                     seasonsList = idResults.getSeasons();
+                    currentItem = new WishListItem(idResults.getSeriesId(), idResults.getSeriesName(), idResults.getSeries_Overview(), idResults.getPosterPath(), idResults.getBackdropPath());
                     displayUI(idResults);
                 }
             }
@@ -131,10 +141,13 @@ public class SeriesDetailsActivity extends BaseActivity {
                 isWishListed = false;
                 binding.wishList.setText(R.string.wishList_add);
                 binding.wishList.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.wishlist_add, 0, 0, 0);
+                wishListDBHelper.removeFromWishList(currentItem);
+
             } else {
                 isWishListed = true;
                 binding.wishList.setText(R.string.wishlist_remove);
                 binding.wishList.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.wishlist_remove, 0, 0, 0);
+                wishListDBHelper.addToWishList(currentItem);
             }
         });
     }
@@ -200,21 +213,17 @@ public class SeriesDetailsActivity extends BaseActivity {
                     //TODO: updateCast Array.
                     castArray = response.body().getCastList();
                     castsCrewAdapter.updateData(castArray);
+                    castsCrewAdapter.notifyDataSetChanged();
 
                     //TODO: updateCrew Array.
                     crewArray = response.body().getCrewArrays();
 
-                    if (castArray.size() == 0) {
-                        binding.starCastTitle.setVisibility(View.GONE);
-                        binding.castRecycler.setVisibility(View.GONE);
-                    } else {
+                    if (castArray.size() == 0) castGone();
+                    else {
                         binding.starCastTitle.setVisibility(View.VISIBLE);
                         binding.castRecycler.setVisibility(View.VISIBLE);
                     }
-                } else {
-                    binding.starCastTitle.setVisibility(View.GONE);
-                    binding.castRecycler.setVisibility(View.GONE);
-                }
+                } else castGone();
             }
 
             @Override
@@ -222,6 +231,11 @@ public class SeriesDetailsActivity extends BaseActivity {
                 Log.w("CastCall", "onFailure: " + call, t.fillInStackTrace());
             }
         });
+    }
+
+    private void castGone() {
+        binding.starCastTitle.setVisibility(View.GONE);
+        binding.castRecycler.setVisibility(View.GONE);
     }
 
     private void initTrailers() {
@@ -233,21 +247,25 @@ public class SeriesDetailsActivity extends BaseActivity {
     }
 
     private void seasonDataImpl(SeasonNoDetails sNumberResult) {
-        // TODO: Input layout validations.
+        // TODO: Season Poster.
         if (sNumberResult.getSeason_poster_path() == null)
             binding.seasonIntro.seriesSeasonImages.setVisibility(View.GONE);
         else {
             Glide.with(binding.seasonIntro.seriesSeasonImages).load(URLs.IMAGE_BASE_URL + sNumberResult.getSeason_poster_path()).into(binding.seasonIntro.seriesSeasonImages);
         }
-        if (sNumberResult.getSeason_name() == null)
-            binding.seasonIntro.seriesSeasonTitle.setVisibility(View.GONE);
-        else binding.seasonIntro.seriesSeasonTitle.setText(sNumberResult.getSeason_name());
 
+        //TODO: Season Name.
+        if (sNumberResult.getSeason_name() != null && !sNumberResult.getSeason_name().isEmpty())
+            binding.seasonIntro.seriesSeasonTitle.setText(sNumberResult.getSeason_name());
+        else binding.seasonIntro.seriesSeasonTitle.setVisibility(View.GONE);
 
-        if (sNumberResult.getSeasons_overview() == null) {
+        //TODO: Season OverView
+        if (sNumberResult.getSeasons_overview() != null && !sNumberResult.getSeasons_overview().isEmpty())
+            binding.seasonIntro.seasonDescription.setText(sNumberResult.getSeasons_overview());
+        else {
             binding.description.setVisibility(View.GONE);
             binding.seasonIntro.seasonDescription.setVisibility(View.GONE);
-        } else binding.seasonIntro.seasonDescription.setText(sNumberResult.getSeasons_overview());
+        }
 
         try {
             Date date = inputDate.parse(sNumberResult.getAir_date());
@@ -258,87 +276,97 @@ public class SeriesDetailsActivity extends BaseActivity {
         }
 
         //TODO: Set LayoutManager, Adapter - RecyclerView
-        binding.watchProviderRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
         binding.episodeRecyclerList.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
-        episodeRecyclerAdapter();
-
+        binding.watchProviderRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
         binding.trailerRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
         binding.castRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
+        episodeRecyclerAdapter();
     }
 
     private void episodeRecyclerAdapter() {
-        episodeAdapter = new EpisodeAdapter(getApplicationContext(), seasonResults.getEpisodeList(), (item, position, action) -> Log.d("episodeAdapter", "episodeRecyclerAdapter: " + seasonResults.getEpisodeList()));
+        episodeAdapter = new EpisodeAdapter(getApplicationContext(), seasonResults.getEpisodeList(), (item, position, action) ->
+                Log.d("episodeAdapter", "episodeRecyclerAdapter: " + seasonResults.getEpisodeList())
+        );
         binding.episodeRecyclerList.setAdapter(episodeAdapter);
     }
 
-    // 3.DATA - For Bottom side.
+    // TODO: 3.DATA - For Bottom side.
     @SuppressLint("SetTextI18n")
     private void seriesDetails(SeriesIdResults itemResults) {
 
 //        1. Release Date
-        try {
-            Date date = inputDate.parse(itemResults.getFirstAirDate());
-            if (date != null) {
-                binding.releaseOn.setText(outputDate.format(date));
-            } else {
-                binding.releaseOn.setVisibility(View.GONE);
+        if (itemResults.getFirstAirDate() != null && !itemResults.getFirstAirDate().isEmpty()) {
+            try {
+                Date date = inputDate.parse(itemResults.getFirstAirDate());
+                if (date != null) binding.releaseOn.setText(outputDate.format(date));
+                else releaseDateVisibility();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        } else
+            releaseDateVisibility();
 
 //        2. Language Block.
-        for (SpokenLanguages language : itemResults.getSpokenLanguages()) {
-            langList.add(language.getLanguage_name());
-        }
-        String multiLang = TextUtils.join(", ", langList);
-        binding.languageVersions.setText(multiLang);
+        if (itemResults.getSpokenLanguages() != null && !itemResults.getSpokenLanguages().isEmpty()) {
+            for (SpokenLanguages language : itemResults.getSpokenLanguages()) {
+                langList.add(language.getLanguage_name());
+            }
+            String multiLang = TextUtils.join(", ", langList);
+            binding.languageVersions.setText(multiLang);
+        } else
+            languageVisibility();
 
 //        3. Description Block.
         Log.d("Description", itemResults.getSeries_Overview());
-        if (itemResults.getSeries_Overview() == null || itemResults.getSeries_Overview().isEmpty()) {
+        if (itemResults.getSeries_Overview() != null && !itemResults.getSeries_Overview().isEmpty())
+            binding.seriesDescription.setText(itemResults.getSeries_Overview());
+        else
             binding.seriesDescription.setVisibility(View.GONE);
 
-        } else {
-            binding.seriesDescription.setText(itemResults.getSeries_Overview());
-        }
-
-        // TODO: Set the Layout Mangers before Setting the adapters for recycler view
+        // TODO: Set Layout Manger before adapters
         binding.recommendationRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
-
-        // TODO: 7. Adapter for Trailer/Teaser 9. Casts Adapter (Actor/Actress details), 10. Recommended Movies Adapter, API call
+        // TODO: 7. Adapters {WatchProvider, Trailer/Teaser, Casts, Recommended Movies}
         initAdapters();
 
         // TODO: API Calls
         initApiCalls();
     }
 
+    private void releaseDateVisibility() {
+        binding.releaseDate.setVisibility(View.GONE);
+        binding.releaseOn.setVisibility(View.GONE);
+    }
+
+    private void languageVisibility() {
+        binding.languageHeading.setVisibility(View.GONE);
+        binding.languageVersions.setVisibility(View.GONE);
+    }
+
     private void initAdapters() {
         watchProviderCall();
-        castAdapter();
         mediaTrailers();
+        castAdapter();
         recommendedSeries();
     }
 
     private void watchProviderCall() {
-        Call<WatchProvider> call = anInterface.SERIES_WATCH_PROVIDER_CALL(series_id, URLs.API_KEY);
+        Call<WatchProvider> call = anInterface.MOVIE_WATCH_PROVIDER_CALL(series_id, URLs.API_KEY);
         call.enqueue(new Callback<WatchProvider>() {
             @Override
             public void onResponse(@NonNull Call<WatchProvider> call, @NonNull Response<WatchProvider> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     WatchProvider watchPList = response.body();
                     Map<String, ProvidersRegionList> region = watchPList.getRegionList();
-                    if (region.containsKey(country)) {
-                        Map<String, ProvidersRegionList> provider = new HashMap<>(region);
-                        watchProviderAdapter.updateData(provider);
-                    } else {
-                        binding.availableOn.setVisibility(View.GONE);
-                        binding.watchProviderRecycler.setVisibility(View.GONE);
-                    }
-                } else {
-                    binding.availableOn.setVisibility(View.GONE);
-                    binding.watchProviderRecycler.setVisibility(View.GONE);
-                }
+                    if (watchProviderAdapter != null) {
+                        if (region.containsKey(country)) {
+                            Map<String, ProvidersRegionList> provider = new HashMap<>(region);
+                            watchProviderAdapter.updateData(provider);
+                        } else
+                            watchProviderVisibility();
+                    } else
+                        watchProviderVisibility();
+                } else
+                    watchProviderVisibility();
             }
 
             @Override
@@ -346,6 +374,11 @@ public class SeriesDetailsActivity extends BaseActivity {
                 Log.d("TAG", "onFailure: Watch Provider" + call);
             }
         });
+    }
+
+    private void watchProviderVisibility() {
+        binding.availableOn.setVisibility(View.GONE);
+        binding.watchProviderRecycler.setVisibility(View.GONE);
     }
 
     private void mediaTrailers() {
@@ -382,6 +415,14 @@ public class SeriesDetailsActivity extends BaseActivity {
         });
     }
 
+    private void castAdapter() {
+        castsCrewAdapter = new CastCrewAdapter(getApplicationContext(), castArray, (item, position, action) -> {
+            System.out.println(castArray);
+            Log.d("castAdapter", "initCast: " + castArray.size());
+        });
+        binding.castRecycler.setAdapter(castsCrewAdapter);
+    }
+
     private void recommendedSeries() {
         Call<SeriesModel> recommendation = anInterface.RECOMMENDED_SERIES_ITEM_RESULTS_CALL(series_id, URLs.API_KEY);
         recommendation.enqueue(new Callback<SeriesModel>() {
@@ -408,12 +449,13 @@ public class SeriesDetailsActivity extends BaseActivity {
         });
     }
 
-    private void castAdapter() {
-        castsCrewAdapter = new CastCrewAdapter(getApplicationContext(), castArray, (item, position, action) -> {
-            System.out.println(castArray);
-            Log.d("castAdapter", "initCast: " + castArray.size());
-        });
-        binding.castRecycler.setAdapter(castsCrewAdapter);
+    private void updateWishlist() {
+        if (isWishListed) {
+            binding.wishList.setText(R.string.wishlist_remove);
+            binding.wishList.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.wishlist_remove, 0, 0, 0);
+        } else {
+            binding.wishList.setText(R.string.wishList_add);
+            binding.wishList.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.wishlist_add, 0, 0, 0);
+        }
     }
-
 }

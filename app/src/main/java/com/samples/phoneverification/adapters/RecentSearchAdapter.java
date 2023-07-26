@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.samples.phoneverification.R;
 
+import java.util.Collections;
 import java.util.List;
 
 public class RecentSearchAdapter extends RecyclerView.Adapter<RecentSearchAdapter.RecentSearchHolder> {
 
-    private final Context context;
+    Context context;
     private List<String> recentSearch;
     public RecentSearchAdapter(Context context, List<String> recentSearch) {
         this.context = context;
@@ -26,7 +27,7 @@ public class RecentSearchAdapter extends RecyclerView.Adapter<RecentSearchAdapte
 
     @NonNull
     @Override
-    public RecentSearchAdapter.RecentSearchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecentSearchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new RecentSearchHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
                         R.layout.custom_recent_keywords, parent, false
@@ -40,18 +41,17 @@ public class RecentSearchAdapter extends RecyclerView.Adapter<RecentSearchAdapte
         String searchQuery = recentSearch.get(position);
         holder.recentSearch.setText(searchQuery);
 
-        //TODO: Remove selected recent search query.
-        holder.deleteSearch.setOnClickListener(v -> {
-            deleteSearchedQuery(position);
-            notifyDataSetChanged();
+        holder.recentSearch.setOnClickListener(v -> {
+            String clickedQuery = recentSearch.get(position);
+            setRecentSearchData(Collections.singletonList(clickedQuery));
+            /*loadSearchResults(clickedQuery);*/
         });
-    }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private void deleteSearchedQuery(int position) {
-        //TODO: delete that search query WRT position.
-            recentSearch.remove(position);
+        //TODO: //TODO: Remove selected recent search query WRT position..
+        holder.deleteSearch.setOnClickListener(v -> {
             notifyDataSetChanged();
+            recentSearch.remove(position);
+        });
     }
 
     @Override
@@ -60,13 +60,15 @@ public class RecentSearchAdapter extends RecyclerView.Adapter<RecentSearchAdapte
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateData(List<String> recentSearchWholeRecord) {
-        this.recentSearch = recentSearchWholeRecord;
+    public void updateData(List<String> recentRecord) {
+        this.recentSearch = recentRecord;
         notifyDataSetChanged();
     }
 
-    public Context getContext() {
-        return context;
+    @SuppressLint("NotifyDataSetChanged")
+    public void setRecentSearchData(List<String> data) {
+        recentSearch = data;
+        notifyDataSetChanged();
     }
 
     public static class RecentSearchHolder extends RecyclerView.ViewHolder {
