@@ -22,6 +22,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        production {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField("String", "API_KEY", API_KEY_PROD)
+            buildConfigField("String", "BASE_URL", BASE_URL_PROD)
+            buildConfigField("String", "IMAGE_BASE_URL", IMAGE_BASE_URL_PROD)
+            buildConfigField("String", "YOUTUBE", YOUTUBE_PROD)
+            buildConfigField("String", "YOUTUBE_THUMBNAILS", YOUTUBE_THUMBNAILS_PROD)
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

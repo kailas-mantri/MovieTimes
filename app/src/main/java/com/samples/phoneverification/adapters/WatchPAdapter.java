@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
-import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.model.Providers;
 import com.samples.phoneverification.model.ProvidersRegionList;
 import com.samples.phoneverification.model.WatchProvider;
@@ -26,8 +26,7 @@ import java.util.Objects;
 
 public class WatchPAdapter extends RecyclerView.Adapter<WatchPAdapter.ViewHolder> {
 
-    private ArrayList<Providers> buy = new ArrayList<>();
-    Context context;
+    final Context context;
     private Map<String, ProvidersRegionList> regionLists;
     private final OnRecyclerItemClickListener<WatchProvider> anInterface;
 
@@ -54,9 +53,9 @@ public class WatchPAdapter extends RecyclerView.Adapter<WatchPAdapter.ViewHolder
             System.out.println(regionCode);
             ProvidersRegionList regionArray = regionLists.get(regionCode);
             if (regionArray != null) {
-                buy = regionArray.getBuyList();
+                ArrayList<Providers> buy = regionArray.getBuyList();
                 if (buy != null && position < buy.size()) {
-                    Glide.with(holder.provideLogo).load(URLs.IMAGE_BASE_URL + buy.get(position).getProvidersLogoPath()).into(holder.provideLogo);
+                    Glide.with(holder.provideLogo).load(BuildConfig.IMAGE_BASE_URL + buy.get(position).getProvidersLogoPath()).into(holder.provideLogo);
                 } else {
                     holder.provideLogo.setVisibility(View.GONE);
                 }

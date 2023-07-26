@@ -19,7 +19,6 @@ import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.adapters.RecentSearchAdapter;
 import com.samples.phoneverification.adapters.RecyclerSearchAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
-import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.FragmentSearchBinding;
 import com.samples.phoneverification.dbmodel.SearchDBHelper;
 import com.samples.phoneverification.model.SearchModel;

@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> signInAccountTask) {
         try {
             GoogleSignInAccount inAccount = signInAccountTask.getResult(ApiException.class);
-            Log.e(TAG, "Firebase Authorization with Google: "+inAccount.getIdToken());
+//            Log.d(TAG, "Firebase Authorization with Google: "+inAccount.getIdToken());
             firebaseAuthWithGoogle(inAccount.getIdToken());
         } catch (ApiException e) {
             Log.e(TAG, "signResult:failed code= " + e.getMessage());
@@ -146,6 +146,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // error needs in exception block
+                Log.e(TAG, "onCancelled: DatabaseError - "+error, error.toException());
             }
         });
     }

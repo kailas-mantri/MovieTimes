@@ -13,10 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.model.CastCrewList;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
-import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class CastCrewAdapter extends RecyclerView.Adapter<CastCrewAdapter.ViewHo
         if (profile_path == null) {
             holder.castImage.setImageResource(R.drawable.no_poster);
         } else {
-            Glide.with(holder.castImage).load(URLs.IMAGE_BASE_URL+cast.getPersonProfile_path())
+            Glide.with(holder.castImage).load(BuildConfig.IMAGE_BASE_URL+cast.getPersonProfile_path())
                     .into(holder.castImage);
         }
 

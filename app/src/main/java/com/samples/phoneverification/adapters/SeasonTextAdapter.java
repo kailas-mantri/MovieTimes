@@ -18,11 +18,13 @@ import java.util.ArrayList;
 
 public class SeasonTextAdapter extends RecyclerView.Adapter<SeasonTextAdapter.ViewHolder> {
 
+    private int selectedItem;
+    private final Context context;
     private final ArrayList<Seasons> seasonsList;
     private final OnRecyclerItemClickListener<Seasons> anInterface;
-    private int selectedItem;
 
     public SeasonTextAdapter(Context context, ArrayList<Seasons> seasonsList, OnRecyclerItemClickListener<Seasons> anInterface) {
+        this.context = context;
         this.seasonsList = seasonsList;
         this.anInterface = anInterface;
         selectedItem = 0;
@@ -62,6 +64,7 @@ public class SeasonTextAdapter extends RecyclerView.Adapter<SeasonTextAdapter.Vi
         return seasonsList.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setDefaultItem() {
         int defaultPosition = 0;
         if (defaultPosition < seasonsList.size()) {
@@ -73,6 +76,11 @@ public class SeasonTextAdapter extends RecyclerView.Adapter<SeasonTextAdapter.Vi
             }
         }
     }
+
+    public Context getContext() {
+        return context;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView seasonsText;
         public ViewHolder(@NonNull View itemView) {

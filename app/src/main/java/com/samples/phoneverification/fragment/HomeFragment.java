@@ -15,16 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.activity.MovieDetailsActivity;
 import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.adapters.CarouselMAdapter;
 import com.samples.phoneverification.adapters.SeriesAdapter;
 import com.samples.phoneverification.adapters.MovieAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
-import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.model.SeriesModel;
 import com.samples.phoneverification.model.SeriesResults;
-import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.model.MovieResults;
 import com.samples.phoneverification.model.MovieModel;
 import com.samples.phoneverification.databinding.FragmentHomeBinding;
@@ -54,7 +53,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<SeriesResults> upComingSeries = new ArrayList<>();
     private final Handler handler = new Handler();
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(URLs.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build();
@@ -77,16 +76,16 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
 
-        // TODO 01: Set All Adapters.
+        // TODO 01: Set allAdapters.
         initAllAdapters();
 
         // TODO 02: After Setting Adapter use Timer for Auto-Sliding
         CarouselSliders();
 
-        // TODO 03: Set All LayoutManger for RecyclerView.
+        // TODO 03: Set LayoutManger - RecyclerView.
         recyclerLayoutMangers();
 
-        // TODO 04: Set All API Calls.
+        // TODO 04: Set allAPICalls.
         allApiCalls();
 
         return binding.getRoot();
@@ -168,7 +167,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void PopularSeriesCall() {
-        Call<SeriesModel> call = anInterface.POPULAR_SERIES_MODEL_CALL(URLs.API_KEY);
+        Call<SeriesModel> call = anInterface.POPULAR_SERIES_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<SeriesModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -200,7 +199,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void PopularMovieCall() {
-        Call<MovieModel> call = anInterface.POPULAR_MOVIES_MODEL_CALL(URLs.API_KEY);
+        Call<MovieModel> call = anInterface.POPULAR_MOVIES_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -232,7 +231,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void TopRatedSeriesCall() {
-        Call<SeriesModel> call = anInterface.TOP_RATED_SERIES_MODEL_CALL(URLs.API_KEY);
+        Call<SeriesModel> call = anInterface.TOP_RATED_SERIES_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<SeriesModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -265,7 +264,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void TopRatedMovieCall() {
-        Call<MovieModel> call = anInterface.TOP_RATED_MOVIES_MODEL_CALL(URLs.API_KEY);
+        Call<MovieModel> call = anInterface.TOP_RATED_MOVIES_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -297,7 +296,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void NowPlayingMovieCall() {
-        Call<MovieModel> modelCall = anInterface.NOW_PLAYING_MOVIES_MODEL_CALL(URLs.API_KEY);
+        Call<MovieModel> modelCall = anInterface.NOW_PLAYING_MOVIES_MODEL_CALL(BuildConfig.API_KEY);
         modelCall.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -329,7 +328,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void UpComingSeriesCall() {
-        Call<SeriesModel> call = anInterface.UP_COMING_SERIES_MODEL_CALL(URLs.API_KEY);
+        Call<SeriesModel> call = anInterface.UP_COMING_SERIES_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<SeriesModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -361,7 +360,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void TrendingMovieCall() {
-        Call<MovieModel> modelCall = anInterface.TRENDING_MOVIE_MODEL_CALL(URLs.API_KEY);
+        Call<MovieModel> modelCall = anInterface.TRENDING_MOVIE_MODEL_CALL(BuildConfig.API_KEY);
         modelCall.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -406,7 +405,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void UpComingMovieCall() {
-        Call<MovieModel> moviesModelCall = anInterface.UP_COMING_MOVIES_MODEL_CALL(URLs.API_KEY);
+        Call<MovieModel> moviesModelCall = anInterface.UP_COMING_MOVIES_MODEL_CALL(BuildConfig.API_KEY);
 
         moviesModelCall.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -432,14 +431,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapter_Carousel() {
-        adapter = new CarouselMAdapter(requireContext(), upComingMovies, new OnRecyclerItemClickListener<MovieResults>() {
-            @Override
-            public void onItemClicked(MovieResults item, int position, int action) {
-                int movieId = upComingMovies.get(position).getMovieId();
-                Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
-                intent.putExtra("movie_id", movieId);
-                startActivity(intent);
-            }
+        adapter = new CarouselMAdapter(requireContext(), upComingMovies, (item, position, action) -> {
+            int movieId = upComingMovies.get(position).getMovieId();
+            Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
+            intent.putExtra("movie_id", movieId);
+            startActivity(intent);
         });
         binding.myViewPager.setAdapter(adapter);
     }

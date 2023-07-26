@@ -6,7 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -48,7 +47,7 @@ public class WishListDBHelper extends SQLiteOpenHelper {
     }
 
     public void addToWishList(WishListItem item) {
-        /*Log.d("Wishlist", "Adding to wishlist: " + item.getItem_title());*/
+//        Log.d("Wishlist", "Adding to wishlist: " + item.getItem_title());
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_BACKDROP_URL, item.getItem_backdropPath());
@@ -62,7 +61,7 @@ public class WishListDBHelper extends SQLiteOpenHelper {
     }
 
     public void removeFromWishList(WishListItem item) {
-        /*Log.d("Wishlist", "Remove from wishlist: " + item.getItem_title());*/
+//        Log.d("Wishlist", "Remove from wishlist: " + item.getItem_title());
         SQLiteDatabase db = this.getWritableDatabase();
 
         String WHERE_CLAUSE = COLUMN_TITLE + "=?";
@@ -73,7 +72,7 @@ public class WishListDBHelper extends SQLiteOpenHelper {
     }
 
     public boolean isItemWishListed(int itemId) {
-        /*Log.d("Wishlist", "is Item wishListed: " + itemId);*/
+//        Log.d("Wishlist", "is Item wishListed: " + itemId);
         SQLiteDatabase db = this.getWritableDatabase();
         @SuppressLint("Recycle")
         Cursor cursor = db.query(TABLE_NAME, new String[]{"itemId"}, "itemId=?", new String[]{String.valueOf(itemId)},

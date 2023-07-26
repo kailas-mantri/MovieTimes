@@ -3,19 +3,18 @@ package com.samples.phoneverification.dbmodel;
 public class StoreFirebaseUser {
 
     String userId, userName, userNumber, userEmail;
-
     public StoreFirebaseUser() {
+    }
+
+    public StoreFirebaseUser(String userId, String userNumber) {
+        this.userId = userId;
+        this.userNumber = userNumber;
     }
 
     public StoreFirebaseUser(String userId, String userName, String userEmail) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
-    }
-
-    public StoreFirebaseUser(String userId, String userNumber) {
-        this.userId = userId;
-        this.userNumber = userNumber;
     }
 
     public String getUserId() {

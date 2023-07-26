@@ -24,7 +24,6 @@ import com.samples.phoneverification.model.GenresList;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.model.SeriesModel;
 import com.samples.phoneverification.model.SeriesResults;
-import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.FragmentSeriesBinding;
 
 import java.util.ArrayList;

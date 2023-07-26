@@ -11,10 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.model.MovieResults;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
-import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
 
@@ -47,8 +47,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         if (posterPath == null) {
             holder.imageView.setImageResource(R.drawable.no_poster);
         } else {
-            // Glide library to display ImageBaseURL link before image string
-            Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL + movieResults.get(position).getPosterPath())
+            Glide.with(holder.imageView).load(BuildConfig.IMAGE_BASE_URL + movieResults.get(position).getPosterPath())
                     .into(holder.imageView);
         }
 

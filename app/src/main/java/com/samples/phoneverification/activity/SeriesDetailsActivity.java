@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.adapters.CastCrewAdapter;
 import com.samples.phoneverification.adapters.EpisodeAdapter;
@@ -20,7 +21,6 @@ import com.samples.phoneverification.adapters.SeriesAdapter;
 import com.samples.phoneverification.adapters.TrailerAdapter;
 import com.samples.phoneverification.adapters.WatchPAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
-import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.ActivitySeriesDetailsBinding;
 import com.samples.phoneverification.dbmodel.WishListDBHelper;
 import com.samples.phoneverification.dbmodel.WishListItem;
@@ -67,7 +67,7 @@ public class SeriesDetailsActivity extends BaseActivity {
     private WishListDBHelper wishListDBHelper;
     private SeriesAdapter recommendationAdapter;
     private ActivitySeriesDetailsBinding binding;
-    Retrofit retrofit = new Retrofit.Builder().baseUrl(URLs.BASE_URL)
+    Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create()).build();
     ArrayList<CastCrewList> crewArray = new ArrayList<>();
@@ -98,7 +98,7 @@ public class SeriesDetailsActivity extends BaseActivity {
         updateWishlist();
 
         // TODO: Series_id - API Call.
-        Call<SeriesIdResults> call = anInterface.SERIES_ITEM_ID_RESULTS_CALL(series_id, URLs.API_KEY);
+        Call<SeriesIdResults> call = anInterface.SERIES_ITEM_ID_RESULTS_CALL(series_id, BuildConfig.API_KEY);
         call.enqueue(new Callback<SeriesIdResults>() {
             @Override
             public void onResponse(@NonNull Call<SeriesIdResults> call, @NonNull Response<SeriesIdResults> response) {
@@ -129,7 +129,7 @@ public class SeriesDetailsActivity extends BaseActivity {
         if (backDropPath == null) {
             binding.backdropPath.setBackgroundResource(R.drawable.no_poster);
         } else {
-            Glide.with(binding.backdropPath).load(URLs.IMAGE_BASE_URL + idResults.getBackdropPath()).into(binding.backdropPath);
+            Glide.with(binding.backdropPath).load(BuildConfig.IMAGE_BASE_URL + idResults.getBackdropPath()).into(binding.backdropPath);
         }
 
         binding.collapsingToolbar.setTitle(idResults.getSeriesName());
@@ -169,7 +169,7 @@ public class SeriesDetailsActivity extends BaseActivity {
     }
 
     private void seasonCalls(int series_id, int seasonNo) {
-        Call<SeasonNoDetails> seasonCall = anInterface.SERIES_ITEM_SEASON_DETAILS_CALL(series_id, seasonNo, URLs.API_KEY);
+        Call<SeasonNoDetails> seasonCall = anInterface.SERIES_ITEM_SEASON_DETAILS_CALL(series_id, seasonNo, BuildConfig.API_KEY);
         seasonCall.enqueue(new Callback<SeasonNoDetails>() {
             @Override
             public void onResponse(@NonNull Call<SeasonNoDetails> call, @NonNull Response<SeasonNoDetails> response) {
@@ -204,7 +204,7 @@ public class SeriesDetailsActivity extends BaseActivity {
     }
 
     private void starCast() {
-        Call<CastModel> castPOJOCall = anInterface.SERIES_CAST_MODEL_CALL(series_id, seasonNo, URLs.API_KEY);
+        Call<CastModel> castPOJOCall = anInterface.SERIES_CAST_MODEL_CALL(series_id, seasonNo, BuildConfig.API_KEY);
         castPOJOCall.enqueue(new Callback<CastModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -251,7 +251,7 @@ public class SeriesDetailsActivity extends BaseActivity {
         if (sNumberResult.getSeason_poster_path() == null)
             binding.seasonIntro.seriesSeasonImages.setVisibility(View.GONE);
         else {
-            Glide.with(binding.seasonIntro.seriesSeasonImages).load(URLs.IMAGE_BASE_URL + sNumberResult.getSeason_poster_path()).into(binding.seasonIntro.seriesSeasonImages);
+            Glide.with(binding.seasonIntro.seriesSeasonImages).load(BuildConfig.IMAGE_BASE_URL + sNumberResult.getSeason_poster_path()).into(binding.seasonIntro.seriesSeasonImages);
         }
 
         //TODO: Season Name.
@@ -350,7 +350,7 @@ public class SeriesDetailsActivity extends BaseActivity {
     }
 
     private void watchProviderCall() {
-        Call<WatchProvider> call = anInterface.MOVIE_WATCH_PROVIDER_CALL(series_id, URLs.API_KEY);
+        Call<WatchProvider> call = anInterface.SERIES_WATCH_PROVIDER_CALL(series_id, BuildConfig.API_KEY);
         call.enqueue(new Callback<WatchProvider>() {
             @Override
             public void onResponse(@NonNull Call<WatchProvider> call, @NonNull Response<WatchProvider> response) {
@@ -382,7 +382,7 @@ public class SeriesDetailsActivity extends BaseActivity {
     }
 
     private void mediaTrailers() {
-        Call<MediaGroup> mediaCall = anInterface.SERIES_MEDIA_GROUP_CALL(series_id, URLs.API_KEY);
+        Call<MediaGroup> mediaCall = anInterface.SERIES_MEDIA_GROUP_CALL(series_id, BuildConfig.API_KEY);
         mediaCall.enqueue(new Callback<MediaGroup>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -424,7 +424,7 @@ public class SeriesDetailsActivity extends BaseActivity {
     }
 
     private void recommendedSeries() {
-        Call<SeriesModel> recommendation = anInterface.RECOMMENDED_SERIES_ITEM_RESULTS_CALL(series_id, URLs.API_KEY);
+        Call<SeriesModel> recommendation = anInterface.RECOMMENDED_SERIES_ITEM_RESULTS_CALL(series_id, BuildConfig.API_KEY);
         recommendation.enqueue(new Callback<SeriesModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override

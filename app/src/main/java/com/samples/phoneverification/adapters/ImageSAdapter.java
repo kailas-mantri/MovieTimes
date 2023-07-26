@@ -10,16 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.model.SeriesResults;
-import com.samples.phoneverification.apimodel.URLs;
 
 import java.util.ArrayList;
 
 public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewHolder> {
 
-    private int seriesId;
+    int seriesId;
     private final Context context;
     private final ArrayList<SeriesResults> seriesResults;
     private final OnRecyclerItemClickListener<SeriesResults> anInterface;
@@ -48,8 +48,8 @@ public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewH
         if (posterPath == null) {
             holder.imageView.setImageResource(R.drawable.no_poster);
         } else {
-            // Glide library to display ImageBaseURL link before image string
-            Glide.with(holder.imageView).load(URLs.IMAGE_BASE_URL + seriesResults.get(position).getPosterPath())
+            // Glide - imageURL string
+            Glide.with(holder.imageView).load(BuildConfig.IMAGE_BASE_URL + seriesResults.get(position).getPosterPath())
                     .into(holder.imageView);
         }
 

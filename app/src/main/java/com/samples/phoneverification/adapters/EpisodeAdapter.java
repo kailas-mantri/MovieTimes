@@ -11,18 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
-import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.model.Episodes;
 
 import java.util.ArrayList;
 
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHolder> {
 
-    private Context context;
-    private ArrayList<Episodes> episodeList;
-    private OnRecyclerItemClickListener<Episodes> anInterface;
+    private final Context context;
+    private final ArrayList<Episodes> episodeList;
+    final OnRecyclerItemClickListener<Episodes> anInterface;
 
     public EpisodeAdapter(Context context, ArrayList<Episodes> episodeList, OnRecyclerItemClickListener<Episodes> anInterface) {
         this.context = context;
@@ -47,7 +47,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
         if (imageUrl == null) {
             holder.episodeImage.setBackgroundResource(R.drawable.no_poster);
         } else {
-            Glide.with(holder.episodeImage).load(URLs.IMAGE_BASE_URL + episodeList.get(position).episode_still_path)
+            Glide.with(holder.episodeImage).load(BuildConfig.IMAGE_BASE_URL + episodeList.get(position).episode_still_path)
                     .into(holder.episodeImage);
         }
         holder.episodeName.setText(episodeList.get(position).getEpisode_name());
@@ -57,6 +57,10 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
     @Override
     public int getItemCount() {
         return episodeList.size();
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

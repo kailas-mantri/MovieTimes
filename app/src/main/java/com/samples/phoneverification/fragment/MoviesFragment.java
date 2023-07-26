@@ -24,7 +24,6 @@ import com.samples.phoneverification.model.GenresList;
 import com.samples.phoneverification.model.MovieModel;
 import com.samples.phoneverification.model.MovieResults;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
-import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.FragmentMoviesBinding;
 
 import java.util.ArrayList;

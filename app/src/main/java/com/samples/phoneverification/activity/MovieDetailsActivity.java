@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.adapters.CastCrewAdapter;
 import com.samples.phoneverification.adapters.MovieAdapter;
 import com.samples.phoneverification.adapters.TrailerAdapter;
 import com.samples.phoneverification.adapters.WatchPAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
-import com.samples.phoneverification.apimodel.URLs;
 import com.samples.phoneverification.databinding.ActivityMovieDetailsBinding;
 import com.samples.phoneverification.dbmodel.WishListDBHelper;
 import com.samples.phoneverification.dbmodel.WishListItem;
@@ -66,7 +66,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private final List<String> langList = new ArrayList<>();
     private ArrayList<CastCrewList> castArray = new ArrayList<>();
     private ArrayList<MediaList> mediaListList = new ArrayList<>();
-    Retrofit retrofit = new Retrofit.Builder().baseUrl(URLs.BASE_URL)
+    Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create()).build();
 
@@ -91,18 +91,17 @@ public class MovieDetailsActivity extends AppCompatActivity {
         isWishListed = wishListDBHelper.isItemWishListed(movieId);
 
         updateWishlist();
-
         binding.toolbarBack.setOnClickListener(v -> onBackPressed());
 
         // TODO: Call API and set UI.
-        Call<MovieIdDetails> details_call = anInterface.MOVIE_ID_DETAILS_CALL(movieId, URLs.API_KEY);
+        Call<MovieIdDetails> details_call = anInterface.MOVIE_ID_DETAILS_CALL(movieId, BuildConfig.API_KEY);
         details_call.enqueue(new Callback<MovieIdDetails>() {
             @Override
             public void onResponse(@NonNull Call<MovieIdDetails> call, @NonNull Response<MovieIdDetails> response) {
                 if (response.isSuccessful() && (response.body() != null)) {
                     MovieIdDetails itemDetails = response.body();
                     //TODO: Check Wishlist?
-                    Log.d("Movie ID", "Movie ID: " + itemDetails.getMovie_id());
+//                    Log.d("Movie ID", "Movie ID: " + itemDetails.getMovie_id());
                     currentItem = new WishListItem(itemDetails.getMovie_id(), itemDetails.getStandardMovieTitle(), itemDetails.getMovieOverview(),
                             itemDetails.getPosterPath(), itemDetails.getBackdrop_path());
                     addDataToUI(itemDetails);
@@ -176,7 +175,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void watchProviderCall() {
-        Call<WatchProvider> call = anInterface.MOVIE_WATCH_PROVIDER_CALL(movieId, URLs.API_KEY);
+        Call<WatchProvider> call = anInterface.MOVIE_WATCH_PROVIDER_CALL(movieId, BuildConfig.API_KEY);
         call.enqueue(new Callback<WatchProvider>() {
             @Override
             public void onResponse(@NonNull Call<WatchProvider> call, @NonNull Response<WatchProvider> response) {
@@ -208,7 +207,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void mediaTrailers() {
-        Call<MediaGroup> mediaGroupCall = anInterface.MOVIE_MEDIA_GROUP_CALL(movieId, URLs.API_KEY);
+        Call<MediaGroup> mediaGroupCall = anInterface.MOVIE_MEDIA_GROUP_CALL(movieId, BuildConfig.API_KEY);
         mediaGroupCall.enqueue(new Callback<MediaGroup>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -244,7 +243,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void starCast() {
-        Call<CastModel> castPOJOCall = anInterface.MOVIE_CAST_MODEL_CALL(movieId, URLs.API_KEY);
+        Call<CastModel> castPOJOCall = anInterface.MOVIE_CAST_MODEL_CALL(movieId, BuildConfig.API_KEY);
         castPOJOCall.enqueue(new Callback<CastModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -276,7 +275,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void recommendedMovies() {
-        Call<MovieModel> recommendation = anInterface.RECOMMENDED_MOVIES_CALL(movieId, URLs.API_KEY);
+        Call<MovieModel> recommendation = anInterface.RECOMMENDED_MOVIES_CALL(movieId, BuildConfig.API_KEY);
         recommendation.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
