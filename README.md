@@ -13,8 +13,12 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 
 ### Screenshots
 
+<<<<<<< HEAD
 
 ![Login Page](<img src="img.png" width="50%" height="40%">),  ![OTP_Validation Page](img_1.png),  ![Home Page](img_2.png),  ![Search Page](img_3.png), ![Searched Page](img_4.png),  ![MovieDetails Page](img_5.png), ![SeriesDetails Page](img_6.png)
+=======
+<img src="img.png" width="20%" height="20%">  <img src="img_1.png" width="20%" height="20%">  <img src="img_2.png" width="20%" height="20%">  <img src="img_3.png" width="20%" height="20%"> <img src="img_4.png" width="20%" height="20%"> <img src="img_5.png" width="20%" height="20%"> <img src="img_6.png" width="20%" height="20%">
+>>>>>>> f267a5d7c49db337e8884b95a6d254695f82ec8c
     
 
 ## Tech Stack
@@ -29,6 +33,7 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 
 ## Development Phases.
 
+<<<<<<< HEAD
 ### Phase 1: *SplashScreen, LoginActivity, BottomSheetDialog*
 
 'Phone & GoogleSignIn' Authentication using Firebase Database.
@@ -47,27 +52,54 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 Phase 3: _(HomeFragment, MovieFragment, SeriesFragment, SearchFragment)_ *API Implementation*
 
 - Creation of POJO class, Adapter and custom layout. 
+=======
+#### Phase 1: *SplashScreen, LoginActivity, BottomSheetDialog*
 
 
-    3.0. SearchFragment:
-         This Page has (MIX - API call) to SearchBar for mix search - movie/series/people/genres and recent search history, and search result implentations.
+'Phone & GoogleSignIn' Authentication using Firebase Database.
 
-Phase 4: *SeriesDetailsActivity and MovieDetailsActivity*
+* 1.0. Phone Authentication: Authorization with mobile Number with OTP verification. 
+* 1.1. GoogleSign In: Google Account Sign In.
+>>>>>>> f267a5d7c49db337e8884b95a6d254695f82ec8c
+
+
+#### Phase 2: Customise **BottomNavigation** using menu items with supportive fragments.
+
+* 2.0. Bottom Navigation:
+
+      The BottomNavigation View using menu items and frameLayout Manager to switch fragments with
+      respect to menu Id.
+
+
+#### Phase 3: _(HomeFragment, MovieFragment, SeriesFragment, SearchFragment)_ *API Implementation*
+
+
+Creation of POJO class, Adapter and custom layout. 
+
+* 3.0. SearchFragment:
+
+      This Page has (MIX - API call) to SearchBar for mix search - movie/series/people/genres and recent 
+      search history, and search result implentations.
+
+
+#### Phase 4: *SeriesDetailsActivity and MovieDetailsActivity*
     
-- Using generic interface for OnItemClicked method to fetch data from ITEM_ID
+
+Using generic interface for OnItemClicked method to fetch data from ITEM_ID
 
 
-Phase 5: _*Layout Design and Data Handling*_
+#### Phase 5: _*Layout Design and Data Handling*_
     
-- API Implementation, Adapter, Implicit & Explicit Intent, Collapsing Toolbar, Fetching Season and episode details.
+
+API Implementation, Adapter, Implicit & Explicit Intent, Collapsing Toolbar, Fetching Season and episode details.
 
 
-Phase 6: *Local Database  log_out feature.*
+#### Phase 6: *Local Database  log_out feature.*
 
-- WishList management - SearchQuery recent and result management using SQLite database handling's with UI.
-- Log_out feature in update with Navigation Drawer.
+* WishList management - SearchQuery recent and result management using SQLite database handling's with UI.
+* Log_out feature in update with Navigation Drawer.
 
 
-Phase 7: *Updates*
+#### Phase 7: *Updates*
 
-- Upcoming Updates: *Kotlin, LiveData, ViewModel, Navigation Drawer*
+* Upcoming Updates: *Kotlin, LiveData, ViewModel, Navigation Drawer*
