@@ -47,7 +47,8 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 
 ### Phase 3: _(HomeFragment, MovieFragment, SeriesFragment, SearchFragment)_ *API Implementation*
 
-- Creation of POJO class, Adapter and custom layout. 
+
+Creation of POJO class, Adapter and custom layout. 
 
 * 3.0. SearchFragment:
 
@@ -57,12 +58,14 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 
 ### Phase 4: *SeriesDetailsActivity and MovieDetailsActivity*
     
-* Using generic interface for OnItemClicked method to fetch data from ITEM_ID
+
+Using generic interface for OnItemClicked method to fetch data from ITEM_ID
 
 
 ### Phase 5: _*Layout Design and Data Handling*_
     
-* API Implementation, Adapter, Implicit & Explicit Intent, Collapsing Toolbar, Fetching Season and episode details.
+
+API Implementation, Adapter, Implicit & Explicit Intent, Collapsing Toolbar, Fetching Season and episode details.
 
 
 ### Phase 6: *Local Database  log_out feature.*
