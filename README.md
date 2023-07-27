@@ -28,7 +28,7 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 
 ## Development Phases.
 
-### Phase 1: *SplashScreen, LoginActivity, BottomSheetDialog*
+#### Phase 1: *SplashScreen, LoginActivity, BottomSheetDialog*
 
 
 'Phone & GoogleSignIn' Authentication using Firebase Database.
@@ -37,7 +37,7 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 * 1.1. GoogleSign In: Google Account Sign In.
 
 
-### Phase 2: Customise **BottomNavigation** using menu items with supportive fragments.
+#### Phase 2: Customise **BottomNavigation** using menu items with supportive fragments.
 
 * 2.0. Bottom Navigation:
 
@@ -45,7 +45,7 @@ MovieTimes is a mobile application that allows users to discover and explore mov
       respect to menu Id.
 
 
-### Phase 3: _(HomeFragment, MovieFragment, SeriesFragment, SearchFragment)_ *API Implementation*
+#### Phase 3: _(HomeFragment, MovieFragment, SeriesFragment, SearchFragment)_ *API Implementation*
 
 
 Creation of POJO class, Adapter and custom layout. 
@@ -56,19 +56,19 @@ Creation of POJO class, Adapter and custom layout.
       history, and search result implentations.
 
 
-### Phase 4: *SeriesDetailsActivity and MovieDetailsActivity*
+#### Phase 4: *SeriesDetailsActivity and MovieDetailsActivity*
     
 
 Using generic interface for OnItemClicked method to fetch data from ITEM_ID
 
 
-### Phase 5: _*Layout Design and Data Handling*_
+#### Phase 5: _*Layout Design and Data Handling*_
     
 
 API Implementation, Adapter, Implicit & Explicit Intent, Collapsing Toolbar, Fetching Season and episode details.
 
 
-### Phase 6: *Local Database  log_out feature.*
+#### Phase 6: *Local Database  log_out feature.*
 
 * WishList management - SearchQuery recent and result management using SQLite database handling's with UI.
 * Log_out feature in update with Navigation Drawer.
