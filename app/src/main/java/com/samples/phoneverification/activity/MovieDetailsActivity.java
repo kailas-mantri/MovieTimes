@@ -342,7 +342,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         binding.collapsingToolbar.setTitle(itemDetails.getStandardMovieTitle());
 
         // TODO: 1. BackPath setup, 2. Movie Title, 3. Ratings,  4. setEvent(onClick) on Add_to_wishlist
-        Glide.with(binding.backdropPath).load(URLs.IMAGE_BASE_URL + itemDetails.getBackdrop_path())
+        Glide.with(binding.backdropPath).load(BuildConfig.IMAGE_BASE_URL + itemDetails.getBackdrop_path())
                 .into(binding.backdropPath);
         binding.movieTitle.setText(itemDetails.getStandardMovieTitle());
 

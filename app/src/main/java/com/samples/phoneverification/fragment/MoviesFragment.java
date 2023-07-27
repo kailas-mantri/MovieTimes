@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.activity.MovieDetailsActivity;
 import com.samples.phoneverification.adapters.CarouselMAdapter;
 import com.samples.phoneverification.adapters.GenreMAdapter;
@@ -56,7 +57,7 @@ public class MoviesFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URLs.BASE_URL)
+                .baseUrl(BuildConfig.BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -97,7 +98,7 @@ public class MoviesFragment extends Fragment {
     }
 
     private void GenresWrTMovieId() {
-        Call<GenresModel> call = anInterface.MOVIE_GENRES_MODEL_CALL(URLs.API_KEY);
+        Call<GenresModel> call = anInterface.MOVIE_GENRES_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<GenresModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -109,7 +110,7 @@ public class MoviesFragment extends Fragment {
 
                 // TODO Set parameters for second API call
                 for (int i = 0; i < genreResults.size(); i++) {
-                    params.put("api_key", URLs.API_KEY);
+                    params.put("api_key", BuildConfig.API_KEY);
                     params.put("with_genres", String.valueOf(genreResults.get(i).getId()));
 
                     Call<MovieModel> movieModelCall = anInterface.MOVIE_DISCOVER_MODEL_CALL(params);
@@ -154,7 +155,7 @@ public class MoviesFragment extends Fragment {
     }
 
     private void UpComingMovies() {
-        Call<MovieModel> moviesModelCall = anInterface.UP_COMING_MOVIES_MODEL_CALL(URLs.API_KEY);
+        Call<MovieModel> moviesModelCall = anInterface.UP_COMING_MOVIES_MODEL_CALL(BuildConfig.API_KEY);
         moviesModelCall.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override

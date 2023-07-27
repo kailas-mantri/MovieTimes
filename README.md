@@ -2,20 +2,19 @@
 
 MovieTimes is a mobile application that allows users to discover and explore movies and TV shows easily. It provides a user-friendly interface to browse through various genres, view movie details, watch trailers, and add movies to the wishlist.
 
-- Features
-  -
-  - Browse Trending Movies and TV Shows
-  - Filter Movies and TV Shows by Genres
-  - View Movie Details and Synopsis
-  - Watch Trailers of Movies
-  - Add Movies to Wishlist
-  - Architecture MVC model.
+### Features
+  
+- Browse Trending Movies and TV Shows
+- Filter Movies and TV Shows by Genres
+- View Movie Details and Synopsis
+- Watch Trailers of Movies
+- Add Movies to Wishlist
+- Architecture MVC model.
 
-- Screenshots
-  - 
+### Screenshots
 
 
-![Login Page](img.png),  ![OTP_Validation Page](img_1.png),  ![Home Page](img_2.png),  ![Search Page](img_3.png), ![Searched Page](img_4.png),  ![MovieDetails Page](img_5.png), ![SeriesDetails Page](img_6.png)
+![Login Page](<img src="img.png" width="50%" height="40%">),  ![OTP_Validation Page](img_1.png),  ![Home Page](img_2.png),  ![Search Page](img_3.png), ![Searched Page](img_4.png),  ![MovieDetails Page](img_5.png), ![SeriesDetails Page](img_6.png)
     
 
 ## Tech Stack
@@ -29,21 +28,21 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 
 
 ## Development Phases.
-Phase 1: *SplashScreen, LoginActivity, BottomSheetDialog*
 
-- 'Phone & GoogleSignIn' Authentication using Firebase Database.
+### Phase 1: *SplashScreen, LoginActivity, BottomSheetDialog*
+
+'Phone & GoogleSignIn' Authentication using Firebase Database.
 
 
-    1.0. Phone Authentication:
-        Authorization with mobile Number with OTP verification.
-           
-    1.1. GoogleSign In:
-         Google Account Sign In.
+- 1.0. Phone Authentication: Authorization with mobile Number with OTP verification. 
+- 1.1. GoogleSign In: Google Account Sign In.
 
-Phase 2: Customise **BottomNavigation** using menu items with supportive fragments.
+
+### Phase 2: Customise **BottomNavigation** using menu items with supportive fragments.
+
 
     2.0. Bottom Navigation:
-         The BottomNavigation View using menu items and frameLayout Manager to switch fragments with respect to menu Id.
+        - The BottomNavigation View using menu items and frameLayout Manager to switch fragments with respect to menu Id.
 
 Phase 3: _(HomeFragment, MovieFragment, SeriesFragment, SearchFragment)_ *API Implementation*
 
