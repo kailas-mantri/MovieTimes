@@ -52,8 +52,8 @@ Creation of POJO class, Adapter and custom layout.
 
 * 3.0. SearchFragment:
 
-      This Page has (MIX - API call) to SearchBar for mix search - movie/series/people/genres and recent search
-      history, and search result implentations.
+      This Page has (MIX - API call) to SearchBar for mix search - movie/series/people/genres and recent 
+      search history, and search result implentations.
 
 
 #### Phase 4: *SeriesDetailsActivity and MovieDetailsActivity*
