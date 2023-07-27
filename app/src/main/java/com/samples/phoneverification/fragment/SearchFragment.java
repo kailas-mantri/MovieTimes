@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.activity.MovieDetailsActivity;
 import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.adapters.RecentSearchAdapter;
@@ -65,7 +66,7 @@ public class SearchFragment extends Fragment {
 
     private void initRetrofit() {
         retrofit = new Retrofit.Builder()
-                .baseUrl(URLs.BASE_URL)
+                .baseUrl(BuildConfig.BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -237,7 +238,7 @@ public class SearchFragment extends Fragment {
 
     private void showSearchResult(String query) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("api_key", URLs.API_KEY);
+        params.put("api_key", BuildConfig.API_KEY);
         params.put("query", query);
 
         Call<SearchModel> modelCall = anInterface.SEARCH_MODEL_CALL(params);

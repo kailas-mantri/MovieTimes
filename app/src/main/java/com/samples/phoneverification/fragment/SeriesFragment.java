@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.adapters.CarouselSAdapter;
 import com.samples.phoneverification.adapters.GenreSAdapter;
@@ -54,7 +55,7 @@ public class SeriesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URLs.BASE_URL)
+                .baseUrl(BuildConfig.BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -89,7 +90,7 @@ public class SeriesFragment extends Fragment {
     }
 
     private void DynamicSeriesRecyclerCall() {
-        Call<GenresModel> call = anInterface.SERIES_GENRE_MODEL_CALL(URLs.API_KEY);
+        Call<GenresModel> call = anInterface.SERIES_GENRE_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<GenresModel>() {
             @Override
             public void onResponse(@NonNull Call<GenresModel> call, @NonNull Response<GenresModel> response) {
@@ -101,7 +102,7 @@ public class SeriesFragment extends Fragment {
                 // TODO **Set parameters for second API call**
                 for (int i = 0; i < genreResults.size(); i++) {
                     HashMap<String, String> params = new HashMap<>();
-                    params.put("api_key", URLs.API_KEY);
+                    params.put("api_key", BuildConfig.API_KEY);
                     params.put("with_genres", String.valueOf(genreResults.get(i).getId()));
 
                     Call<SeriesModel> seriesModelCall = anInterface.SERIES_DISCOVER_MODEL_CALL(params);
@@ -135,7 +136,7 @@ public class SeriesFragment extends Fragment {
     }
 
     private void upComingSAPICall() {
-        Call<SeriesModel> up_coming_series_model_call = anInterface.UP_COMING_SERIES_MODEL_CALL(URLs.API_KEY);
+        Call<SeriesModel> up_coming_series_model_call = anInterface.UP_COMING_SERIES_MODEL_CALL(BuildConfig.API_KEY);
         up_coming_series_model_call.enqueue(new Callback<SeriesModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
