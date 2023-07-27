@@ -13,7 +13,7 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 
 ### Screenshots
 
-<img src="img.png" width="20%" height="20%">  <img src="img_1.png" width="20%" height="20%">  <img src="img_2.png" width="20%" height="20%">  <img src="img_3.png" width="20%" height="20%"> <img src="img_4.png" width="20%" height="20%"> <img src="img_5.png" width="20%" height="20%"> <img src="img_6.png" width="20%" height="20%">
+<img src="img.png" width="20%" height="20%"> <img src="img_1.png" width="20%" height="20%"> <img src="img_2.png" width="20%" height="20%"> <img src="img_3.png" width="20%" height="20%"> <img src="img_4.png" width="20%" height="20%"> <img src="img_5.png" width="20%" height="20%"> <img src="img_6.png" width="20%" height="20%">
     
 
 ## Tech Stack
