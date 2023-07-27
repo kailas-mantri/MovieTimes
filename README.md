@@ -13,13 +13,7 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 
 ### Screenshots
 
-<<<<<<< HEAD
-
-![Login Page](<img src="img.png" width="50%" height="40%">),  ![OTP_Validation Page](img_1.png),  ![Home Page](img_2.png),  ![Search Page](img_3.png), ![Searched Page](img_4.png),  ![MovieDetails Page](img_5.png), ![SeriesDetails Page](img_6.png)
-=======
-<img src="img.png" width="20%" height="20%">  <img src="img_1.png" width="20%" height="20%">  <img src="img_2.png" width="20%" height="20%">  <img src="img_3.png" width="20%" height="20%"> <img src="img_4.png" width="20%" height="20%"> <img src="img_5.png" width="20%" height="20%"> <img src="img_6.png" width="20%" height="20%">
->>>>>>> f267a5d7c49db337e8884b95a6d254695f82ec8c
-    
+<img src="img.png" width="20%" height="20%">  <img src="img_1.png" width="20%" height="20%">  <img src="img_2.png" width="20%" height="20%">  <img src="img_3.png" width="20%" height="20%"> <img src="img_4.png" width="20%" height="20%"> <img src="img_5.png" width="20%" height="20%"> <img src="img_6.png" width="20%" height="20%">    
 
 ## Tech Stack
 - Java with Android SDK for development.
@@ -33,11 +27,10 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 
 ## Development Phases.
 
-<<<<<<< HEAD
 ### Phase 1: *SplashScreen, LoginActivity, BottomSheetDialog*
 
-'Phone & GoogleSignIn' Authentication using Firebase Database.
 
+'Phone & GoogleSignIn' Authentication using Firebase Database.
 
 - 1.0. Phone Authentication: Authorization with mobile Number with OTP verification. 
 - 1.1. GoogleSign In: Google Account Sign In.
@@ -48,27 +41,6 @@ MovieTimes is a mobile application that allows users to discover and explore mov
 
     2.0. Bottom Navigation:
         - The BottomNavigation View using menu items and frameLayout Manager to switch fragments with respect to menu Id.
-
-Phase 3: _(HomeFragment, MovieFragment, SeriesFragment, SearchFragment)_ *API Implementation*
-
-- Creation of POJO class, Adapter and custom layout. 
-=======
-#### Phase 1: *SplashScreen, LoginActivity, BottomSheetDialog*
-
-
-'Phone & GoogleSignIn' Authentication using Firebase Database.
-
-* 1.0. Phone Authentication: Authorization with mobile Number with OTP verification. 
-* 1.1. GoogleSign In: Google Account Sign In.
->>>>>>> f267a5d7c49db337e8884b95a6d254695f82ec8c
-
-
-#### Phase 2: Customise **BottomNavigation** using menu items with supportive fragments.
-
-* 2.0. Bottom Navigation:
-
-      The BottomNavigation View using menu items and frameLayout Manager to switch fragments with
-      respect to menu Id.
 
 
 #### Phase 3: _(HomeFragment, MovieFragment, SeriesFragment, SearchFragment)_ *API Implementation*
