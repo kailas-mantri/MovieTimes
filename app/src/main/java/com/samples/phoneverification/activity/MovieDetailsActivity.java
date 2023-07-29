@@ -30,6 +30,7 @@ import com.samples.phoneverification.model.MediaList;
 import com.samples.phoneverification.model.MovieIdDetails;
 import com.samples.phoneverification.model.MovieModel;
 import com.samples.phoneverification.model.MovieResults;
+import com.samples.phoneverification.model.Providers;
 import com.samples.phoneverification.model.ProvidersRegionList;
 import com.samples.phoneverification.model.SpokenLanguages;
 import com.samples.phoneverification.model.WatchProvider;
@@ -42,6 +43,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,13 +57,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private int movieId;
     private WishListItem currentItem;
     private ActivityMovieDetailsBinding binding;
-    private WatchPAdapter watchProviderAdapter;
+    WatchPAdapter watchProviderAdapter;
     private boolean isWishListed = false;
     private TrailerAdapter trailerAdapter;
     private CastCrewAdapter castsCrewAdapter;
     private MovieAdapter recommendationAdapter;
     private WishListDBHelper wishListDBHelper;
     String country = Locale.getDefault().getCountry();
+    private ArrayList<Providers> buy = new ArrayList<>();
     ArrayList<CastCrewList> crewArray = new ArrayList<>();
     private final List<String> langList = new ArrayList<>();
     private ArrayList<CastCrewList> castArray = new ArrayList<>();
@@ -73,7 +76,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private final ArrayList<MediaList> filteredMedia = new ArrayList<>();
     private ArrayList<MovieResults> recommendedResults = new ArrayList<>();
     private final APIInterface anInterface = retrofit.create(APIInterface.class);
-    private final HashMap<String, ProvidersRegionList> regionList = new HashMap<>();
+    final HashMap<String, ProvidersRegionList> regionList = new HashMap<>();
     private final SimpleDateFormat inputDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private final SimpleDateFormat outputDate = new SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault());
 
@@ -184,8 +187,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     Map<String, ProvidersRegionList> region = watchPList.getRegionList();
                     if (watchProviderAdapter != null) {
                         if (region.containsKey(country)) {
-                            Map<String, ProvidersRegionList> provider = new HashMap<>(region);
-                            watchProviderAdapter.updateData(provider);
+                            if (region.get(country) != null) {
+                                buy = Objects.requireNonNull(region.get(country)).getBuyList();
+                                watchProviderAdapter.updateData(buy);
+                            }
                         } else
                             watchProviderVisibility();
                     } else
@@ -311,7 +316,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void initWatchProvider() {
-        watchProviderAdapter = new WatchPAdapter(getApplicationContext(), regionList, (item, position, action) ->
+        watchProviderAdapter = new WatchPAdapter(getApplicationContext(), buy, (item, position, action) ->
                 Log.d("TAG", "WatchProvider: " + regionList.keySet().toArray()[position].toString()));
         binding.watchProviderRecycler.setAdapter(watchProviderAdapter);
     }

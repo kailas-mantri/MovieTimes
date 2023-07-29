@@ -5,14 +5,25 @@ plugins {
 
 android {
     namespace 'com.samples.phoneverification'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
-        applicationId "com.samples.phoneverification"
         minSdk 28
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        targetSdk 34
+
+        flavorDimensions "default"
+        productFlavors {
+            create("production") {
+                applicationId "com.samples.phoneverification"
+                versionCode 1
+                versionName "1.0"
+                buildConfigField("String", "API_KEY", "${API_KEY_PROD}")
+                buildConfigField("String", "BASE_URL", BASE_URL_PROD)
+                buildConfigField("String", "IMAGE_BASE_URL", IMAGE_BASE_URL_PROD)
+                buildConfigField("String", "YOUTUBE", YOUTUBE_PROD)
+                buildConfigField("String", "YOUTUBE_THUMBNAILS", YOUTUBE_THUMBNAILS_PROD)
+            }
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -21,16 +32,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        production {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-            buildConfigField("String", "API_KEY", API_KEY_PROD)
-            buildConfigField("String", "BASE_URL", BASE_URL_PROD)
-            buildConfigField("String", "IMAGE_BASE_URL", IMAGE_BASE_URL_PROD)
-            buildConfigField("String", "YOUTUBE", YOUTUBE_PROD)
-            buildConfigField("String", "YOUTUBE_THUMBNAILS", YOUTUBE_THUMBNAILS_PROD)
         }
     }
     compileOptions {

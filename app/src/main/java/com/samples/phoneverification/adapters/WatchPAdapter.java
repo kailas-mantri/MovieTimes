@@ -2,8 +2,6 @@ package com.samples.phoneverification.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,22 +15,18 @@ import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.model.Providers;
-import com.samples.phoneverification.model.ProvidersRegionList;
-import com.samples.phoneverification.model.WatchProvider;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Objects;
 
 public class WatchPAdapter extends RecyclerView.Adapter<WatchPAdapter.ViewHolder> {
 
     final Context context;
-    private Map<String, ProvidersRegionList> regionLists;
-    private final OnRecyclerItemClickListener<WatchProvider> anInterface;
+    private ArrayList<Providers> buy;
+    final OnRecyclerItemClickListener<Providers> anInterface;
 
-    public WatchPAdapter(Context context, Map<String, ProvidersRegionList> regionLists, OnRecyclerItemClickListener<WatchProvider> anInterface) {
+    public WatchPAdapter(Context context, ArrayList<Providers> buy, OnRecyclerItemClickListener<Providers> anInterface) {
         this.context = context;
-        this.regionLists = regionLists;
+        this.buy = buy;
         this.anInterface = anInterface;
     }
 
@@ -48,50 +42,60 @@ public class WatchPAdapter extends RecyclerView.Adapter<WatchPAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (position >= 0 && position <= regionLists.size()) {
-            String regionCode = (String) regionLists.keySet().toArray()[position];
-            System.out.println(regionCode);
-            ProvidersRegionList regionArray = regionLists.get(regionCode);
-            if (regionArray != null) {
-                ArrayList<Providers> buy = regionArray.getBuyList();
-                if (buy != null && position < buy.size()) {
-                    Glide.with(holder.provideLogo).load(BuildConfig.IMAGE_BASE_URL + buy.get(position).getProvidersLogoPath()).into(holder.provideLogo);
-                } else {
-                    holder.provideLogo.setVisibility(View.GONE);
-                }
+        if (position >= 0 && position <= buy.size()) {
+            if (position < buy.size()) {
+                Glide.with(holder.provideLogo).load(BuildConfig.IMAGE_BASE_URL + buy.get(position).getProvidersLogoPath()).into(holder.provideLogo);
+            } else {
+                holder.provideLogo.setVisibility(View.GONE);
             }
-
-            if (regionArray != null) {
-                WatchProvider watchProvider = new WatchProvider();
-                watchProvider.setRegionList(regionLists);
-                anInterface.onItemClicked(watchProvider, position, 0);
-            }
-
-            holder.provideLogo.setOnClickListener(v -> {
-                String link = Objects.requireNonNull(regionLists.get(position)).getRegion_link();
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                v.getContext().startActivity(intent);
-            });
         }
+        /*holder.provideLogo.setOnClickListener( v -> {
+            String providerName = buy.get(position).getProviderName();
+            if (isAppInstalled(providerName)) {
+                Intent appIntent = context.getPackageManager().getLaunchIntentForPackage(providerName);
+                if (appIntent != null) {
+                    v.getContext().startActivity(appIntent);
+                } else {
+                    Log.d("App not found", "onBindViewHolder: Unable to open App"+ null);
+                }
+            } else {
+                Uri playStoreUrl = Uri.parse("https://play.google.com/store/search?q=" + providerName);
+                Intent playStore = new Intent(Intent.ACTION_VIEW, playStoreUrl);
+                v.getContext().startActivity(playStore);
+            }
+        });*/
     }
+
+    /*private boolean isAppInstalled(String providerName) {
+        PackageManager manager = context.getPackageManager();
+        @SuppressLint("QueryPermissionsNeeded")
+        List<ApplicationInfo> installedApp = manager.getInstalledApplications(PackageManager.GET_META_DATA);
+        for (ApplicationInfo info: installedApp) {
+            if (providerName.equals(info.packageName)) {
+                return true;
+            }
+        }
+        return false;
+    }*/
+
 
     @Override
     public int getItemCount() {
-        return regionLists.size();
+        return buy.size();
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateData(Map<String, ProvidersRegionList> regionLists) {
-        this.regionLists = regionLists;
+    public void updateData(ArrayList<Providers> country) {
+        this.buy = country;
         notifyDataSetChanged();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView provideLogo;
+public static class ViewHolder extends RecyclerView.ViewHolder {
+    ImageView provideLogo;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            provideLogo = itemView.findViewById(R.id.watchProviderIcons);
-        }
+    public ViewHolder(@NonNull View itemView) {
+        super(itemView);
+        provideLogo = itemView.findViewById(R.id.watchProviderIcons);
     }
+}
 }
