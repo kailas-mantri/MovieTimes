@@ -28,6 +28,7 @@ import com.samples.phoneverification.model.CastCrewList;
 import com.samples.phoneverification.model.CastModel;
 import com.samples.phoneverification.model.MediaGroup;
 import com.samples.phoneverification.model.MediaList;
+import com.samples.phoneverification.model.Providers;
 import com.samples.phoneverification.model.ProvidersRegionList;
 import com.samples.phoneverification.model.SeasonNoDetails;
 import com.samples.phoneverification.model.Seasons;
@@ -41,10 +42,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,6 +72,7 @@ public class SeriesDetailsActivity extends BaseActivity {
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create()).build();
     ArrayList<CastCrewList> crewArray = new ArrayList<>();
+    ArrayList<Providers> buy = new ArrayList<>();
     private final List<String> langList = new ArrayList<>();
     private ArrayList<Seasons> seasonsList = new ArrayList<>();
     private ArrayList<MediaList> mediaLists = new ArrayList<>();
@@ -359,8 +361,10 @@ public class SeriesDetailsActivity extends BaseActivity {
                     Map<String, ProvidersRegionList> region = watchPList.getRegionList();
                     if (watchProviderAdapter != null) {
                         if (region.containsKey(country)) {
-                            Map<String, ProvidersRegionList> provider = new HashMap<>(region);
-                            watchProviderAdapter.updateData(provider);
+                            if (region.get(country) != null) {
+                                buy = Objects.requireNonNull(region.get(country)).getBuyList();
+                                watchProviderAdapter.updateData(buy);
+                            }
                         } else
                             watchProviderVisibility();
                     } else
