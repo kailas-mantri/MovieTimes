@@ -63,10 +63,10 @@ public class WatchPAdapter extends RecyclerView.Adapter<WatchPAdapter.ViewHolder
                 Intent playStore = new Intent(Intent.ACTION_VIEW, playStoreUrl);
                 v.getContext().startActivity(playStore);
             }
-        });*/
+        });
     }
 
-    /*private boolean isAppInstalled(String providerName) {
+    private boolean isAppInstalled(String providerName) {
         PackageManager manager = context.getPackageManager();
         @SuppressLint("QueryPermissionsNeeded")
         List<ApplicationInfo> installedApp = manager.getInstalledApplications(PackageManager.GET_META_DATA);
@@ -75,27 +75,31 @@ public class WatchPAdapter extends RecyclerView.Adapter<WatchPAdapter.ViewHolder
                 return true;
             }
         }
-        return false;
-    }*/
+        return false;*/
+    }
 
 
     @Override
     public int getItemCount() {
-        return buy.size();
+        if (buy != null) {
+            return buy.size();
+        } else {
+            return 0;
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateData(ArrayList<Providers> country) {
-        this.buy = country;
+    public void updateData(ArrayList<Providers> buy) {
+        this.buy = buy;
         notifyDataSetChanged();
     }
 
-public static class ViewHolder extends RecyclerView.ViewHolder {
-    ImageView provideLogo;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView provideLogo;
 
-    public ViewHolder(@NonNull View itemView) {
-        super(itemView);
-        provideLogo = itemView.findViewById(R.id.watchProviderIcons);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            provideLogo = itemView.findViewById(R.id.watchProviderIcons);
+        }
     }
-}
 }

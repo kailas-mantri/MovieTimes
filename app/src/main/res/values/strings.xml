@@ -1,8 +1,20 @@
 <resources>
     <string name="app_name">MovieTimes</string>
+    <string name="app_version">Version 1.0</string>
+    <string name="app_description"> Welcome to MovieTimes - Discover the latest movies and TV series with MovieTimes, providing an extensive collection of entertainment at your fingertips!
+Features:
+    - Explore Movies and TV Series, Detailed Information,
+    - Personalized Recommendations, Wishlist and Search,
+    - TV Episodes.
+
+ Discover the world of cinema and TV with MovieTimes, whether you're a movie buff, TV show enthusiast, or seeking entertainment recommendations!
+    </string>
+    <string name="developer_info">Developed By: Kailas Mantri</string>
+
+    <string name="contact_info">movietimesdev@gmail.com</string>
+
 
     <!-- TODO: ImageView ContentDescription-->
-    <string name="app_logo">MovieTimes</string>
     <string name="movie_type_title">Genres List</string>
     <string name="carouselImages">carousel Slider Image</string>
     <string name="description">itemImageTitle</string>
@@ -15,6 +27,11 @@
     <string name="proceed">Proceed</string>
     <string name="otherLogin">Try some Other Login Methods</string>
     <string name="googleSignIn">Sign In With Google</string>
+
+    <!--TODO: Navigation Drawer-->
+    <string name="nav">Nav Icon</string>
+    <string name="openDrawer">Open Navigation Drawer</string>
+    <string name="closeDrawer">Close Navigation Drawer</string>
 
     <!-- TODO: BottomSheetDialog contents -->
     <string name="otpVerification">OTP Verification</string>
@@ -57,11 +74,26 @@
     <string name="rollName">RollName</string>
     <string name="recommended_movie_title">Recommended Movies</string>
 
-    <!-- TODO: -->
+    <!-- TODO: Series Details Activity contents -->
     <string name="series_title">Series Title</string>
     <string name="series_date">series date</string>
     <string name="episodes">Episodes</string>
     <string name="seasonNo">Season </string>
     <string name="recommended_series_title">Recommended Series</string>
+
+    <!-- TODO: Navigation Menu contents-->
+    <string name="store">Store</string>
+    <string name="menu_wishlist">WishList</string>
+    <string name="menu_setting">Settings</string>
+    <string name="community">Community</string>
+    <string name="menu_about">About</string>
+    <string name="menu_feedback">Feedback</string>
+    <string name="submit_feedback">Submit Feedback</string>
+    <string name="txtThanksFeedback">Thank you for your feedback!</string>
+    <string name="txtEmail">Email:</string>
+    <string name="editTextEmail">Enter your email</string>
+    <string name="editTextFeedback">Enter your feedback</string>
+    <string name="menu_share">share</string>
+    <string name="menu_logout">Sign out</string>
 
 </resources>

@@ -65,6 +65,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private WishListDBHelper wishListDBHelper;
     String country = Locale.getDefault().getCountry();
     private ArrayList<Providers> buy = new ArrayList<>();
+    private ArrayList<Providers> rent = new ArrayList<>();
     ArrayList<CastCrewList> crewArray = new ArrayList<>();
     private final List<String> langList = new ArrayList<>();
     private ArrayList<CastCrewList> castArray = new ArrayList<>();
@@ -171,13 +172,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     // TODO: 8. API Calls
     private void initApiCalls() {
-        watchProviderCall();
-        mediaTrailers();
-        starCast();
-        recommendedMovies();
+        watchProviderCallback();
+        mediaTrailersCallback();
+        starCastCallback();
+        recommendedMoviesCallback();
     }
 
-    private void watchProviderCall() {
+    private void watchProviderCallback() {
         Call<WatchProvider> call = anInterface.MOVIE_WATCH_PROVIDER_CALL(movieId, BuildConfig.API_KEY);
         call.enqueue(new Callback<WatchProvider>() {
             @Override
@@ -188,8 +189,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     if (watchProviderAdapter != null) {
                         if (region.containsKey(country)) {
                             if (region.get(country) != null) {
+                                rent = Objects.requireNonNull(region.get(country)).getRentList();
                                 buy = Objects.requireNonNull(region.get(country)).getBuyList();
-                                watchProviderAdapter.updateData(buy);
+                                if (buy != null) {
+                                    watchProviderAdapter.updateData(buy);
+                                } else {
+                                    if (rent != null)
+                                        watchProviderAdapter.updateData(rent);
+                                    else
+                                        watchProviderVisibility();
+                                }
                             }
                         } else
                             watchProviderVisibility();
@@ -211,7 +220,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         binding.watchProviderRecycler.setVisibility(View.GONE);
     }
 
-    private void mediaTrailers() {
+    private void mediaTrailersCallback() {
         Call<MediaGroup> mediaGroupCall = anInterface.MOVIE_MEDIA_GROUP_CALL(movieId, BuildConfig.API_KEY);
         mediaGroupCall.enqueue(new Callback<MediaGroup>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -247,7 +256,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         binding.trailerRecycler.setVisibility(View.GONE);
     }
 
-    private void starCast() {
+    private void starCastCallback() {
         Call<CastModel> castPOJOCall = anInterface.MOVIE_CAST_MODEL_CALL(movieId, BuildConfig.API_KEY);
         castPOJOCall.enqueue(new Callback<CastModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -279,7 +288,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         binding.castRecycler.setVisibility(View.GONE);
     }
 
-    private void recommendedMovies() {
+    private void recommendedMoviesCallback() {
         Call<MovieModel> recommendation = anInterface.RECOMMENDED_MOVIES_CALL(movieId, BuildConfig.API_KEY);
         recommendation.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -308,20 +317,28 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void initAdapters() {
-        // TODO: 1. (Trailer, Teaser), 2. initCasts, 3. initRecommendedMovies.
-        initTrailers();
-        initWatchProvider();
-        initCasts();
-        initRecommendedMovies();
+        // TODO: 1. (Trailer, Teaser), 2. Casts, 3. RecommendedMovies.
+        init_Trailers();
+        init_WatchProvider();
+        init_Casts();
+        init_RecommendedMovies();
     }
 
-    private void initWatchProvider() {
-        watchProviderAdapter = new WatchPAdapter(getApplicationContext(), buy, (item, position, action) ->
+    private void init_WatchProvider() {
+        ArrayList<Providers> list = new ArrayList<>();
+        if (buy != null) {
+            list = buy;
+        } else if (rent != null) {
+            list = rent;
+        } else {
+            list.size();
+        }
+        watchProviderAdapter = new WatchPAdapter(getApplicationContext(), list, (item, position, action) ->
                 Log.d("TAG", "WatchProvider: " + regionList.keySet().toArray()[position].toString()));
         binding.watchProviderRecycler.setAdapter(watchProviderAdapter);
     }
 
-    private void initRecommendedMovies() {
+    private void init_RecommendedMovies() {
         recommendationAdapter = new MovieAdapter(getApplicationContext(), recommendedResults, (item, position, action) -> {
             Intent intent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
             intent.putExtra("movie_id", item.getMovieId());
@@ -330,15 +347,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
         binding.recommendationRecycler.setAdapter(recommendationAdapter);
     }
 
-    private void initCasts() {
+    private void init_Casts() {
         castsCrewAdapter = new CastCrewAdapter(getApplicationContext(), castArray, (item, position, action) ->
-                Log.d("TrailerAdapterTag", "initTrailers: " + castArray.size()));
+                Log.d("TrailerAdapterTag", "init_Trailers: " + castArray.size()));
         binding.castRecycler.setAdapter(castsCrewAdapter);
     }
 
-    private void initTrailers() {
+    private void init_Trailers() {
         trailerAdapter = new TrailerAdapter(getApplicationContext(), mediaListList, (item, position, action) ->
-                Log.d("TrailerAdapterTag", "initTrailers: " + mediaListList.size()));
+                Log.d("TrailerAdapterTag", "init_Trailers: " + mediaListList.size()));
         binding.trailerRecycler.setAdapter(trailerAdapter);
     }
 

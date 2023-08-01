@@ -22,7 +22,6 @@ import com.samples.phoneverification.adapters.GenreSAdapter;
 import com.samples.phoneverification.apimodel.APIInterface;
 import com.samples.phoneverification.model.GenresModel;
 import com.samples.phoneverification.model.GenresList;
-import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.model.SeriesModel;
 import com.samples.phoneverification.model.SeriesResults;
 import com.samples.phoneverification.databinding.FragmentSeriesBinding;
@@ -76,20 +75,18 @@ public class SeriesFragment extends Fragment {
         // TODO:4. Initialize All Adapters
         initAdapters();
         //TODO:6. Call APIs.
-        AllApiCalls();
+        apiCallbacks();
 
         return binding.getRoot();
     }
 
-    private void AllApiCalls() {
-        // TODO:7. upComingSAPICall.
-        upComingSAPICall();
-
-        //TODO;9. DynamicSeriesRecyclerCall.
-        DynamicSeriesRecyclerCall();
+    private void apiCallbacks() {
+        // TODO:7. upComingSCallback, genresByItemId.
+        upComingSCallback();
+        genresByItemId();
     }
 
-    private void DynamicSeriesRecyclerCall() {
+    private void genresByItemId() {
         Call<GenresModel> call = anInterface.SERIES_GENRE_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<GenresModel>() {
             @Override
@@ -135,7 +132,7 @@ public class SeriesFragment extends Fragment {
         });
     }
 
-    private void upComingSAPICall() {
+    private void upComingSCallback() {
         Call<SeriesModel> up_coming_series_model_call = anInterface.UP_COMING_SERIES_MODEL_CALL(BuildConfig.API_KEY);
         up_coming_series_model_call.enqueue(new Callback<SeriesModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -158,22 +155,17 @@ public class SeriesFragment extends Fragment {
     }
 
     private void initAdapters() {
-        //TODO:5. Carousel Adapter
+        //TODO:5. Adapter: Carousel, INITIALIZE genre
         init_CarouselAdapter();
-
-        //TODO:8.INITIALIZE GenreAdapter
         init_GenreAdapter();
     }
 
     private void init_GenreAdapter() {
-        genreAdapter = new GenreSAdapter(requireContext(), genreResults, new OnRecyclerItemClickListener<SeriesResults>() {
-            @Override
-            public void onItemClicked(SeriesResults item, int position, int action) {
-                int seriesId = item.getSeriesId();
-                Intent intent = new Intent(requireActivity(), SeriesDetailsActivity.class);
-                intent.putExtra("series_id", seriesId);
-                startActivity(intent);
-            }
+        genreAdapter = new GenreSAdapter(requireContext(), genreResults, (item, position, action) -> {
+            int seriesId = item.getSeriesId();
+            Intent intent = new Intent(requireActivity(), SeriesDetailsActivity.class);
+            intent.putExtra("series_id", seriesId);
+            startActivity(intent);
         });
         binding.recyclerImageList.setAdapter(genreAdapter);
     }

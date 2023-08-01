@@ -1,8 +1,11 @@
 package com.samples.phoneverification.dbmodel;
 
+import android.net.Uri;
+
 public class StoreFirebaseUser {
 
     String userId, userName, userNumber, userEmail;
+    Uri userImage;
     public StoreFirebaseUser() {
     }
 
@@ -11,10 +14,11 @@ public class StoreFirebaseUser {
         this.userNumber = userNumber;
     }
 
-    public StoreFirebaseUser(String userId, String userName, String userEmail) {
+    public StoreFirebaseUser(String userId, String userName, String userEmail, Uri userImage) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
+        this.userImage = userImage;
     }
 
     public String getUserId() {
@@ -47,5 +51,13 @@ public class StoreFirebaseUser {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public Uri getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(Uri userImage) {
+        this.userImage = userImage;
     }
 }

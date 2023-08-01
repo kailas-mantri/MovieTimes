@@ -77,96 +77,57 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
 
         // TODO 01: Set allAdapters.
-        initAllAdapters();
+        initAdapters();
 
         // TODO 02: After Setting Adapter use Timer for Auto-Sliding
-        CarouselSliders();
+        CarouselSlider();
 
-        // TODO 03: Set LayoutManger - RecyclerView.
-        recyclerLayoutMangers();
+        // TODO 03: Set LayoutManger -RecyclerView.
+        setLayoutMangers();
 
         // TODO 04: Set allAPICalls.
-        allApiCalls();
+        apiCallbacks();
 
         return binding.getRoot();
     }
 
-    private void recyclerLayoutMangers() {
-        //TODO: 1. setLayoutManager, Trending Movies.
+    private void setLayoutMangers() {
+        //TODO: Trending Movies,  upComing Series, NowPlaying Movies, TopRated Movies, TopRated Series, Popular Movies, Popular Series.
         binding.trendingMovies.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-
-        //TODO: 2. setLayoutManager, upComing Series.
         binding.upComingSeries.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-
-        //TODO: 3. setLayoutManager, NowPlaying Movies.
         binding.nowPlayingMovies.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-
-        //TODO: 4. setLayoutManager, TopRated Movies.
         binding.topRatedMovies.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-
-        //TODO: 5. setLayoutManager, TopRated Series.
         binding.topRatedSeries.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-
-        //TODO: 6. setLayoutManager, Popular Movies.
         binding.popularMovies.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-
-        //TODO: 7. setLayoutManager, Popular Series.
         binding.popularSeries.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
     }
 
-    private void allApiCalls() {
-        //TODO: 1. upcoming Movies.
-        UpComingMovieCall();
-
-        //TODO: 2. Trending Movies.
-        TrendingMovieCall();
-
-        // TODO 3. UpComing Series.
-        UpComingSeriesCall();
-
-        //TODO: 4. nowPlaying Movies.
-        NowPlayingMovieCall();
-
-        //TODO: 5. topRated Movies.
-        TopRatedMovieCall();
-
-        // TODO 6. topRated Series.
-        TopRatedSeriesCall();
-
-        //TODO: 7. popular Movies.
-        PopularMovieCall();
-
-        // TODO 8. Popular Series.
-        PopularSeriesCall();
+    private void apiCallbacks() {
+        /*TODO: 1. upcoming, Trending, nowPlaying, topRated, popular Movies.
+         *TODO: 2. upcoming, topRated, popular Series.*/
+        UpComingMovieCallback();
+        TrendingMovieCallback();
+        UpComingSeriesCallback();
+        NowPlayingMovieCallback();
+        TopRatedMovieCallback();
+        TopRatedSeriesCallback();
+        PopularMovieCallback();
+        PopularSeriesCallback();
     }
 
-    private void initAllAdapters() {
-        // TODO: 1. Adapter Carousel.
+    private void initAdapters() {
+        // TODO: Adapters:  Carousel, TrendingMovies, upComingSeries, NowPlayingMovies, topRatedMovies, topRatedSeries, popularMovies, popularSeries.
         initAdapter_Carousel();
-
-        // TODO: 2. Adapter TrendingMovies.
         initAdapter_trendingMovies();
-
-        // TODO 3. Adapter upComingSeries.
         initAdapter_upComingSeries();
-
-        // TODO 4. Adapter NowPlayingMovies.
         initAdapter_NowPlayingMovies();
-
-        // TODO 5. Adapter topRatedMovies.
         initAdapter_topRatedMovies();
-
-        // TODO 6. Adapter topRatedSeries.
         initAdapter_topRatedSeries();
-
-        // TODO 7. Adapter popularMovies.
         initAdapter_popularMovies();
-
-        // TODO 8. Adapter popularSeries.
         initAdapter_popularSeries();
     }
 
-    private void PopularSeriesCall() {
+    private void PopularSeriesCallback() {
         Call<SeriesModel> call = anInterface.POPULAR_SERIES_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<SeriesModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -198,7 +159,7 @@ public class HomeFragment extends Fragment {
         binding.popularSeries.setAdapter(popularSeriesAdapter);
     }
 
-    private void PopularMovieCall() {
+    private void PopularMovieCallback() {
         Call<MovieModel> call = anInterface.POPULAR_MOVIES_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -230,7 +191,7 @@ public class HomeFragment extends Fragment {
         binding.popularMovies.setAdapter(popularMovieAdapter);
     }
 
-    private void TopRatedSeriesCall() {
+    private void TopRatedSeriesCallback() {
         Call<SeriesModel> call = anInterface.TOP_RATED_SERIES_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<SeriesModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -263,7 +224,7 @@ public class HomeFragment extends Fragment {
         binding.topRatedSeries.setAdapter(topRatedSeriesAdapter);
     }
 
-    private void TopRatedMovieCall() {
+    private void TopRatedMovieCallback() {
         Call<MovieModel> call = anInterface.TOP_RATED_MOVIES_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -295,7 +256,7 @@ public class HomeFragment extends Fragment {
         binding.topRatedMovies.setAdapter(topRatedMovieAdapter);
     }
 
-    private void NowPlayingMovieCall() {
+    private void NowPlayingMovieCallback() {
         Call<MovieModel> modelCall = anInterface.NOW_PLAYING_MOVIES_MODEL_CALL(BuildConfig.API_KEY);
         modelCall.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -327,7 +288,7 @@ public class HomeFragment extends Fragment {
         binding.nowPlayingMovies.setAdapter(nowPlayingMovieAdapter);
     }
 
-    private void UpComingSeriesCall() {
+    private void UpComingSeriesCallback() {
         Call<SeriesModel> call = anInterface.UP_COMING_SERIES_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<SeriesModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -359,7 +320,7 @@ public class HomeFragment extends Fragment {
         binding.upComingSeries.setAdapter(upComingSeriesAdapter);
     }
 
-    private void TrendingMovieCall() {
+    private void TrendingMovieCallback() {
         Call<MovieModel> modelCall = anInterface.TRENDING_MOVIE_MODEL_CALL(BuildConfig.API_KEY);
         modelCall.enqueue(new Callback<MovieModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -394,7 +355,7 @@ public class HomeFragment extends Fragment {
         binding.trendingMovies.setAdapter(trendingMovieAdapter);
     }
 
-    private void CarouselSliders() {
+    private void CarouselSlider() {
         binding.myViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -404,7 +365,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void UpComingMovieCall() {
+    private void UpComingMovieCallback() {
         Call<MovieModel> moviesModelCall = anInterface.UP_COMING_MOVIES_MODEL_CALL(BuildConfig.API_KEY);
 
         moviesModelCall.enqueue(new Callback<MovieModel>() {

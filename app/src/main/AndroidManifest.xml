@@ -10,7 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="30" />
 
     <application
@@ -22,6 +23,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PhoneVerification"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.FeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.WishListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.StoreActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.MovieDetailsActivity"
             android:exported="false" />

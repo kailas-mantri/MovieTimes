@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_activity"
+    tools:context=".activity.FeedbackActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/black">
+
+        <TextView
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:drawablePadding="25dp"
+            android:text="@string/menu_feedback"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            app:drawableStartCompat="@drawable/arrow_back" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_below="@id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16sp"
+            tools:ignore="UselessParent">
+
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txtEmail"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewEmail"
+                android:paddingBottom="16dp"
+                android:hint="@string/editTextEmail"
+                android:inputType="textEmailAddress"
+                android:autofillHints="@null" />
+
+            <TextView
+                android:id="@+id/textViewFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextEmail"
+                android:paddingTop="8dp"
+                android:text="@string/menu_feedback"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <EditText
+                android:id="@+id/editTextFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewFeedback"
+                android:hint="@string/editTextFeedback"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:autofillHints="@null" />
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextFeedback"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16sp"
+                android:text="@string/submit_feedback" />
+
+            <!-- Thank You Message (Initially hidden) -->
+            <TextView
+                android:id="@+id/textViewThankYou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnSubmit"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:text="@string/txtThanksFeedback"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
