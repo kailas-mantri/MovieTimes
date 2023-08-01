@@ -1,6 +1,7 @@
 package com.samples.phoneverification.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
     private static final int RC_SIGN_IN = 1;
     private static final String TAG = "GoogleSignIn :";
+    private Uri userImage;
 
     /*Update Feature required - How to use it. for deprecated API?
     private ActivityResultLauncher<Intent> signInLauncher;*/
@@ -57,7 +59,10 @@ public class MainActivity extends BaseActivity {
         });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .requestProfile()
+                .build();
 
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         binding.googleSignUp.setOnClickListener(v -> signInWithGoogle(mGoogleSignInClient));
@@ -96,7 +101,11 @@ public class MainActivity extends BaseActivity {
         try {
             GoogleSignInAccount inAccount = signInAccountTask.getResult(ApiException.class);
 //            Log.d(TAG, "Firebase Authorization with Google: "+inAccount.getIdToken());
-            firebaseAuthWithGoogle(inAccount.getIdToken());
+            if (inAccount != null) {
+                String profileImage = (inAccount.getPhotoUrl() != null) ? inAccount.getPhotoUrl().toString() : null;
+                userImage = Uri.parse(profileImage);
+                firebaseAuthWithGoogle(inAccount.getIdToken());
+            }
         } catch (ApiException e) {
             Log.e(TAG, "signResult:failed code= " + e.getMessage());
         }
@@ -114,7 +123,8 @@ public class MainActivity extends BaseActivity {
                     String userName = user.getDisplayName();
                     String userEmail = user.getEmail();
                     String userId = user.getUid();
-                    checkUser(userId, userName, userEmail);
+                    userImage = user.getPhotoUrl();
+                    checkUser(userId, userName, userEmail, userImage);
                 }
 
             } else {
@@ -125,7 +135,7 @@ public class MainActivity extends BaseActivity {
     }
 
     // Store values in Database
-    private void checkUser(String userId, String userName, String userEmail) {
+    private void checkUser(String userId, String userName, String userEmail, Uri userImage) {
         DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference("Users");
         dbReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -135,7 +145,7 @@ public class MainActivity extends BaseActivity {
                     Log.d(TAG, "Successful login");
                     finish();
                 } else {
-                    StoreFirebaseUser firebaseUser = new StoreFirebaseUser(userId, userName, userEmail);
+                    StoreFirebaseUser firebaseUser = new StoreFirebaseUser(userId, userName, userEmail, userImage);
                     dbReference.child(userId).setValue(firebaseUser);
                     Log.d(TAG, "Sign in with is Successful");
                     startActivity(new Intent(MainActivity.this, HomeActivity.class));

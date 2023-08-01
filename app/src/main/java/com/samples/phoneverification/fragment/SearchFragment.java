@@ -127,20 +127,6 @@ public class SearchFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void hideRecentSearchRecords() {
-        binding.recentSearchLayout.beforeSearchRecyclerView.setVisibility(View.GONE);
-        binding.recentSearchLayout.recentSearchText.setVisibility(View.GONE);
-        binding.recentSearchLayout.clearAll.setVisibility(View.GONE);
-        binding.afterSearchRecyclerView.setVisibility(View.VISIBLE);
-    }
-
-    private void showRecentSearchRecords() {
-        binding.recentSearchLayout.beforeSearchRecyclerView.setVisibility(View.VISIBLE);
-        binding.recentSearchLayout.recentSearchText.setVisibility(View.VISIBLE);
-        binding.recentSearchLayout.clearAll.setVisibility(View.VISIBLE);
-        binding.afterSearchRecyclerView.setVisibility(View.GONE);
-    }
-
     @SuppressLint("NotifyDataSetChanged")
     private void loadRecentSearchRecords() {
         // TODO: Hide the search movies/series recyclerview.
@@ -213,12 +199,11 @@ public class SearchFragment extends Fragment {
         binding.recentSearchLayout.clearAll.setVisibility(View.GONE);
         binding.afterSearchRecyclerView.setVisibility(View.VISIBLE);
 
-        // TODO: set layoutManager, setAdapter - RecyclerSearchView.
+        // TODO: set layoutManager, setAdapter, callback API - RecyclerSearchView.
         binding.afterSearchRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        searchResultAdapter();
 
-        //TODO: search result API Call
-        showSearchResult(query);
+        searchResultAdapter();
+        showSearchCallback(query);
     }
 
     private void searchResultAdapter() {
@@ -236,7 +221,7 @@ public class SearchFragment extends Fragment {
         binding.afterSearchRecyclerView.setAdapter(searchOutputAdapter);
     }
 
-    private void showSearchResult(String query) {
+    private void showSearchCallback(String query) {
         HashMap<String, String> params = new HashMap<>();
         params.put("api_key", BuildConfig.API_KEY);
         params.put("query", query);
@@ -273,5 +258,19 @@ public class SearchFragment extends Fragment {
         Log.d("TAG", "saveRecentSearch - recentSearch: "+ recentSearch);
         Log.w("TAG", "saveRecentSearch - sHistoryRecordBook: "+ sHistoryRecordBook);
         recentSearchAdapter.notifyDataSetChanged();
+    }
+
+    private void hideRecentSearchRecords() {
+        binding.recentSearchLayout.beforeSearchRecyclerView.setVisibility(View.GONE);
+        binding.recentSearchLayout.recentSearchText.setVisibility(View.GONE);
+        binding.recentSearchLayout.clearAll.setVisibility(View.GONE);
+        binding.afterSearchRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void showRecentSearchRecords() {
+        binding.recentSearchLayout.beforeSearchRecyclerView.setVisibility(View.VISIBLE);
+        binding.recentSearchLayout.recentSearchText.setVisibility(View.VISIBLE);
+        binding.recentSearchLayout.clearAll.setVisibility(View.VISIBLE);
+        binding.afterSearchRecyclerView.setVisibility(View.GONE);
     }
 }

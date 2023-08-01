@@ -76,17 +76,17 @@ public class MoviesFragment extends Fragment {
         binding.recyclerImageList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
         // TODO: 04. After Setting Adapter use Timer for Auto-Sliding
-        CarouselSliders();
+        carouselSlider();
 
         initAdapter();
-        DynamicApiCalls();
+        apiCallbacks();
 
         return binding.getRoot();
     }
 
-    private void DynamicApiCalls() {
+    private void apiCallbacks() {
         // TODO: upcoming Movies & Genre Model.
-        GenresWrTMovieId();
+        genresByItemId();
         UpComingMovies();
 
     }
@@ -97,7 +97,7 @@ public class MoviesFragment extends Fragment {
         init_GenreAdapter();
     }
 
-    private void GenresWrTMovieId() {
+    private void genresByItemId() {
         Call<GenresModel> call = anInterface.MOVIE_GENRES_MODEL_CALL(BuildConfig.API_KEY);
         call.enqueue(new Callback<GenresModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -189,7 +189,7 @@ public class MoviesFragment extends Fragment {
         binding.carouselViewPager.setAdapter(adapter);
     }
 
-    private void CarouselSliders() {
+    private void carouselSlider() {
         binding.carouselViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
