@@ -107,7 +107,7 @@ public class SeriesDetailsActivity extends BaseActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     SeriesIdResults idResults = response.body();
                     seasonsList = idResults.getSeasons();
-                    currentItem = new WishListItem(idResults.getSeriesId(), idResults.getSeriesName(), idResults.getSeries_Overview(), idResults.getPosterPath(), idResults.getBackdropPath());
+                    currentItem = new WishListItem(idResults.getSeriesId(), idResults.getSeriesName(), idResults.getSeries_Overview(), idResults.getPosterPath(), idResults.getBackdropPath(), idResults.getFirstAirDate());
                     displayUI(idResults);
                 }
             }

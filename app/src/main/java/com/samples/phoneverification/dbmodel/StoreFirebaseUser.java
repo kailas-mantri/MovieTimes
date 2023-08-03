@@ -5,7 +5,6 @@ import android.net.Uri;
 public class StoreFirebaseUser {
 
     String userId, userName, userNumber, userEmail;
-    Uri userImage;
     public StoreFirebaseUser() {
     }
 
@@ -14,11 +13,10 @@ public class StoreFirebaseUser {
         this.userNumber = userNumber;
     }
 
-    public StoreFirebaseUser(String userId, String userName, String userEmail, Uri userImage) {
+    public StoreFirebaseUser(String userId, String userName, String userEmail) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
-        this.userImage = userImage;
     }
 
     public String getUserId() {
@@ -53,11 +51,4 @@ public class StoreFirebaseUser {
         this.userEmail = userEmail;
     }
 
-    public Uri getUserImage() {
-        return userImage;
-    }
-
-    public void setUserImage(Uri userImage) {
-        this.userImage = userImage;
-    }
 }
