@@ -107,7 +107,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     //TODO: Check Wishlist?
 //                    Log.d("Movie ID", "Movie ID: " + itemDetails.getMovie_id());
                     currentItem = new WishListItem(itemDetails.getMovie_id(), itemDetails.getStandardMovieTitle(), itemDetails.getMovieOverview(),
-                            itemDetails.getPosterPath(), itemDetails.getBackdrop_path());
+                            itemDetails.getPosterPath(), itemDetails.getBackdrop_path(), itemDetails.getMovie_release_date());
                     addDataToUI(itemDetails);
                 }
             }

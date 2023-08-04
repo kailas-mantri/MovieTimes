@@ -34,7 +34,7 @@
                 android:layout_below="@id/launch_screen"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="24sp"
-                android:text="@string/application_name"
+                android:text="@string/app_name"
                 android:textAppearance="@style/movie_times"
                 android:textColor="@color/white" />
 

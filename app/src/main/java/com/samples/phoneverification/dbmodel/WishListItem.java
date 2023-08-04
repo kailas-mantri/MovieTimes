@@ -6,13 +6,15 @@ public class WishListItem {
     private String item_overview;
     private String item_posterPath;
     private String item_backdropPath;
+    private String item_release_date;
 
-    public WishListItem(int item_id, String item_title, String item_overview, String item_posterPath, String item_backdropPath) {
+    public WishListItem(int item_id, String item_title, String item_overview, String item_posterPath, String item_backdropPath, String item_release_date) {
         this.item_id = item_id;
         this.item_title = item_title;
         this.item_overview = item_overview;
         this.item_posterPath = item_posterPath;
         this.item_backdropPath = item_backdropPath;
+        this.item_release_date = item_release_date;
     }
 
     public int getItem_id() {
@@ -53,5 +55,13 @@ public class WishListItem {
 
     public void setItem_backdropPath(String item_backdropPath) {
         this.item_backdropPath = item_backdropPath;
+    }
+
+    public String getItem_release_date() {
+        return item_release_date;
+    }
+
+    public void setItem_release_date(String item_release_date) {
+        this.item_release_date = item_release_date;
     }
 }

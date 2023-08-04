@@ -35,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16sp"
+            android:id="@+id/feedback_form"
             tools:ignore="UselessParent">
 
             <TextView
@@ -64,37 +65,38 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <EditText
-                android:id="@+id/editTextFeedback"
+                android:id="@+id/feedback_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewFeedback"
                 android:hint="@string/editTextFeedback"
-                android:inputType="textMultiLine"
-                android:minLines="3"
+                android:inputType="text"
+                android:minLines="1"
                 android:autofillHints="@null" />
 
             <Button
                 android:id="@+id/btnSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/editTextFeedback"
+                android:layout_below="@id/feedback_box"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16sp"
                 android:text="@string/submit_feedback" />
 
-            <!-- Thank You Message (Initially hidden) -->
-            <TextView
-                android:id="@+id/textViewThankYou"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/btnSubmit"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                android:text="@string/txtThanksFeedback"
-                android:textSize="18sp"
-                android:visibility="gone" />
-
         </RelativeLayout>
+
+
+        <!-- Thank You Message (Initially hidden) -->
+        <TextView
+            android:id="@+id/textViewThankYou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/feedback_form"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="@string/txtThanksFeedback"
+            android:textSize="18sp"
+            android:visibility="gone" />
 
     </RelativeLayout>
 

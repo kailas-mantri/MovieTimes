@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 public class WishListDBHelper extends SQLiteOpenHelper {
 
     final Context context;
@@ -21,13 +23,17 @@ public class WishListDBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_POSTER_URL = "posterUrl";
     private static final String COLUMN_OVERVIEW = "overView";
     private static final String COLUMN_BACKDROP_URL = "backdropUrl";
+    private static final String COLUMN_RELEASE_DATE = "releaseDate";
+
     private static final String CREATE_TABLE_QUERY = "CREATE TABLE " + TABLE_NAME + "(" +
             COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_ITEM_ID + " INTEGER NOT NULL, "+
             COLUMN_TITLE + " TEXT, " +
             COLUMN_OVERVIEW + " TEXT, " +
             COLUMN_POSTER_URL + " TEXT, " +
-            COLUMN_BACKDROP_URL + " TEXT " + ");";
+            COLUMN_BACKDROP_URL + " TEXT, " +
+            COLUMN_RELEASE_DATE + " TEXT " + ");";
+
     private static final String DROP_TABLE_QUERY = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     public WishListDBHelper(@NonNull Context context) {
@@ -55,6 +61,7 @@ public class WishListDBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TITLE, item.getItem_title());
         values.put(COLUMN_OVERVIEW, item.getItem_overview());
         values.put(COLUMN_POSTER_URL, item.getItem_posterPath());
+        values.put(COLUMN_RELEASE_DATE, item.getItem_release_date());
 
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -83,5 +90,31 @@ public class WishListDBHelper extends SQLiteOpenHelper {
         }
         db.close();
         return itemExists;
+    }
+
+    public ArrayList<WishListItem> getAllWishListItems() {
+        ArrayList<WishListItem> wishList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ITEM_ID, COLUMN_TITLE, COLUMN_OVERVIEW, COLUMN_POSTER_URL, COLUMN_BACKDROP_URL, COLUMN_RELEASE_DATE};
+        Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") int itemId = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_ID));
+                @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex(COLUMN_TITLE));
+                @SuppressLint("Range") String overview = cursor.getString(cursor.getColumnIndex(COLUMN_OVERVIEW));
+                @SuppressLint("Range") String posterUrl = cursor.getString(cursor.getColumnIndex(COLUMN_POSTER_URL));
+                @SuppressLint("Range") String  backdropUrl = cursor.getString(cursor.getColumnIndex(COLUMN_BACKDROP_URL));
+                @SuppressLint("Range") String releaseDate = cursor.getString(cursor.getColumnIndex(COLUMN_RELEASE_DATE));
+                WishListItem item = new WishListItem(itemId, title, overview, posterUrl, backdropUrl, releaseDate);
+                wishList.add(item);
+            } while (cursor.moveToNext());
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+        return wishList;
     }
 }

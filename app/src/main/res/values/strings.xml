@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">MovieTimes</string>
     <string name="app_version">Version 1.0</string>
-    <string name="app_description"> Welcome to MovieTimes - Discover the latest movies and TV series with MovieTimes, providing an extensive collection of entertainment at your fingertips!
-Features:
-    - Explore Movies and TV Series, Detailed Information,
-    - Personalized Recommendations, Wishlist and Search,
-    - TV Episodes.
-
- Discover the world of cinema and TV with MovieTimes, whether you're a movie buff, TV show enthusiast, or seeking entertainment recommendations!
-    </string>
+    <string-array name="app_description">
+      <item> Welcome to MovieTimes - Discover the latest movies and TV series with MovieTimes, providing an extensive collection of entertainment at your fingertips!</item>
+      <item>Features:</item>
+      <item>   - Explore Movies and TV Series, Detailed Information,</item>
+      <item>   - Personalized Recommendations, Wishlist and Search,</item>
+      <item>   - TV Episodes.</item>
+      <item>Discover the world of cinema and TV with MovieTimes, whether you are a movie buff, TV show enthusiast, or seeking entertainment recommendations!</item>
+    </string-array>
     <string name="developer_info">Developed By: Kailas Mantri</string>
 
     <string name="contact_info">movietimesdev@gmail.com</string>
@@ -21,7 +21,7 @@ Features:
     <string name="mediaPlay">Play_Icon</string>
 
     <!-- TODO: MainActivity contents -->
-    <string name="application_name">MovieTimes</string>
+    <string name="title">MovieTimes</string>
     <string name="countryCode">+91</string>
     <string name="cellNumber">Mobile Number</string>
     <string name="proceed">Proceed</string>
