@@ -50,7 +50,7 @@ public class SpokenLanguages implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return "SokenLangugaes{" +
+        return "SpokenLanguages{" +
                 "language_name='" + language_name + '\'' +
                 ", country_language_code='" + country_language_code + '\'' +
                 ", country_name='" + country_name + '\'' +

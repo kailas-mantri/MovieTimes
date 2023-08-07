@@ -23,7 +23,7 @@ public class ImageSAdapter extends RecyclerView.Adapter<ImageSAdapter.ImageViewH
     private final Context context;
     private final ArrayList<SeriesResults> seriesResults;
     private final OnRecyclerItemClickListener<SeriesResults> anInterface;
-    int genrePosition;
+    final int genrePosition;
     public ImageSAdapter(Context context, ArrayList<SeriesResults> seriesResults, OnRecyclerItemClickListener<SeriesResults> anInterface, int position) {
         this.context = context;
         this.seriesResults = seriesResults;

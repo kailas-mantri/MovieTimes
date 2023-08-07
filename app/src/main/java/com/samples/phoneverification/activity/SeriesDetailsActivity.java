@@ -62,13 +62,14 @@ public class SeriesDetailsActivity extends BaseActivity {
     private WishListItem currentItem;
     WatchPAdapter watchProviderAdapter;
     private boolean isWishListed = false;
+    private static final int isMovie = 0;
     private SeasonNoDetails seasonResults;
     private TrailerAdapter trailerAdapter;
     private CastCrewAdapter castsCrewAdapter;
     private WishListDBHelper wishListDBHelper;
     private SeriesAdapter recommendationAdapter;
     private ActivitySeriesDetailsBinding binding;
-    Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
+    final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create()).build();
     ArrayList<CastCrewList> crewArray = new ArrayList<>();
@@ -107,7 +108,7 @@ public class SeriesDetailsActivity extends BaseActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     SeriesIdResults idResults = response.body();
                     seasonsList = idResults.getSeasons();
-                    currentItem = new WishListItem(idResults.getSeriesId(), idResults.getSeriesName(), idResults.getSeries_Overview(), idResults.getPosterPath(), idResults.getBackdropPath(), idResults.getFirstAirDate());
+                    currentItem = new WishListItem(isMovie, idResults.getSeriesId(), idResults.getSeriesName(), idResults.getSeries_Overview(), idResults.getPosterPath(), idResults.getBackdropPath(), idResults.getFirstAirDate());
                     displayUI(idResults);
                 }
             }

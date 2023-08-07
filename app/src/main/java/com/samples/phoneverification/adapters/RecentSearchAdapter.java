@@ -18,7 +18,7 @@ import java.util.List;
 
 public class RecentSearchAdapter extends RecyclerView.Adapter<RecentSearchAdapter.RecentSearchHolder> {
 
-    Context context;
+    final Context context;
     private List<String> recentSearch;
     public RecentSearchAdapter(Context context, List<String> recentSearch) {
         this.context = context;
@@ -72,8 +72,8 @@ public class RecentSearchAdapter extends RecyclerView.Adapter<RecentSearchAdapte
     }
 
     public static class RecentSearchHolder extends RecyclerView.ViewHolder {
-        TextView recentSearch;
-        ImageView deleteSearch;
+        final TextView recentSearch;
+        final ImageView deleteSearch;
         public RecentSearchHolder(@NonNull View itemView) {
             super(itemView);
             recentSearch = itemView.findViewById(R.id.recent_search_item_text);

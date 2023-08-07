@@ -2,15 +2,20 @@ package com.samples.phoneverification.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.databinding.ActivityHomeBinding;
 import com.samples.phoneverification.fragment.HomeFragment;
@@ -21,10 +26,10 @@ import com.samples.phoneverification.fragment.SeriesFragment;
 public class HomeActivity extends BaseActivity {
 
     Fragment fragment;
+    ImageView userImage;
+    TextView userName, userLogin;
     private ActivityHomeBinding binding;
     private FirebaseAuth mAuth;
-    private SharedPreferences preferences;
-    private static final String SHARED_PREFERENCE_NAME = "pref";
     private final Fragment homeFragment = new HomeFragment();
     private final Fragment moviesFragment = new MoviesFragment();
     private final Fragment seriesFragment = new SeriesFragment();
@@ -36,11 +41,19 @@ public class HomeActivity extends BaseActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         loadFragment(new HomeFragment());
+        View headerView = binding.navDrawerBar.getHeaderView(0);
+
+
+        userImage = headerView.findViewById(R.id.userProfilePicture);
+        userName = (TextView) headerView.findViewById(R.id.userName);
+        userLogin = (TextView) headerView.findViewById(R.id.textViewEmail);
 
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        getCurrentUser(user);
 
         binding.appBar.navIcon.setOnClickListener(v -> {
-            if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+            if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 binding.drawerLayout.closeDrawer(GravityCompat.START);
             } else {
                 binding.drawerLayout.openDrawer(GravityCompat.START);
@@ -48,13 +61,10 @@ public class HomeActivity extends BaseActivity {
         });
 
         binding.navDrawerBar.setNavigationItemSelectedListener(item -> {
-            switch(item.getItemId()) {
+            switch (item.getItemId()) {
                 // According to id change the fragments
                 case R.id.menu_Home:
                     fragment = homeFragment;
-                    break;
-                case R.id.menu_store:
-                    startActivity(new Intent(HomeActivity.this, StoreActivity.class));
                     break;
                 case R.id.wishList:
                     startActivity(new Intent(HomeActivity.this, WishListActivity.class));
@@ -105,10 +115,29 @@ public class HomeActivity extends BaseActivity {
             return loadFragment(fragment);
         });
 
-        if (savedInstanceState!= null) {
+        if (savedInstanceState != null) {
             int selectedNavItem = savedInstanceState.getInt("selectedNavItem");
             binding.appBar.contentMain.bottomNavView.setSelectedItemId(selectedNavItem);
         }
+
+    }
+
+    private void getCurrentUser(FirebaseUser user) {
+        if (user != null) {
+            if (user.getProviderData().get(1).getProviderId().equals("google.com")) {
+                Glide.with(getApplicationContext()).load(user.getPhotoUrl())
+                        .placeholder(R.drawable.app_logo).apply(RequestOptions.circleCropTransform()).into(userImage);
+                userName.setText(user.getDisplayName());
+                userLogin.setText(user.getEmail());
+            } else if (user.getProviderData().get(1).getProviderId().equals("phone")) {
+                userImage.setImageResource(R.drawable.app_logo);
+                userName.setText(R.string.app_name);
+                userLogin.setText(user.getPhoneNumber());
+            }  else
+                Toast.makeText(this, "User does not contain the expected data.", Toast.LENGTH_SHORT).show();
+        }
+        else
+            Toast.makeText(this, "User must login", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.samples.phoneverification.dbmodel;
 
-import android.net.Uri;
-
 public class StoreFirebaseUser {
 
     String userId, userName, userNumber, userEmail;

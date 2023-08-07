@@ -7,8 +7,6 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.inject.Named;
-
 public class ProvidersRegionList implements Serializable {
 
     @SerializedName("link")

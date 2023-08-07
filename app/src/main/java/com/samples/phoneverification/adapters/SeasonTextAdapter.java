@@ -39,7 +39,6 @@ public class SeasonTextAdapter extends RecyclerView.Adapter<SeasonTextAdapter.Vi
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-//        int seasonNumber = seasonsList.get(position).getSeasonNumber();
         holder.seasonsText.setText("Season "+seasonsList.get(position).getSeasonNumber());
         if (selectedItem == position) {
             holder.seasonsText.setBackgroundResource(R.drawable.bg_line);
@@ -82,7 +81,7 @@ public class SeasonTextAdapter extends RecyclerView.Adapter<SeasonTextAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView seasonsText;
+        final TextView seasonsText;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             seasonsText = itemView.findViewById(R.id.season_no);

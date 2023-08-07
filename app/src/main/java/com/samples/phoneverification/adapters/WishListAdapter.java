@@ -1,8 +1,8 @@
 package com.samples.phoneverification.adapters;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.samples.phoneverification.BuildConfig;
 import com.samples.phoneverification.R;
+import com.samples.phoneverification.activity.MovieDetailsActivity;
+import com.samples.phoneverification.activity.SeriesDetailsActivity;
 import com.samples.phoneverification.apimodel.OnRecyclerItemClickListener;
 import com.samples.phoneverification.dbmodel.WishListItem;
 
@@ -54,10 +56,13 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
         holder.title.setText(wishList.get(position).getItem_title());
         holder.releaseDate.setText(wishList.get(position).getItem_release_date());
 
-        /*holder.card.setOnLongClickListener(view -> {
-            Dialog dialog = new Dialog(context);
-            return false;
-        });*/
+        holder.card.setOnClickListener(view ->
+            anInterface.onItemClicked(wishList.get(position), position, 0)
+        );
+        holder.card.setOnLongClickListener(view -> {
+            anInterface.onItemClicked(wishList.get(position), position, 1);
+            return true;
+        });
     }
 
     @Override
@@ -77,9 +82,10 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView backdropPath;
-        TextView title, releaseDate;
-        RelativeLayout card;
+        final ImageView backdropPath;
+        final TextView title;
+        final TextView releaseDate;
+        final RelativeLayout card;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +94,5 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
             releaseDate = itemView.findViewById(R.id.releaseItemDate);
             card = itemView.findViewById(R.id.card);
         }
-
     }
 }

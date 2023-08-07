@@ -47,7 +47,7 @@
             android:ellipsize="end"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textColor="@color/white" />
-        
+
     </RelativeLayout>
 
 </RelativeLayout>

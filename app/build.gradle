@@ -5,11 +5,11 @@ plugins {
 
 android {
     namespace 'com.samples.phoneverification'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         minSdk 29
-        targetSdk 33
+        targetSdk 34
 
         flavorDimensions "default"
         productFlavors {

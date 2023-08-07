@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ public class WishListDBHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "wish_list";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_ITEM_ID = "itemId";
+    private static final String COLUMN_IS_MOVIE = "isMovie";
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_POSTER_URL = "posterUrl";
     private static final String COLUMN_OVERVIEW = "overView";
@@ -32,9 +34,12 @@ public class WishListDBHelper extends SQLiteOpenHelper {
             COLUMN_OVERVIEW + " TEXT, " +
             COLUMN_POSTER_URL + " TEXT, " +
             COLUMN_BACKDROP_URL + " TEXT, " +
-            COLUMN_RELEASE_DATE + " TEXT " + ");";
+            COLUMN_RELEASE_DATE + " TEXT, " +
+            COLUMN_IS_MOVIE + " INTEGER NOT NULL DEFAULT 1 " + ");";
 
     private static final String DROP_TABLE_QUERY = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+//    private static final String ALTER_TABLE = "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COLUMN_IS_MOVIE + " INTEGER NOT NULL DEFAULT 1;";
 
     public WishListDBHelper(@NonNull Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -48,19 +53,23 @@ public class WishListDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        /*if (oldVersion < newVersion) {
+            db.execSQL(ALTER_TABLE);
+        }*/
         db.execSQL(DROP_TABLE_QUERY);
         onCreate(db);
     }
 
     public void addToWishList(WishListItem item) {
-//        Log.d("Wishlist", "Adding to wishlist: " + item.getItem_title());
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_BACKDROP_URL, item.getItem_backdropPath());
+
+        values.put(COLUMN_IS_MOVIE, item.isMovie());
         values.put(COLUMN_ITEM_ID, item.getItem_id());
         values.put(COLUMN_TITLE, item.getItem_title());
         values.put(COLUMN_OVERVIEW, item.getItem_overview());
         values.put(COLUMN_POSTER_URL, item.getItem_posterPath());
+        values.put(COLUMN_BACKDROP_URL, item.getItem_backdropPath());
         values.put(COLUMN_RELEASE_DATE, item.getItem_release_date());
 
         db.insert(TABLE_NAME, null, values);
@@ -95,26 +104,33 @@ public class WishListDBHelper extends SQLiteOpenHelper {
     public ArrayList<WishListItem> getAllWishListItems() {
         ArrayList<WishListItem> wishList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_ITEM_ID, COLUMN_TITLE, COLUMN_OVERVIEW, COLUMN_POSTER_URL, COLUMN_BACKDROP_URL, COLUMN_RELEASE_DATE};
-        Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
+        String[] columns = {COLUMN_IS_MOVIE, COLUMN_ITEM_ID, COLUMN_TITLE, COLUMN_OVERVIEW, COLUMN_POSTER_URL, COLUMN_BACKDROP_URL, COLUMN_RELEASE_DATE};
+        Cursor cursor = null;
 
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") int itemId = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_ID));
-                @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex(COLUMN_TITLE));
-                @SuppressLint("Range") String overview = cursor.getString(cursor.getColumnIndex(COLUMN_OVERVIEW));
-                @SuppressLint("Range") String posterUrl = cursor.getString(cursor.getColumnIndex(COLUMN_POSTER_URL));
-                @SuppressLint("Range") String  backdropUrl = cursor.getString(cursor.getColumnIndex(COLUMN_BACKDROP_URL));
-                @SuppressLint("Range") String releaseDate = cursor.getString(cursor.getColumnIndex(COLUMN_RELEASE_DATE));
-                WishListItem item = new WishListItem(itemId, title, overview, posterUrl, backdropUrl, releaseDate);
-                wishList.add(item);
-            } while (cursor.moveToNext());
+        // Database Operation Exception Handling.
+        try {
+            cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    @SuppressLint("Range") int isMovieInt = cursor.getInt(cursor.getColumnIndex(COLUMN_IS_MOVIE));
+                    @SuppressLint("Range") int itemId = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_ID));
+                    @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex(COLUMN_TITLE));
+                    @SuppressLint("Range") String overview = cursor.getString(cursor.getColumnIndex(COLUMN_OVERVIEW));
+                    @SuppressLint("Range") String posterUrl = cursor.getString(cursor.getColumnIndex(COLUMN_POSTER_URL));
+                    @SuppressLint("Range") String  backdropUrl = cursor.getString(cursor.getColumnIndex(COLUMN_BACKDROP_URL));
+                    @SuppressLint("Range") String releaseDate = cursor.getString(cursor.getColumnIndex(COLUMN_RELEASE_DATE));
+                    WishListItem item = new WishListItem(isMovieInt, itemId, title, overview, posterUrl, backdropUrl, releaseDate);
+                    wishList.add(item);
+                } while (cursor.moveToNext());
+            }
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
         }
-
-        if (cursor != null) {
-            cursor.close();
-        }
-        db.close();
         return wishList;
     }
 }
