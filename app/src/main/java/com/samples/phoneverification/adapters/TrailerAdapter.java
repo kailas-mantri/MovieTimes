@@ -71,7 +71,8 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView play, mediaPoster;
+        final ImageView play;
+        final ImageView mediaPoster;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

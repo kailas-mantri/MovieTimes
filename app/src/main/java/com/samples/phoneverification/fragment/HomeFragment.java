@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<SeriesResults> popularSeries = new ArrayList<>();
     private ArrayList<SeriesResults> upComingSeries = new ArrayList<>();
     private final Handler handler = new Handler();
-    Retrofit retrofit = new Retrofit.Builder()
+    final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())

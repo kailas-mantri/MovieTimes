@@ -18,7 +18,7 @@ public class SearchDBHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 2;
     public static final String TABLE_NAME = "search_query";
     private static final String COLUMN_ID = "id";
-    public static final String COLUMN_QUERY = "search_query";
+    public static final String COLUMN_QUERY = "searched_query";
     private static final String CREATE_TABLE_QUERY = "CREATE TABLE " + TABLE_NAME + "(" +
             COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_QUERY + " TEXT" + ")";

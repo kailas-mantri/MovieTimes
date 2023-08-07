@@ -40,17 +40,14 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SearchFragment extends Fragment {
 
-    private Retrofit retrofit;
     private APIInterface anInterface;
     private FragmentSearchBinding binding;
     private SearchDBHelper searchDBHelper;
     private boolean isQuerySubmitted = false;
     private RecentSearchAdapter recentSearchAdapter;
     private RecyclerSearchAdapter searchOutputAdapter;
-    private ArrayList<SearchResults> searchResults = new ArrayList<>();
+    private final ArrayList<SearchResults> searchResults = new ArrayList<>();
 
-    /*ArrayList<SearchResults> filteredMovieList = new ArrayList<>();
-    ArrayList<SearchResults> FilteredSeriesList = new ArrayList<>();*/
     private final LinkedList<String> recentSearch = new LinkedList<>();
     private final LinkedList<String> sHistoryRecordBook = new LinkedList<>();
 
@@ -65,7 +62,7 @@ public class SearchFragment extends Fragment {
     }
 
     private void initRetrofit() {
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -112,18 +109,14 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        binding.searchEditText.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                loadRecentSearchRecords();
-                return false;
-            }
+        binding.searchEditText.setOnCloseListener(() -> {
+            loadRecentSearchRecords();
+            return false;
         });
 
         binding.recentSearchLayout.clearAll.setOnClickListener(v -> clearRecentSearch());
 
         loadRecentSearchRecords();
-        System.out.println(recentSearch+ " ---- " + sHistoryRecordBook);
         return binding.getRoot();
     }
 
@@ -170,26 +163,6 @@ public class SearchFragment extends Fragment {
             saveRecentSearch(newText);
         }
     }
-
-  /*      List<String> suggestions = fetchSuggestionsFromDatabase(newText);
-        recentSearchAdapter.setData(suggestions);
-        recentSearchAdapter.notifyDataSetChanged();
-
-    private List<String> fetchSuggestionsFromDatabase(String newText) {
-        List<String> suggestions = new ArrayList<>();
-        String query = "SELECT DISTINCT "+ searchDBHelper.COLUMN_QUERY +" FROM "+ SearchDBHelper.TABLE_NAME +" WHERE " +
-                searchDBHelper.COLUMN_QUERY +" LIKE '%" + newText + "%'";
-        SQLiteDatabase database = searchDBHelper.getReadableDatabase();
-        Cursor cursor = database.rawQuery(query, null);
-        if (cursor.moveToFirst()) {
-            do {
-                String suggestion = cursor.getString(cursor.getColumnIndex("COLUMN_QUERY"));
-                suggestions.add(suggestion);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return suggestions;
-    }*/
 
     private void loadSearchResults(String query) {
         // Perform search operation.

@@ -142,14 +142,11 @@ public class MoviesFragment extends Fragment {
     }
 
     private void init_GenreAdapter() {
-        genreMAdapter = new GenreMAdapter(requireContext(), genreResults, new OnRecyclerItemClickListener<MovieResults>() {
-            @Override
-            public void onItemClicked(MovieResults item, int position, int action) {
-                int movieId = item.getMovieId();
-                Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
-                intent.putExtra("movie_id", movieId);
-                startActivity(intent);
-            }
+        genreMAdapter = new GenreMAdapter(requireContext(), genreResults, (item, position, action) -> {
+            int movieId = item.getMovieId();
+            Intent intent = new Intent(requireActivity(), MovieDetailsActivity.class);
+            intent.putExtra("movie_id", movieId);
+            startActivity(intent);
         });
         binding.recyclerImageList.setAdapter(genreMAdapter);
     }

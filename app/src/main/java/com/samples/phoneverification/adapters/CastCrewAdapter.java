@@ -78,8 +78,9 @@ public class CastCrewAdapter extends RecyclerView.Adapter<CastCrewAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView castImage;
-        TextView realName, rollName;
+        final ImageView castImage;
+        final TextView realName;
+        final TextView rollName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -95,7 +95,7 @@ public class WatchPAdapter extends RecyclerView.Adapter<WatchPAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView provideLogo;
+        final ImageView provideLogo;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

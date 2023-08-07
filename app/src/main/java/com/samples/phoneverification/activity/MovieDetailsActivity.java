@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,25 +51,26 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class MovieDetailsActivity extends AppCompatActivity {
+public class MovieDetailsActivity extends BaseActivity {
 
     private int movieId;
     private WishListItem currentItem;
     private ActivityMovieDetailsBinding binding;
     WatchPAdapter watchProviderAdapter;
     private boolean isWishListed = false;
+    private static final int isMovie = 1;
     private TrailerAdapter trailerAdapter;
     private CastCrewAdapter castsCrewAdapter;
     private MovieAdapter recommendationAdapter;
     private WishListDBHelper wishListDBHelper;
-    String country = Locale.getDefault().getCountry();
+    final String country = Locale.getDefault().getCountry();
     private ArrayList<Providers> buy = new ArrayList<>();
     private ArrayList<Providers> rent = new ArrayList<>();
     ArrayList<CastCrewList> crewArray = new ArrayList<>();
     private final List<String> langList = new ArrayList<>();
     private ArrayList<CastCrewList> castArray = new ArrayList<>();
     private ArrayList<MediaList> mediaListList = new ArrayList<>();
-    Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
+    final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create()).build();
 
@@ -106,7 +106,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     MovieIdDetails itemDetails = response.body();
                     //TODO: Check Wishlist?
 //                    Log.d("Movie ID", "Movie ID: " + itemDetails.getMovie_id());
-                    currentItem = new WishListItem(itemDetails.getMovie_id(), itemDetails.getStandardMovieTitle(), itemDetails.getMovieOverview(),
+                    currentItem = new WishListItem(isMovie, itemDetails.getMovie_id(), itemDetails.getStandardMovieTitle(), itemDetails.getMovieOverview(),
                             itemDetails.getPosterPath(), itemDetails.getBackdrop_path(), itemDetails.getMovie_release_date());
                     addDataToUI(itemDetails);
                 }

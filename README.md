@@ -1,77 +1,83 @@
 # MovieTimes
 
+
 MovieTimes is a mobile application that allows users to discover and explore movies and TV shows easily. It provides a user-friendly interface to browse through various genres, view movie details, watch trailers, and add movies to the wishlist.
 
+
 ### Features
-  
-- Browse Trending Movies and TV Shows
+
+- Add Movies, Series to Wishlist
+- Browse Media Shows by Trending, Popular, etc.
 - Filter Movies and TV Shows by Genres
-- View Movie Details and Synopsis
+- View Movie, Series Details and Synopsis
 - Watch Trailers of Movies
-- Add Movies to Wishlist
 - Architecture MVC model.
 
-### Screenshots
+
+### Tech Stack
+
+- Java with Android SDK for development.
+- Firebase Authentication for secure user login.
+- Material Design components for an intuitive user interface.
+- Library implementation - Retrofit, Glide, ImageSlideshow.
+- RESTful APIs implementation - to Get movie, TV details.
+- SQLite database for local watchLists and searchQuery management.
+/* - YouTube API for trailer integration.*/
+
+## Screenshots
 
 <img src="img.png" width="20%" height="20%">  <img src="img_1.png" width="20%" height="20%">  <img src="img_2.png" width="20%" height="20%">  <img src="img_3.png" width="20%" height="20%"> <img src="img_4.png" width="20%" height="20%"> <img src="img_5.png" width="20%" height="20%"> <img src="img_6.png" width="20%" height="20%">    
 
-## Tech Stack
-- Java with Android SDK for development.
-- Retrofit, Glide library implementation.
-- RESTful APIs for fetching movie, series data.
-- YouTube API for trailer integration.
-- SQLite database as local database for watchLists and searchQuery management.
-- Firebase Authentication for secure user login.
-- Material Design components for an intuitive user interface.
+
+### Development Phases.
+
+#### Phase 1: *SplashScreen, LoginActivity, BottomSheetDialog*.
+
+* Firebase Authentication 
+  * 1.0. Mobile number authentication using OTP.
+  * 1.1. Authentication by GoogleSign In.
 
 
-## Development Phases.
+#### Phase 2: *Customise BottomNavigation, Navigation Drawer, View fragments*.
 
-### Phase 1: *SplashScreen, LoginActivity, BottomSheetDialog*
+* 2.0. Bottom Navigation
+  * Implementation of view's using menu item.
 
-
-'Phone & GoogleSignIn' Authentication using Firebase Database.
-
-- 1.0. Phone Authentication: Authorization with mobile Number with OTP verification. 
-- 1.1. GoogleSign In: Google Account Sign In.
+* 2.1. Navigation Drawer 
+  * Implementation of Navigation Drawer to switch different fragment and community options.
 
 
-### Phase 2: Customise **BottomNavigation** using menu items with supportive fragments.
+#### Phase 3: *Layout Design and Data Handling*
 
 
-    2.0. Bottom Navigation:
-        - The BottomNavigation View using menu items and frameLayout Manager to switch fragments with respect to menu Id.
+Customization of Layouts, Fragments, Drawables, Theme, Design, Activities.
 
 
-#### Phase 3: _(HomeFragment, MovieFragment, SeriesFragment, SearchFragment)_ *API Implementation*
+#### Phase 4: *RESTful API Implementation*.
 
 
-Creation of POJO class, Adapter and custom layout. 
+Implementation of Model class, Adapters. 
 
-* 3.0. SearchFragment:
-
-      This Page has (MIX - API call) to SearchBar for mix search - movie/series/people/genres and recent 
-      search history, and search result implentations.
-
-
-#### Phase 4: *SeriesDetailsActivity and MovieDetailsActivity*
-    
-
-Using generic interface for OnItemClicked method to fetch data from ITEM_ID
+* 3.0. Search:
+  * Search History, Search Result.
+  * On Search - query added to recent search history & provided query related results. 
 
 
-#### Phase 5: _*Layout Design and Data Handling*_
-    
+#### Phase 5: *Activity - brief details*.
 
-API Implementation, Adapter, Implicit & Explicit Intent, Collapsing Toolbar, Fetching Season and episode details.
-
-
-#### Phase 6: *Local Database  log_out feature.*
-
-* WishList management - SearchQuery recent and result management using SQLite database handling's with UI.
-* Log_out feature in update with Navigation Drawer.
+  * On click of item  show details of it (Movie/TV shows).
+  * Implementation - RESTful API, Adapter, Implicit & Explicit Intent, Collapsing Toolbar, Fetching Season and episode.
 
 
-#### Phase 7: *Updates*
+#### Phase 6: *Local Database*.
 
-* Upcoming Updates: *Kotlin, LiveData, ViewModel, Navigation Drawer*
+
+SQLite database
+
+  * WishList and Search management - handling's wrt UI.
+
+
+#### Phase 7: *New Features Add on word's*
+
+* New Features 
+  * LiveData, ViewModel, database modification, Complete change in programming language

@@ -54,7 +54,7 @@
                 android:layout_height="55dp"
                 android:layout_marginBottom="24sp"
                 android:gravity="start"
-                android:background="@drawable/selecter_curver_border_registration"
+                android:background="@drawable/selector_curve_border_registration"
                 android:orientation="horizontal"
                 android:weightSum="1">
 

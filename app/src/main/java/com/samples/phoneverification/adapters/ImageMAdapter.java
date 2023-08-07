@@ -22,7 +22,7 @@ public class ImageMAdapter extends RecyclerView.Adapter<ImageMAdapter.ImageViewH
     private final Context context;
     private final ArrayList<MovieResults> movieResults;
     private final OnRecyclerItemClickListener<MovieResults> anInterface;
-    int genrePosition;
+    final int genrePosition;
     public ImageMAdapter(Context context, ArrayList<MovieResults> movieResults, OnRecyclerItemClickListener<MovieResults> anInterface, int genrePosition) {
         this.context = context;
         this.movieResults = movieResults;
