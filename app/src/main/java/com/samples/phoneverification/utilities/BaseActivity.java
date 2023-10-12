@@ -1,5 +1,7 @@
-package com.samples.phoneverification.activity;
+package com.samples.phoneverification.utilities;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -15,7 +17,7 @@ public class BaseActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         Toast.makeText(this, "This is Base activity", Toast.LENGTH_SHORT).show();
-        Log.e("BAse","Base Activity");
+        Log.e("BAse", "Base Activity");
     }
 
     @Override
@@ -26,7 +28,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("BAse","Base Activity");
+        Log.e("BAse", "Base Activity");
     }
 
     @Override

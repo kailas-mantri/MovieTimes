@@ -116,7 +116,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initAdapters() {
-        // TODO: Adapters:  Carousel, TrendingMovies, upComingSeries, NowPlayingMovies, topRatedMovies, topRatedSeries, popularMovies, popularSeries.
+        /* TODO: Adapters:  Carousel, TrendingMovies, upComingSeries, NowPlayingMovies, topRatedMovies, topRatedSeries, popularMovies, popularSeries.*/
         initAdapter_Carousel();
         initAdapter_trendingMovies();
         initAdapter_upComingSeries();
@@ -129,6 +129,8 @@ public class HomeFragment extends Fragment {
 
     private void PopularSeriesCallback() {
         Call<SeriesModel> call = anInterface.POPULAR_SERIES_MODEL_CALL(BuildConfig.API_KEY);
+
+        //Main Thread - Retrofit item.
         call.enqueue(new Callback<SeriesModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override

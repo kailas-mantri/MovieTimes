@@ -10,6 +10,7 @@ import com.samples.phoneverification.adapters.WishListAdapter;
 import com.samples.phoneverification.databinding.ActivityWishListBinding;
 import com.samples.phoneverification.dbmodel.WishListDBHelper;
 import com.samples.phoneverification.dbmodel.WishListItem;
+import com.samples.phoneverification.utilities.BaseActivity;
 
 import java.util.ArrayList;
 

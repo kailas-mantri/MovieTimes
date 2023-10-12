@@ -7,6 +7,7 @@ import android.os.Handler;
 
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.databinding.ActivitySplashBinding;
+import com.samples.phoneverification.utilities.BaseActivity;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends BaseActivity {
@@ -21,7 +22,6 @@ public class SplashActivity extends BaseActivity {
         setContentView(binding.getRoot());
         
         binding.launchScreen.setImageResource(R.drawable.app_logo);
-
         new Handler().postDelayed(() -> {
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
             finish();

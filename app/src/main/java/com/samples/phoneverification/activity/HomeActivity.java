@@ -22,6 +22,7 @@ import com.samples.phoneverification.fragment.HomeFragment;
 import com.samples.phoneverification.fragment.MoviesFragment;
 import com.samples.phoneverification.fragment.SearchFragment;
 import com.samples.phoneverification.fragment.SeriesFragment;
+import com.samples.phoneverification.utilities.BaseActivity;
 
 public class HomeActivity extends BaseActivity {
 
@@ -43,10 +44,9 @@ public class HomeActivity extends BaseActivity {
         loadFragment(new HomeFragment());
         View headerView = binding.navDrawerBar.getHeaderView(0);
 
-
         userImage = headerView.findViewById(R.id.userProfilePicture);
-        userName = (TextView) headerView.findViewById(R.id.userName);
-        userLogin = (TextView) headerView.findViewById(R.id.textViewEmail);
+        userName = headerView.findViewById(R.id.userName);
+        userLogin = headerView.findViewById(R.id.textViewEmail);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -148,11 +148,13 @@ public class HomeActivity extends BaseActivity {
 
     private boolean loadFragment(Fragment fragment) {
 
-        /* FragmentManager manager = this.getSupportFragmentManager();
+        /*
+        FragmentManager manager = this.getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(binding.bottomNavFrame.getId(), fragment);
         transaction.add(binding.bottomNavFrame.getId(), fragment);
-        transaction.commit();*/
+        transaction.commit();
+        */
 
         if (fragment != null) {
             this.getSupportFragmentManager().beginTransaction()

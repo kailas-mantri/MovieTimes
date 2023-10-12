@@ -37,6 +37,7 @@ import com.samples.phoneverification.model.SeriesModel;
 import com.samples.phoneverification.model.SeriesResults;
 import com.samples.phoneverification.model.SpokenLanguages;
 import com.samples.phoneverification.model.WatchProvider;
+import com.samples.phoneverification.utilities.BaseActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

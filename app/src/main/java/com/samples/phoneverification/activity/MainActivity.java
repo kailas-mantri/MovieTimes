@@ -27,6 +27,7 @@ import com.samples.phoneverification.R;
 import com.samples.phoneverification.databinding.ActivityMainBinding;
 import com.samples.phoneverification.dbmodel.StoreFirebaseUser;
 import com.samples.phoneverification.fragment.BottomSheetDialog;
+import com.samples.phoneverification.utilities.BaseActivity;
 
 public class MainActivity extends BaseActivity {
     private FirebaseAuth mAuth;

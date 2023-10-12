@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.samples.phoneverification.R;
 import com.samples.phoneverification.databinding.ActivityAboutBinding;
+import com.samples.phoneverification.utilities.BaseActivity;
 
 public class AboutActivity extends BaseActivity {
 
